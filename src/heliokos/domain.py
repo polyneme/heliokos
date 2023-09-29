@@ -8,6 +8,13 @@ from heliokos.infra.core import (
 
 
 class Concept(RDFGraphDocument):
+    """
+    Represent a skos:Concept.
+
+    Support setting skos:narrower only, with skos:broader inferrable.
+    Rationale: https://www.w3.org/TR/vocab-data-cube/#schemes-hierarchy
+    """
+
     def __init__(self):
         super().__init__()
 
