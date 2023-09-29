@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "heliokos"
+version = "0.0.1"
+authors = [
+  { name="Donny Winston", email="donny@polyneme.xyz" },
+]
+description = "A knowledge organization system (KOS) service for Heliophysics"
+keywords = ["SKOS", "RDF"]
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "rdflib",
+    "toolz",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/polyneme/heliokos"
+"Bug Tracker" = "https://github.com/polyneme/heliokos/issues"
