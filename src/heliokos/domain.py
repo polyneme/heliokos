@@ -2,10 +2,10 @@ import json
 import uuid
 from copy import deepcopy
 
-import rdflib
-from toolz import merge
+from rdflib.namespace import SKOS
+from rdflib import Literal
 
-from heliokos.infra.constants import RDFA_CORE_INITIAL_CONTEXT
+from heliokos.infra.core import RDFGraphRepo
 
 
 def build_concept(data):
@@ -14,26 +14,13 @@ def build_concept(data):
     return concept
 
 
-class ConceptRepo:
+class ConceptRepo(RDFGraphRepo):
     def __init__(self):
-        self.concepts = []
-
-    def add(self, concept):
-        self.concepts.append(concept)
-
-    def as_rdflib_graph(self):
-        g = rdflib.Graph(bind_namespaces="rdflib")
-        for c in self.concepts:
-            if "@context" not in c:
-                c = merge(c, RDFA_CORE_INITIAL_CONTEXT)
-            g.parse(data=c, format="json-ld")
-        return g
+        super().__init__()
 
 
 def test_concept():
     repo = ConceptRepo()
     repo.add(build_concept({"skos:prefLabel": "Solar wind"}))
     g = repo.as_rdflib_graph()
-    assert any(
-        g.triples((None, rdflib.namespace.SKOS.prefLabel, rdflib.Literal("Solar wind")))
-    )
+    assert any(g.triples((None, SKOS.prefLabel, Literal("Solar wind"))))
