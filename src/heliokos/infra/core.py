@@ -1,7 +1,9 @@
 import json
+import uuid
 from pathlib import Path
 
 from rdflib import Graph
+from rdflib.namespace import SKOS, RDFS
 from toolz import merge
 
 RDFA_CORE_INITIAL_CONTEXT = json.loads(
@@ -9,17 +11,57 @@ RDFA_CORE_INITIAL_CONTEXT = json.loads(
 )
 
 
+def with_core_context(d):
+    return merge(d, RDFA_CORE_INITIAL_CONTEXT)
+
+
+def with_uuid_id(d):
+    return merge(d, {"@id": str(uuid.uuid4())})
+
+
+class ValidationError(Exception):
+    pass
+
+
+class RDFGraphDocument:
+    """
+    A rdflib graph fragment where there is one and only one "root" subject.
+    """
+
+    def __init__(self):
+        self.g = Graph()
+        self.g.parse(
+            data=with_uuid_id(with_core_context({"@type": "rdfs:Resource"})),
+            format="json-ld",
+        )
+        self.id = next(self.g.subjects())
+        self.check()
+
+    @property
+    def label(self):
+        rv = self.g.value(self.id, SKOS.prefLabel)
+        if rv is None:
+            rv = self.g.value(self.id, RDFS.label)
+        if rv is None:
+            rv = f"@id={self.id}"
+        return rv
+
+    def update(self, doc):
+        self.g.parse(data=doc, format="json-ld")
+        self.check()
+
+    def check(self):
+        if len(list(self.g.subjects(unique=True))) != 1:
+            raise ValidationError(f"document '{self.label}' has more than one subject")
+
+    def __repr__(self):
+        return json.dumps(json.loads(self.g.serialize(format="json-ld"))[0], indent=2)
+
+
 class RDFGraphRepo:
     def __init__(self):
-        self.items = []
+        self.g = Graph()
 
-    def add(self, item):
-        self.items.append(item)
-
-    def as_rdflib_graph(self):
-        g = Graph(bind_namespaces="rdflib")
-        for c in self.items:
-            if "@context" not in c:
-                c = merge(c, RDFA_CORE_INITIAL_CONTEXT)
-            g.parse(data=c, format="json-ld")
-        return g
+    def add(self, doc: RDFGraphDocument):
+        for triple in doc.g:
+            self.g.add(triple)
