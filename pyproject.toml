@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "heliokos"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
   { name="Donny Winston", email="donny@polyneme.xyz" },
 ]

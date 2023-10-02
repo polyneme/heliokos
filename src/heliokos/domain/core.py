@@ -68,5 +68,8 @@ def test_concept_repo():
     assert any(repo.g.triples((None, SKOS.prefLabel, Literal("Solar wind"))))
 
 
-regions_repo = RDFGraphRepo()
-regions_repo.add_from_file(Path(__file__).parent.joinpath("helioregion.ttl"))
+core_repo = RDFGraphRepo()
+for ttl_file in Path(__file__).parent.glob("*.ttl"):
+    core_repo.add_from_file(ttl_file)
+for ttl_file in Path(__file__).parent.parent.joinpath("infra").glob("rd*.ttl"):
+    core_repo.add_from_file(ttl_file)

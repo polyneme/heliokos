@@ -3,7 +3,9 @@
 <h2>Inbound Links</h2>
 <ul>
 {% for s, p, o in inbound %}
-    <li><a href="{{ s }}">{{ s }}</a> {{ p }} <em>this</em></li>
+    <li><a href="{{ s }}">{{ s }}</a>
+        <a href="{{ p }}">{{ p.removeprefix("http://www.w3.org/2004/02/skos/core#") }}</a>
+        <em>this</em></li>
 {% endfor %}
 </ul>
 
@@ -11,9 +13,14 @@
 <ul>
 {% for s, p, o in outbound %}
     {% if p.endswith("Label") %}
-     <li>{{ p }} "{{ o }}"</li>
+     <li>
+         <a href="{{ p }}">{{ p.removeprefix("http://www.w3.org/2004/02/skos/core#") }}</a>
+         "{{ o }}"
+     </li>
     {% else %}
-    <li>{{ p }} <a href="{{ o }}">{{ o }}</a></li>
+    <li><a href="{{ p }}">{{ p.removeprefix("http://www.w3.org/2004/02/skos/core#") }}</a>
+        <a href="{{ o }}">{{ o }}</a>
+    </li>
     {% endif %}
 {% endfor %}
 </ul>

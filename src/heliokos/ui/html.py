@@ -1,7 +1,7 @@
 from jinja2 import Environment, PackageLoader, select_autoescape
 from rdflib import SKOS
 
-from heliokos.domain.core import regions_repo
+from heliokos.domain.core import core_repo
 
 jinja_env = Environment(
     loader=PackageLoader("heliokos.ui", "templates"),
@@ -20,7 +20,7 @@ def page_for(concept, inbound, outbound):
         (s.removeprefix(REGION_NS), p, o.removeprefix(REGION_NS))
         for s, p, o in outbound
     ]
-    concept_preflabel = regions_repo.g.value(concept.id, SKOS.prefLabel)
+    concept_preflabel = core_repo.g.value(concept.id, SKOS.prefLabel)
     return jinja_env.get_template("concept_neighborhood.html").render(
         concept_preflabel=concept_preflabel,
         concept_link=concept_link,
