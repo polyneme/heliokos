@@ -1,0 +1,476 @@
+@prefix helior: <https://n2t.net/ark:57802/p03295/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+
+helior:Atmosphere
+	skos:prefLabel "Atmosphere" ;
+	.
+
+helior:AtmosphericPhysics
+	skos:narrower
+		helior:Exosphere_5c71061b-a70f-49a0-82cd-773458955a09 ,
+		helior:Mesosphere ,
+		helior:Stratosphere ,
+		helior:Thermosphere
+		;
+	skos:prefLabel "Atmospheric Physics" ;
+	.
+
+helior:AuroralElectrojet
+	skos:prefLabel "Auroral Electrojet" ;
+	.
+
+helior:AuroralOval
+	skos:prefLabel "Auroral Oval" ;
+	.
+
+helior:AuroralRegion
+	skos:narrower
+		helior:AuroralOval ,
+		helior:EquatorwardBoundary ,
+		helior:PolewardBoundary
+		;
+	skos:prefLabel "Auroral Region" ;
+	.
+
+helior:BowShock
+	skos:prefLabel "Bow Shock" ;
+	.
+
+helior:Bowshock
+	skos:narrower
+		helior:MagnetopauseCurrent ,
+		helior:Region1Current
+		;
+	skos:prefLabel "Bowshock" ;
+	.
+
+helior:Burst
+	skos:narrower
+		helior:CoronalMassEjection ,
+		helior:Flare
+		;
+	skos:prefLabel "Burst" ;
+	.
+
+helior:Chromosphere
+	skos:prefLabel "Chromosphere" ;
+	.
+
+helior:Corona
+	skos:prefLabel "Corona" ;
+	.
+
+helior:CoronalMassEjection
+	skos:prefLabel "Coronal Mass Ejection" ;
+	.
+
+helior:CurrentSystems
+	skos:narrower
+		helior:AuroralElectrojet ,
+		helior:EquatorialElectrojet ,
+		helior:HallCurrent ,
+		helior:PedersenCurrent ,
+		helior:Region1 ,
+		helior:Region2 ,
+		helior:Sq ,
+		helior:SubstormCurrentWedge
+		;
+	skos:prefLabel "Current Systems" ;
+	.
+
+helior:Cusp
+	skos:narrower helior:OpenFieldLines ;
+	skos:prefLabel "Cusp" ;
+	.
+
+helior:Cusp_535c685c-fbb4-42d3-8d26-7f5a44534c8a
+	skos:prefLabel "Cusp" ;
+	.
+
+helior:DRegion
+	skos:prefLabel "D Region" ;
+	.
+
+helior:Dayside
+	skos:narrower helior:DaysideReconnection ;
+	skos:prefLabel "Dayside" ;
+	.
+
+helior:DaysideReconnection
+	skos:prefLabel "Dayside Reconnection" ;
+	.
+
+helior:DipoleStandoff
+	skos:prefLabel "Dipole Standoff" ;
+	.
+
+helior:ERegion
+	skos:prefLabel "E Region" ;
+	.
+
+helior:EquatorialElectrojet
+	skos:prefLabel "Equatorial Electrojet" ;
+	.
+
+helior:EquatorwardBoundary
+	skos:prefLabel "Equatorward Boundary" ;
+	.
+
+helior:Exosphere
+	skos:prefLabel "Exosphere" ;
+	.
+
+helior:Exosphere_5c71061b-a70f-49a0-82cd-773458955a09
+	skos:narrower
+		helior:High-latitude ,
+		helior:Low-latitude ,
+		helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2
+		;
+	skos:prefLabel "Exosphere" ;
+	.
+
+helior:FRegion
+	skos:prefLabel "F Region" ;
+	.
+
+helior:Flare
+	skos:prefLabel "Flare" ;
+	.
+
+helior:FluxRope
+	skos:prefLabel "Flux Rope" ;
+	.
+
+helior:Foreshock
+	skos:narrower helior:Dayside ;
+	skos:prefLabel "Foreshock" ;
+	.
+
+helior:Fountain
+	skos:prefLabel "Fountain" ;
+	.
+
+helior:HallCurrent
+	skos:prefLabel "Hall Current" ;
+	.
+
+helior:High-latitude
+	skos:prefLabel "High-Latitude" ;
+	.
+
+helior:InducedMagneticFields
+	skos:prefLabel "Induced Magnetic Fields" ;
+	.
+
+helior:InnerMagnetosphere
+	skos:narrower
+		helior:DipoleStandoff ,
+		helior:InnerRadiationBelt ,
+		helior:OuterRadiationBelt ,
+		helior:Plasmasphere ,
+		helior:RingCurrent ,
+		helior:WarmPlasmaCloak
+		;
+	skos:prefLabel "Inner Magnetosphere" ;
+	.
+
+helior:InnerRadiationBelt
+	skos:prefLabel "Inner Radiation Belt" ;
+	.
+
+helior:InteriorPhysics
+	skos:prefLabel "Interior Physics" ;
+	.
+
+helior:InterplanetaryPhysics
+	skos:narrower
+		helior:BowShock ,
+		helior:Burst ,
+		helior:FluxRope ,
+		helior:Pause ,
+		helior:Sheath ,
+		helior:SolarWind ,
+		helior:TerminationShock
+		;
+	skos:prefLabel "Interplanetary physics" ;
+	.
+
+helior:Ionosphere
+	skos:narrower helior:SolarWind-inducedMagnetosphere ;
+	skos:prefLabel "Ionosphere" ;
+	.
+
+helior:IonosphericPhysics
+	skos:narrower
+		helior:AuroralRegion ,
+		helior:CurrentSystems ,
+		helior:Cusp_535c685c-fbb4-42d3-8d26-7f5a44534c8a ,
+		helior:DRegion ,
+		helior:ERegion ,
+		helior:FRegion ,
+		helior:Low-latitudeequatorial ,
+		helior:Mid-latitude ,
+		helior:PolarCap ,
+		helior:Subauroral
+		;
+	skos:prefLabel "Ionospheric Physics" ;
+	.
+
+helior:Lobes
+	skos:prefLabel "Lobes" ;
+	.
+
+helior:Low-latitude
+	skos:prefLabel "Low-Latitude" ;
+	.
+
+helior:Low-latitudeequatorial
+	skos:narrower helior:Fountain ;
+	skos:prefLabel "Low-Latitude/Equatorial" ;
+	.
+
+helior:Magnetopause
+	skos:prefLabel "Magnetopause" ;
+	.
+
+helior:MagnetopauseCurrent
+	skos:prefLabel "Magnetopause Current" ;
+	.
+
+helior:Magnetosheath
+	skos:prefLabel "Magnetosheath" ;
+	.
+
+helior:MagnetosphericPhyics
+	skos:narrower
+		helior:Bowshock ,
+		helior:Cusp ,
+		helior:Foreshock ,
+		helior:InnerMagnetosphere ,
+		helior:Lobes ,
+		helior:Magnetopause ,
+		helior:Magnetosheath ,
+		helior:Magnetotail ,
+		helior:Nightside ,
+		helior:OpenclosedFieldLines
+		;
+	skos:prefLabel "Magnetospheric Phyics" ;
+	.
+
+helior:Magnetotail
+	skos:narrower
+		helior:MagnetotailCurrentSheet ,
+		helior:MagnetotailKink ,
+		helior:Near-earthReconnection ,
+		helior:TailReconnection
+		;
+	skos:prefLabel "Magnetotail" ;
+	.
+
+helior:MagnetotailCurrentSheet
+	skos:prefLabel "Magnetotail Current Sheet" ;
+	.
+
+helior:MagnetotailKink
+	skos:prefLabel "Magnetotail Kink" ;
+	.
+
+helior:Mesosphere
+	skos:narrower
+		helior:High-latitude ,
+		helior:Low-latitude ,
+		helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2
+		;
+	skos:prefLabel "Mesosphere" ;
+	.
+
+helior:Mid-latitude
+	skos:prefLabel "Mid-Latitude" ;
+	.
+
+helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2
+	skos:prefLabel "Mid-Latitude" ;
+	.
+
+helior:Near-earthReconnection
+	skos:prefLabel "Near-Earth Reconnection" ;
+	.
+
+helior:Nightside
+	skos:prefLabel "Nightside" ;
+	.
+
+helior:NoAtmosphere
+	skos:prefLabel "No Atmosphere" ;
+	.
+
+helior:OpenFieldLines
+	skos:prefLabel "Open Field Lines" ;
+	.
+
+helior:OpenclosedFieldLines
+	skos:prefLabel "Open/Closed Field Lines" ;
+	.
+
+helior:OuterRadiationBelt
+	skos:prefLabel "Outer Radiation Belt" ;
+	.
+
+helior:Pause
+	skos:prefLabel "Pause" ;
+	.
+
+helior:PedersenCurrent
+	skos:prefLabel "Pedersen Current" ;
+	.
+
+helior:Photosphere
+	skos:prefLabel "Photosphere" ;
+	.
+
+helior:Plasmasphere
+	skos:prefLabel "Plasmasphere" ;
+	.
+
+helior:PolarCap
+	skos:prefLabel "Polar Cap" ;
+	.
+
+helior:PolarVortex
+	skos:prefLabel "Polar Vortex" ;
+	.
+
+helior:PolewardBoundary
+	skos:prefLabel "Poleward Boundary" ;
+	.
+
+helior:Region1
+	skos:prefLabel "Region 1" ;
+	.
+
+helior:Region1Current
+	skos:prefLabel "Region 1 Current" ;
+	.
+
+helior:Region2
+	skos:prefLabel "Region 2" ;
+	.
+
+helior:RingCurrent
+	skos:narrower helior:SymmetricRingCurrent ;
+	skos:prefLabel "Ring Current" ;
+	.
+
+helior:Sheath
+	skos:prefLabel "Sheath" ;
+	.
+
+helior:SolarAtmosphere
+	skos:narrower
+		helior:Chromosphere ,
+		helior:Corona ,
+		helior:InteriorPhysics ,
+		helior:Photosphere
+		;
+	skos:prefLabel "Solar Atmosphere" ;
+	.
+
+helior:SolarPhysics
+	skos:narrower helior:SolarAtmosphere ;
+	skos:prefLabel "Solar Physics" ;
+	.
+
+helior:SolarWind
+	skos:prefLabel "Solar Wind" ;
+	.
+
+helior:SolarWind-inducedMagnetosphere
+	skos:prefLabel "Solar Wind-Induced Magnetosphere" ;
+	.
+
+helior:SpacePhysics
+	skos:narrower
+		helior:AtmosphericPhysics ,
+		helior:InterplanetaryPhysics ,
+		helior:IonosphericPhysics ,
+		helior:MagnetosphericPhyics ,
+		helior:SolarPhysics ,
+		helior:UnmagnetizedBodies
+		;
+	skos:prefLabel "Space Physics" ;
+	.
+
+helior:Sq
+	skos:prefLabel "Sq" ;
+	.
+
+helior:Stratosphere
+	skos:narrower
+		helior:High-latitude ,
+		helior:Low-latitude ,
+		helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2 ,
+		helior:PolarVortex
+		;
+	skos:prefLabel "Stratosphere" ;
+	.
+
+helior:Subauroral
+	skos:prefLabel "Subauroral" ;
+	.
+
+helior:SubstormCurrentWedge
+	skos:prefLabel "Substorm Current Wedge" ;
+	.
+
+helior:SurfaceInteractions
+	skos:narrower
+		helior:Exosphere ,
+		helior:InducedMagneticFields
+		;
+	skos:prefLabel "Surface Interactions" ;
+	.
+
+helior:SymmetricRingCurrent
+	skos:prefLabel "Symmetric Ring Current" ;
+	.
+
+helior:TailReconnection
+	skos:prefLabel "Tail Reconnection" ;
+	.
+
+helior:TerminationShock
+	skos:prefLabel "Termination Shock" ;
+	.
+
+helior:Thermosphere
+	skos:narrower
+		helior:High-latitude ,
+		helior:Low-latitude ,
+		helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2
+		;
+	skos:prefLabel "Thermosphere" ;
+	.
+
+helior:UnmagnetizedBodies
+	skos:narrower
+		helior:Atmosphere ,
+		helior:Ionosphere ,
+		helior:NoAtmosphere ,
+		helior:SurfaceInteractions ,
+		helior:Wake
+		;
+	skos:prefLabel "Unmagnetized bodies" ;
+	.
+
+helior:Wake
+	skos:prefLabel "Wake" ;
+	.
+
+helior:WarmPlasmaCloak
+	skos:prefLabel "Warm Plasma Cloak" ;
+	.
+

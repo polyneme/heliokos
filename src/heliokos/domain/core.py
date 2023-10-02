@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from rdflib.namespace import SKOS
 from rdflib import Literal
 
@@ -15,8 +17,8 @@ class Concept(RDFGraphDocument):
     Rationale: https://www.w3.org/TR/vocab-data-cube/#schemes-hierarchy
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, init_data=None):
+        super().__init__(init_data)
 
     @property
     def pref_label(self):
@@ -64,3 +66,7 @@ def test_concept_repo():
     solar_wind.pref_label = "Solar wind"
     repo.add(solar_wind)
     assert any(repo.g.triples((None, SKOS.prefLabel, Literal("Solar wind"))))
+
+
+regions_repo = RDFGraphRepo()
+regions_repo.add_from_file(Path(__file__).parent.joinpath("helioregion.ttl"))

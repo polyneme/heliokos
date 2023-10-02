@@ -1,0 +1,19 @@
+<h1><a href="{{ concept_id }}"> {{ concept_preflabel }}</a></h1>
+
+<h2>Inbound Links</h2>
+<ul>
+{% for s, p, o in inbound %}
+    <li><a href="{{ s }}">{{ s }}</a> {{ p }} <em>this</em></li>
+{% endfor %}
+</ul>
+
+<h2>Outbound Links</h2>
+<ul>
+{% for s, p, o in outbound %}
+    {% if p.endswith("Label") %}
+     <li>{{ p }} "{{ o }}"</li>
+    {% else %}
+    <li>{{ p }} <a href="{{ o }}">{{ o }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>

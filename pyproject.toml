@@ -18,8 +18,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "fastapi",
+    "jinja2",
     "rdflib",
     "toolz",
+    "uvicorn[standard]",
 ]
 
 [project.urls]
