@@ -187,6 +187,12 @@ helior:HallCurrent
 	skos:prefLabel "Hall Current" ;
 	.
 
+helior:HeliophysicsRegionBasedTaxonomy
+	a skos:ConceptScheme ;
+	skos:hasTopConcept helior:SpacePhysics ;
+	skos:prefLabel "Heliophysics Region-Based Taxonomy" ;
+	.
+
 helior:High-latitude
 	a skos:Concept ;
 	skos:prefLabel "High-Latitude" ;
@@ -424,12 +430,6 @@ helior:Region1Current
 helior:Region2
 	a skos:Concept ;
 	skos:prefLabel "Region 2" ;
-	.
-
-helior:RegionBasedTaxonomy
-	a skos:ConceptScheme ;
-	skos:hasTopConcept helior:SpacePhysics ;
-	skos:prefLabel "Region-Based Taxonomy" ;
 	.
 
 helior:RingCurrent
