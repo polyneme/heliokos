@@ -9,8 +9,9 @@ as well as more verbose text annotations either attached to its usage in the sch
 These labels and annotations will support increasing both precision and recall
 for search of an information-resource corpus by facilitating the tagging of corpus resources
 with concepts from a concept scheme.
-This support may involve computing and attaching lemmatized hidden labels to scheme concepts
-in alignment with any lemmatization relevant to corpus-item recall.
+This support may involve computing and attaching labels and annotations of concepts associated with,
+and in particular concepts hierarchically subsumed by,
+those concepts in a scheme that are intentionally tagged to a corpus resource.
 
 The lifecycle of a concept scheme will be represented to allow for 
 persistent identification of all revisions of a scheme.
