@@ -43,6 +43,26 @@ class Concept(RDFGraphDocument):
         self.g.add((self.id, SKOS.narrower, concept.id))
 
 
+class ConceptScheme:
+    pass
+
+
+class Harmonization:
+    pass
+
+
+class Corpus:
+    pass
+
+
+class GroundTruth:
+    pass
+
+
+class SearchIndex:
+    pass
+
+
 class ConceptRepo(RDFGraphRepo):
     def __init__(self):
         super().__init__()
