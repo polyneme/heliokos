@@ -2,24 +2,20 @@
 Unit tests.
 """
 
-from heliokos.domain.core import Concept, ConceptRepo, SKOS, Literal
+from heliokos.domain.core import Concept, ConceptScheme, SKOS, Literal
+
+
+def test_concept_scheme():
+    scheme = ConceptScheme().add(Concept("Solar wind"))
+    assert any(scheme.g.triples((None, SKOS.prefLabel, Literal("Solar wind"))))
 
 
 def test_narrower():
-    physics = Concept()
-    physics.pref_label = "Physics"
-    plasma = Concept()
-    plasma.pref_label = "Plasma"
-    physics.add_narrower(plasma)
-    repo = ConceptRepo()
-    repo.add(physics)
-    repo.add(plasma)
-    assert repo.g.value(physics.id, SKOS.narrower) == plasma.id
-
-
-def test_concept_repo():
-    repo = ConceptRepo()
-    solar_wind = Concept()
-    solar_wind.pref_label = "Solar wind"
-    repo.add(solar_wind)
-    assert any(repo.g.triples((None, SKOS.prefLabel, Literal("Solar wind"))))
+    physics = Concept("Physics")
+    plasma = Concept("Plasma")
+    cs = (
+        ConceptScheme().add(physics).add(plasma).connect(physics, plasma, SKOS.narrower)
+    )
+    assert cs.g.value(cs.local_id_for(physics.id), SKOS.narrower) == cs.local_id_for(
+        plasma.id
+    )

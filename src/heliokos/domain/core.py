@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from rdflib.namespace import SKOS
+from rdflib.namespace import SKOS, OWL
 from rdflib import Literal
 
 from heliokos.infra.core import (
@@ -17,34 +17,40 @@ class Concept(RDFGraphDocument):
     Rationale: https://www.w3.org/TR/vocab-data-cube/#schemes-hierarchy
     """
 
-    def __init__(self, init_data=None):
-        super().__init__(init_data)
+    def __init__(self, pref_label=None):
+        super().__init__()
+        if pref_label is not None:
+            self.g.add((self.id, SKOS.prefLabel, Literal(pref_label)))
 
     @property
     def pref_label(self):
-        return self.g.value(self.id, SKOS.prefLabel)
-
-    @pref_label.setter
-    def pref_label(self, s):
-        self.g.add((self.id, SKOS.prefLabel, Literal(s)))
-
-    @property
-    def alt_labels(self):
-        return list(self.g.objects(self.id, SKOS.altLabel))
-
-    def add_alt_label(self, s):
-        self.g.add((self.id, SKOS.altLabel, Literal(s)))
-
-    @property
-    def narrower(self):
-        return list(self.g.objects(self.id, SKOS.narrower))
-
-    def add_narrower(self, concept: "Concept"):
-        self.g.add((self.id, SKOS.narrower, concept.id))
+        return self.g.value(subject=self.id, predicate=SKOS.prefLabel)
 
 
-class ConceptScheme:
-    pass
+class ConceptScheme(RDFGraphRepo):
+    def __init__(self):
+        super().__init__()
+
+    def copy(self):
+        me_copy = ConceptScheme()
+        for triple in self.g:
+            me_copy.g.add(triple)
+        return me_copy
+
+    def add(self, concept):
+        me_copy = self.copy()
+        local_concept = Concept(str(concept.pref_label))
+        me_copy.g.add((local_concept.id, SKOS.prefLabel, local_concept.pref_label))
+        me_copy.g.add((local_concept.id, OWL.sameAs, concept.id))
+        return me_copy
+
+    def connect(self, concept_1, concept_2, property_=SKOS.related):
+        me_copy = self.copy()
+        me_copy.g.add((concept_1.id, property_, concept_2.id))
+        return me_copy
+
+    def local_id_for(self, id_):
+        return self.g.value(subject=None, predicate=OWL.sameAs, object=id_)
 
 
 class Harmonization:
@@ -68,8 +74,8 @@ class ConceptRepo(RDFGraphRepo):
         super().__init__()
 
 
-core_repo = RDFGraphRepo()
-for ttl_file in Path(__file__).parent.glob("*.ttl"):
-    core_repo.add_from_file(ttl_file)
-for ttl_file in Path(__file__).parent.parent.joinpath("infra").glob("rd*.ttl"):
-    core_repo.add_from_file(ttl_file)
+# core_repo = RDFGraphRepo()
+# for ttl_file in Path(__file__).parent.glob("*.ttl"):
+#     core_repo.add_from_file(ttl_file)
+# for ttl_file in Path(__file__).parent.parent.joinpath("infra").glob("rd*.ttl"):
+#     core_repo.add_from_file(ttl_file)

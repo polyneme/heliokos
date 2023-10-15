@@ -71,20 +71,20 @@ class RDFGraphRepo:
     def __init__(self):
         self.g = Graph()
 
-    def add(self, doc: RDFGraphDocument):
+    def add_graph_document(self, doc: RDFGraphDocument):
         for triple in doc.g:
             self.g.add(triple)
 
-    def add_from_file(self, path: Path):
+    def add_graph_from_file(self, path: Path):
         self.g.parse(path)
 
-    def get_document_by_id(self, id_):
+    def graph_document_by_id(self, id_):
         doc_g = Graph()
         for t in self.g.triples((URIRef(id_), None, None)):
             doc_g.add(t)
         return json.loads(doc_g.serialize(format="json-ld"))[0]
 
-    def neighborhood_for(self, concept):
+    def graph_neighborhood_for(self, concept):
         outbound = [t for t in self.g.triples((concept.id, None, None))]
         inbound = [t for t in self.g.triples((None, None, concept.id))]
         return inbound, outbound
