@@ -57,10 +57,8 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
             SKOS.exactMatch,
         )
     )
-    assert h.connects(
-        cs_openalex.find_one("Physics"),
-        cs_helioregion.find_one("Polar Vortex"),
-        SKOS.narrowerTransitive,
+    assert h.narrowmatch_bridge(
+        cs_openalex.find_one("Physics"), cs_helioregion.find_one("Polar Vortex")
     )
 
 

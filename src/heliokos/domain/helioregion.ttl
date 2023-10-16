@@ -7,11 +7,13 @@
 
 helior:Atmosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Atmosphere" ;
 	.
 
 helior:AtmosphericPhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:Exosphere_5c71061b-a70f-49a0-82cd-773458955a09 ,
 		helior:Mesosphere ,
@@ -23,16 +25,19 @@ helior:AtmosphericPhysics
 
 helior:AuroralElectrojet
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Auroral Electrojet" ;
 	.
 
 helior:AuroralOval
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Auroral Oval" ;
 	.
 
 helior:AuroralRegion
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:AuroralOval ,
 		helior:EquatorwardBoundary ,
@@ -43,11 +48,13 @@ helior:AuroralRegion
 
 helior:BowShock
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Bow Shock" ;
 	.
 
 helior:Bowshock
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:MagnetopauseCurrent ,
 		helior:Region1Current
@@ -57,6 +64,7 @@ helior:Bowshock
 
 helior:Burst
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:CoronalMassEjection ,
 		helior:Flare
@@ -66,21 +74,25 @@ helior:Burst
 
 helior:Chromosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Chromosphere" ;
 	.
 
 helior:Corona
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Corona" ;
 	.
 
 helior:CoronalMassEjection
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Coronal Mass Ejection" ;
 	.
 
 helior:CurrentSystems
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:AuroralElectrojet ,
 		helior:EquatorialElectrojet ,
@@ -96,58 +108,69 @@ helior:CurrentSystems
 
 helior:Cusp
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:OpenFieldLines ;
 	skos:prefLabel "Cusp" ;
 	.
 
 helior:Cusp_535c685c-fbb4-42d3-8d26-7f5a44534c8a
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Cusp" ;
 	.
 
 helior:DRegion
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "D Region" ;
 	.
 
 helior:Dayside
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:DaysideReconnection ;
 	skos:prefLabel "Dayside" ;
 	.
 
 helior:DaysideReconnection
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Dayside Reconnection" ;
 	.
 
 helior:DipoleStandoff
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Dipole Standoff" ;
 	.
 
 helior:ERegion
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "E Region" ;
 	.
 
 helior:EquatorialElectrojet
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Equatorial Electrojet" ;
 	.
 
 helior:EquatorwardBoundary
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Equatorward Boundary" ;
 	.
 
 helior:Exosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Exosphere" ;
 	.
 
 helior:Exosphere_5c71061b-a70f-49a0-82cd-773458955a09
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:High-latitude ,
 		helior:Low-latitude ,
@@ -158,32 +181,38 @@ helior:Exosphere_5c71061b-a70f-49a0-82cd-773458955a09
 
 helior:FRegion
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "F Region" ;
 	.
 
 helior:Flare
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Flare" ;
 	.
 
 helior:FluxRope
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Flux Rope" ;
 	.
 
 helior:Foreshock
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:Dayside ;
 	skos:prefLabel "Foreshock" ;
 	.
 
 helior:Fountain
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Fountain" ;
 	.
 
 helior:HallCurrent
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Hall Current" ;
 	.
 
@@ -195,16 +224,19 @@ helior:HeliophysicsRegionBasedTaxonomy
 
 helior:High-latitude
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "High-Latitude" ;
 	.
 
 helior:InducedMagneticFields
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Induced Magnetic Fields" ;
 	.
 
 helior:InnerMagnetosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:DipoleStandoff ,
 		helior:InnerRadiationBelt ,
@@ -218,16 +250,19 @@ helior:InnerMagnetosphere
 
 helior:InnerRadiationBelt
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Inner Radiation Belt" ;
 	.
 
 helior:InteriorPhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Interior Physics" ;
 	.
 
 helior:InterplanetaryPhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:BowShock ,
 		helior:Burst ,
@@ -242,12 +277,14 @@ helior:InterplanetaryPhysics
 
 helior:Ionosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:SolarWind-inducedMagnetosphere ;
 	skos:prefLabel "Ionosphere" ;
 	.
 
 helior:IonosphericPhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:AuroralRegion ,
 		helior:CurrentSystems ,
@@ -265,37 +302,44 @@ helior:IonosphericPhysics
 
 helior:Lobes
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Lobes" ;
 	.
 
 helior:Low-latitude
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Low-Latitude" ;
 	.
 
 helior:Low-latitudeequatorial
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:Fountain ;
 	skos:prefLabel "Low-Latitude/Equatorial" ;
 	.
 
 helior:Magnetopause
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Magnetopause" ;
 	.
 
 helior:MagnetopauseCurrent
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Magnetopause Current" ;
 	.
 
 helior:Magnetosheath
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Magnetosheath" ;
 	.
 
 helior:MagnetosphericPhyics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:Bowshock ,
 		helior:Cusp ,
@@ -313,6 +357,7 @@ helior:MagnetosphericPhyics
 
 helior:Magnetotail
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:MagnetotailCurrentSheet ,
 		helior:MagnetotailKink ,
@@ -324,16 +369,19 @@ helior:Magnetotail
 
 helior:MagnetotailCurrentSheet
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Magnetotail Current Sheet" ;
 	.
 
 helior:MagnetotailKink
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Magnetotail Kink" ;
 	.
 
 helior:Mesosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:High-latitude ,
 		helior:Low-latitude ,
@@ -344,107 +392,128 @@ helior:Mesosphere
 
 helior:Mid-latitude
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Mid-Latitude" ;
 	.
 
 helior:Mid-latitude_10b89c7c-d0ec-4e1f-abd2-81d604db68e2
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Mid-Latitude" ;
 	.
 
 helior:Near-earthReconnection
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Near-Earth Reconnection" ;
 	.
 
 helior:Nightside
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Nightside" ;
 	.
 
 helior:NoAtmosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "No Atmosphere" ;
 	.
 
 helior:OpenFieldLines
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Open Field Lines" ;
 	.
 
 helior:OpenclosedFieldLines
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Open/Closed Field Lines" ;
 	.
 
 helior:OuterRadiationBelt
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Outer Radiation Belt" ;
 	.
 
 helior:Pause
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Pause" ;
 	.
 
 helior:PedersenCurrent
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Pedersen Current" ;
 	.
 
 helior:Photosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Photosphere" ;
 	.
 
 helior:Plasmasphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Plasmasphere" ;
 	.
 
 helior:PolarCap
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Polar Cap" ;
 	.
 
 helior:PolarVortex
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Polar Vortex" ;
 	.
 
 helior:PolewardBoundary
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Poleward Boundary" ;
 	.
 
 helior:Region1
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Region 1" ;
 	.
 
 helior:Region1Current
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Region 1 Current" ;
 	.
 
 helior:Region2
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Region 2" ;
 	.
 
 helior:RingCurrent
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:SymmetricRingCurrent ;
 	skos:prefLabel "Ring Current" ;
 	.
 
 helior:Sheath
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Sheath" ;
 	.
 
 helior:SolarAtmosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:Chromosphere ,
 		helior:Corona ,
@@ -456,22 +525,26 @@ helior:SolarAtmosphere
 
 helior:SolarPhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower helior:SolarAtmosphere ;
 	skos:prefLabel "Solar Physics" ;
 	.
 
 helior:SolarWind
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Solar Wind" ;
 	.
 
 helior:SolarWind-inducedMagnetosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Solar Wind-Induced Magnetosphere" ;
 	.
 
 helior:SpacePhysics
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:AtmosphericPhysics ,
 		helior:InterplanetaryPhysics ,
@@ -485,11 +558,13 @@ helior:SpacePhysics
 
 helior:Sq
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Sq" ;
 	.
 
 helior:Stratosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:High-latitude ,
 		helior:Low-latitude ,
@@ -501,16 +576,19 @@ helior:Stratosphere
 
 helior:Subauroral
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Subauroral" ;
 	.
 
 helior:SubstormCurrentWedge
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Substorm Current Wedge" ;
 	.
 
 helior:SurfaceInteractions
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:Exosphere ,
 		helior:InducedMagneticFields
@@ -520,21 +598,25 @@ helior:SurfaceInteractions
 
 helior:SymmetricRingCurrent
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Symmetric Ring Current" ;
 	.
 
 helior:TailReconnection
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Tail Reconnection" ;
 	.
 
 helior:TerminationShock
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Termination Shock" ;
 	.
 
 helior:Thermosphere
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:High-latitude ,
 		helior:Low-latitude ,
@@ -545,6 +627,7 @@ helior:Thermosphere
 
 helior:UnmagnetizedBodies
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:narrower
 		helior:Atmosphere ,
 		helior:Ionosphere ,
@@ -557,11 +640,13 @@ helior:UnmagnetizedBodies
 
 helior:Wake
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Wake" ;
 	.
 
 helior:WarmPlasmaCloak
 	a skos:Concept ;
+	skos:inScheme helior:HeliophysicsRegionBasedTaxonomy ;
 	skos:prefLabel "Warm Plasma Cloak" ;
 	.
 

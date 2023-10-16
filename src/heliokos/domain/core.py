@@ -29,6 +29,15 @@ class Concept(RDFGraphDocument):
 
 
 class ConceptScheme(RDFGraphRepo):
+    @classmethod
+    def from_file(cls, filepath: str = "domain/helioregion.ttl"):
+        if not filepath.startswith("/"):
+            # relative to `helioweb` module
+            filepath = Path(__file__).parent.parent.joinpath(filepath)
+        scheme = ConceptScheme()
+        scheme.add_graph_from_file(filepath)
+        return scheme
+
     def __init__(self):
         super().__init__()
         me_doc = RDFGraphDocument()
@@ -59,6 +68,10 @@ class ConceptScheme(RDFGraphRepo):
             )
         )
         return me_copy
+
+    def find_one(self, pref_label: str) -> Concept:
+        # TODO
+        pass
 
 
 class Harmonization(RDFGraphRepo):
@@ -97,7 +110,7 @@ class Harmonization(RDFGraphRepo):
             f"""
         SELECT ?c1label ?c4label
         WHERE {{
-         {c1} skos:narrower*/skos:narrowMatch/skos:narrower* {c2} .
+         {c1} skos:narrower*/(skos:narrowMatch|skos:exactMatch)/skos:narrower* {c2} .
         }}
         """,
             initNs={"skos": SKOS},
