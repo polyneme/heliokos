@@ -70,8 +70,7 @@ class ConceptScheme(RDFGraphRepo):
         return me_copy
 
     def find_one(self, pref_label: str) -> Concept:
-        # TODO
-        pass
+        return self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
 
 
 class Harmonization(RDFGraphRepo):
