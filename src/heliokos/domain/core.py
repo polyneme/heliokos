@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from rdflib.namespace import SKOS, OWL
+from rdflib.namespace import SKOS, OWL, RDF
 from rdflib import Literal
 
 from heliokos.infra.core import (
@@ -21,6 +21,7 @@ class Concept(RDFGraphDocument):
         super().__init__()
         if pref_label is not None:
             self.g.add((self.id, SKOS.prefLabel, Literal(pref_label)))
+        self.g.add((self.id, RDF.type, SKOS.Concept))
 
     @property
     def pref_label(self):
@@ -30,31 +31,78 @@ class Concept(RDFGraphDocument):
 class ConceptScheme(RDFGraphRepo):
     def __init__(self):
         super().__init__()
+        me_doc = RDFGraphDocument()
+        self.add_graph_document(me_doc)
+        self.g.add((me_doc.id, RDF.type, SKOS.ConceptScheme))
 
-    def copy(self):
-        me_copy = ConceptScheme()
-        for triple in self.g:
-            me_copy.g.add(triple)
-        return me_copy
-
-    def add(self, concept):
+    def add(self, concept, is_top_concept=False):
         me_copy = self.copy()
         local_concept = Concept(str(concept.pref_label))
-        me_copy.g.add((local_concept.id, SKOS.prefLabel, local_concept.pref_label))
+        me_copy.add_graph_document(local_concept)
+        scheme_id = me_copy.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
+        me_copy.g.add((local_concept.id, SKOS.inScheme, scheme_id))
+        if is_top_concept:
+            me_copy.g.add((scheme_id, SKOS.hasTopConcept, local_concept.id))
         me_copy.g.add((local_concept.id, OWL.sameAs, concept.id))
         return me_copy
 
     def connect(self, concept_1, concept_2, property_=SKOS.related):
+        allowed = {SKOS.narrower, SKOS.related}
+        if property_ not in allowed:
+            raise ValueError(f"`property_` must be in {allowed}")
         me_copy = self.copy()
-        me_copy.g.add((concept_1.id, property_, concept_2.id))
+        me_copy.g.add(
+            (
+                self.local_id_for_concept(concept_1),
+                property_,
+                self.local_id_for_concept(concept_2),
+            )
+        )
         return me_copy
 
-    def local_id_for(self, id_):
-        return self.g.value(subject=None, predicate=OWL.sameAs, object=id_)
 
+class Harmonization(RDFGraphRepo):
+    def __init__(self):
+        super().__init__()
 
-class Harmonization:
-    pass
+    def add(self, concept_scheme: ConceptScheme):
+        me_copy = self.copy()
+        for triple in concept_scheme.g:
+            me_copy.g.add(triple)
+        return me_copy
+
+    def connect(self, concept_1, concept_2, property_=SKOS.relatedMatch):
+        allowed = {
+            SKOS.closeMatch,
+            SKOS.exactMatch,
+            SKOS.narrowMatch,
+            SKOS.relatedMatch,
+        }
+        if property_ not in allowed:
+            raise ValueError(f"`property_` must be in {allowed}")
+        me_copy = self.copy()
+        me_copy.g.add(
+            (
+                self.local_id_for_concept(concept_1),
+                property_,
+                self.local_id_for_concept(concept_2),
+            )
+        )
+        return me_copy
+
+    def narrowmatch_bridge(self, concept_1, concept_2):
+        c1 = self.local_id_for_concept(concept_1).n3()
+        c2 = self.local_id_for_concept(concept_2).n3()
+        qres = self.g.query(
+            f"""
+        SELECT ?c1label ?c4label
+        WHERE {{
+         {c1} skos:narrower*/skos:narrowMatch/skos:narrower* {c2} .
+        }}
+        """,
+            initNs={"skos": SKOS},
+        )
+        return len(qres) != 0
 
 
 class Corpus:

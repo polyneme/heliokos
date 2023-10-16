@@ -3,7 +3,7 @@ import uuid
 from pathlib import Path
 
 from rdflib import Graph, URIRef
-from rdflib.namespace import SKOS, RDFS
+from rdflib.namespace import SKOS, RDFS, RDF, OWL
 from toolz import merge
 
 RDFA_CORE_INITIAL_CONTEXT = json.loads(
@@ -71,6 +71,14 @@ class RDFGraphRepo:
     def __init__(self):
         self.g = Graph()
 
+    def copy(self):
+        g_copy = Graph()
+        for triple in self.g:
+            g_copy.add(triple)
+        repo_copy = self.__class__()
+        repo_copy.g = g_copy
+        return repo_copy
+
     def add_graph_document(self, doc: RDFGraphDocument):
         for triple in doc.g:
             self.g.add(triple)
@@ -88,3 +96,18 @@ class RDFGraphRepo:
         outbound = [t for t in self.g.triples((concept.id, None, None))]
         inbound = [t for t in self.g.triples((None, None, concept.id))]
         return inbound, outbound
+
+    def local_id_for_concept(self, concept):
+        id_ = concept.id
+        if (id_, RDF.type, SKOS.Concept) in self.g:
+            return id_
+        else:
+            subject = self.g.value(subject=None, predicate=OWL.sameAs, object=id_)
+            return (
+                subject
+                if (subject is not None and (subject, RDF.type, SKOS.Concept) in self.g)
+                else None
+            )
+
+    def __repr__(self):
+        return self.g.serialize(format="ttl")

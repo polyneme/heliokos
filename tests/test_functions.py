@@ -34,7 +34,7 @@ def test_harmonizing_two_concept_schemes():
 
     h = Harmonization().add(cs1).add(cs2).connect(c2, c3, SKOS.narrowMatch)
 
-    assert h.connects(c1, c4, SKOS.narrowerTransitive)
+    assert h.narrowmatch_bridge(c1, c4)
 
 
 def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
