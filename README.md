@@ -1,6 +1,13 @@
 # heliokos
 A knowledge organization system (KOS) service for Heliophysics
 
+# development
+
+`git clone` this repository, and in the root directory,
+```bash
+pip install -e .
+```
+
 # testing
 
 ```bash
