@@ -45,6 +45,7 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
         3. Harmonize the two, incompletely, via one connection.
         4. Confirm a transitive entailment.
     """
+    # TODO also consider SPASE schema for harmonization workflow
     cs_helioregion = ConceptScheme.from_file("domain/helioregion.ttl")
     cs_openalex = ConceptScheme.from_file("infra/openalex.ttl")
     h = (

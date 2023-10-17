@@ -17,11 +17,14 @@ class Concept(RDFGraphDocument):
     Rationale: https://www.w3.org/TR/vocab-data-cube/#schemes-hierarchy
     """
 
-    def __init__(self, pref_label=None):
-        super().__init__()
-        if pref_label is not None:
-            self.g.add((self.id, SKOS.prefLabel, Literal(pref_label)))
-        self.g.add((self.id, RDF.type, SKOS.Concept))
+    def __init__(self, data=None):
+        if data is None:
+            init_data = {"@type": "skos:Concept"}
+        elif isinstance(data, str):
+            init_data = {"@type": "skos:Concept", "skos:prefLabel": data}
+        else:
+            init_data = data
+        super().__init__(init_data)
 
     @property
     def pref_label(self):
@@ -70,7 +73,8 @@ class ConceptScheme(RDFGraphRepo):
         return me_copy
 
     def find_one(self, pref_label: str) -> Concept:
-        return self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
+        cid = self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
+        return Concept(self.graph_document_by_id(cid)) if cid is not None else None
 
 
 class Harmonization(RDFGraphRepo):
