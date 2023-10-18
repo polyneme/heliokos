@@ -111,7 +111,7 @@ class Harmonization(RDFGraphRepo):
         c2 = self.local_id_for_concept(concept_2).n3()
         qres = self.g.query(
             f"""
-        SELECT ?c1label ?c4label
+        SELECT *
         WHERE {{
          {c1} skos:narrower*/(skos:narrowMatch|skos:exactMatch)/skos:narrower* {c2} .
         }}

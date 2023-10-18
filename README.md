@@ -13,6 +13,8 @@ pip install -e .
 ```bash
 # Example: run linting and tests for single module
 tox run -e lint,py311 -- tests/test_units.py
+# Example run single test by name
+tox run -e py311 -- -k test_harmonizing_two_concept_schemes
 # Example: run all tests
 tox
 ```

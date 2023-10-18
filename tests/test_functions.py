@@ -53,8 +53,8 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
         .add(cs_helioregion)
         .add(cs_openalex)
         .connect(
-            cs_helioregion.find_one("Atmospheric Physics"),
             cs_openalex.find_one("Atmospheric physics"),
+            cs_helioregion.find_one("Atmospheric Physics"),
             SKOS.exactMatch,
         )
     )
