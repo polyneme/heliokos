@@ -8,6 +8,11 @@ A knowledge organization system (KOS) service for Heliophysics
 pip install -e .
 ```
 
+To start the Web server for development:
+```bash
+uvicorn heliokos.ui.main:app --reload
+```
+
 # testing
 
 ```bash

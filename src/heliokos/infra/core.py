@@ -11,6 +11,10 @@ RDFA_CORE_INITIAL_CONTEXT = json.loads(
 )
 
 
+def core_context_prefix_map():
+    return {k: v for k, v in RDFA_CORE_INITIAL_CONTEXT["@context"].items()}
+
+
 def with_core_context(d):
     return merge(d, RDFA_CORE_INITIAL_CONTEXT)
 
@@ -28,23 +32,36 @@ class RDFGraphDocument:
     A rdflib graph fragment where there is one and only one "root" subject.
     """
 
-    def __init__(self, init_data=None):
+    @classmethod
+    def from_file(cls, filepath: str = ".concept/abc123.ttl"):
+        if not filepath.startswith("/"):
+            # relative to `helioweb` project root dir
+            filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
+        g = Graph()
+        g.parse(filepath)
+        return cls(data=json.loads(g.serialize(format="json-ld"))[0])
+
+    def __init__(self, data=None):
         self.g = Graph()
-        data = {} if init_data is None else init_data
-        if len(data) == 0:
-            data = with_uuid_id(with_core_context({"@type": "rdfs:Resource"}))
-        if "@context" not in data:
-            data = with_core_context(data)
-        if "@id" not in data:
-            data = with_uuid_id(data)
-        if "@type" not in data:
-            data["@type"] = "rdfs:Resource"
+        init_data = {} if data is None else data
+        if len(init_data) == 0:
+            init_data = with_uuid_id(with_core_context({"@type": "rdfs:Resource"}))
+        if "@context" not in init_data:
+            init_data = with_core_context(init_data)
+        if "@id" not in init_data:
+            init_data = with_uuid_id(init_data)
+        if "@type" not in init_data:
+            init_data["@type"] = "rdfs:Resource"
         self.g.parse(
-            data=data,
+            data=init_data,
             format="json-ld",
         )
         self.id = next(self.g.subjects())
         self.check()
+
+    @property
+    def id_suffix(self):
+        return self.id.split("/")[-1]
 
     @property
     def label(self):
@@ -68,8 +85,27 @@ class RDFGraphDocument:
 
 
 class RDFGraphRepo:
-    def __init__(self):
+    @classmethod
+    def from_file(cls, filepath: str = "src/heliokos/domain/helioregion.ttl"):
+        if not filepath.startswith("/"):
+            # relative to `helioweb` project root dir
+            filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
+        g = Graph()
+        g.parse(filepath)
+        return cls(data=json.loads(g.serialize(format="json-ld"))[0])
+
+    def __init__(self, data=None):
         self.g = Graph()
+        init_data = {} if data is None else data
+        if len(init_data) == 1:
+            me_doc = RDFGraphDocument()
+            self.add_graph_document(me_doc)
+            self.g.add((me_doc.id, RDF.type, SKOS.ConceptScheme))
+        else:
+            self.g.parse(
+                data=init_data,
+                format="json-ld",
+            )
 
     def copy(self):
         g_copy = Graph()
@@ -92,7 +128,7 @@ class RDFGraphRepo:
             doc_g.add(t)
         return json.loads(doc_g.serialize(format="json-ld"))[0]
 
-    def graph_neighborhood_for(self, concept):
+    def graph_neighborhood_for_concept(self, concept):
         outbound = [t for t in self.g.triples((concept.id, None, None))]
         inbound = [t for t in self.g.triples((None, None, concept.id))]
         return inbound, outbound

@@ -1,7 +1,7 @@
 from jinja2 import Environment, PackageLoader, select_autoescape
 from rdflib import SKOS
 
-from heliokos.domain.core import core_repo
+from heliokos.domain.core import ConceptScheme
 
 jinja_env = Environment(
     loader=PackageLoader("heliokos.ui", "templates"),

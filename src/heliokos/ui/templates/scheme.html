@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Scheme: {{scheme.id}} </h3>
+<dl>
+    <dt>id</dt>
+    <dd>{{scheme.id}}</dd>
+
+    {% for concept in scheme.concepts %}
+    <dt>concept</dt>
+    <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
+    {% endfor %}
+</dl>
+<form>
+    <select id="selected_concept" name="selected_concept">
+        {% for concept in concepts %}
+        <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+        {% endfor %}
+    </select>
+    <button hx-post="/conceptscheme/{{scheme.id_suffix}}/concept"
+            hx-include="#selected_concept"
+            hx-target="body"
+    >Add Concept</button>
+</form>
+{% endblock %}

@@ -20,6 +20,7 @@ classifiers = [
 dependencies = [
     "fastapi",
     "jinja2",
+    "python-multipart",
     "rdflib",
     "toolz",
     "tqdm",

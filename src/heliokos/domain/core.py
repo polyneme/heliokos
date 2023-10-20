@@ -6,6 +6,7 @@ from rdflib import Literal
 from heliokos.infra.core import (
     RDFGraphRepo,
     RDFGraphDocument,
+    core_context_prefix_map,
 )
 
 
@@ -30,22 +31,26 @@ class Concept(RDFGraphDocument):
     def pref_label(self):
         return self.g.value(subject=self.id, predicate=SKOS.prefLabel)
 
+    def to_file(self):
+        Path(".concept").mkdir(exist_ok=True)
+        self.g.serialize(f".concept/{self.id.split('/')[-1]}.ttl")
+
 
 class ConceptScheme(RDFGraphRepo):
-    @classmethod
-    def from_file(cls, filepath: str = "domain/helioregion.ttl"):
-        if not filepath.startswith("/"):
-            # relative to `helioweb` module
-            filepath = Path(__file__).parent.parent.joinpath(filepath)
-        scheme = ConceptScheme()
-        scheme.add_graph_from_file(filepath)
-        return scheme
+    def __init__(self, data=None):
+        if data is None:
+            init_data = {"@type": "skos:ConceptScheme"}
+        else:
+            init_data = data
+        super().__init__(init_data)
 
-    def __init__(self):
-        super().__init__()
-        me_doc = RDFGraphDocument()
-        self.add_graph_document(me_doc)
-        self.g.add((me_doc.id, RDF.type, SKOS.ConceptScheme))
+    @property
+    def id(self):
+        return self.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
+
+    @property
+    def id_suffix(self):
+        return self.id.split("/")[-1]
 
     def add(self, concept, is_top_concept=False):
         me_copy = self.copy()
@@ -75,6 +80,27 @@ class ConceptScheme(RDFGraphRepo):
     def find_one(self, pref_label: str) -> Concept:
         cid = self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
         return Concept(self.graph_document_by_id(cid)) if cid is not None else None
+
+    def to_file(self):
+        me_id = self.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
+        Path(".scheme").mkdir(exist_ok=True)
+        self.g.serialize(f".scheme/{me_id.split('/')[-1]}.ttl")
+
+    @property
+    def concepts(self):
+        return list(
+            self.g.query(
+                f"""
+        SELECT ?c ?clabel
+        WHERE {{
+            ?c a skos:Concept .
+            ?c skos:inScheme <{self.id}> .
+            ?c skos:prefLabel ?clabel
+        }}
+        """,
+                initNs={"skos": SKOS},
+            )
+        )
 
 
 class Harmonization(RDFGraphRepo):
@@ -138,8 +164,17 @@ class ConceptRepo(RDFGraphRepo):
         super().__init__()
 
 
-# core_repo = RDFGraphRepo()
-# for ttl_file in Path(__file__).parent.glob("*.ttl"):
-#     core_repo.add_from_file(ttl_file)
-# for ttl_file in Path(__file__).parent.parent.joinpath("infra").glob("rd*.ttl"):
-#     core_repo.add_from_file(ttl_file)
+cs_helioregion = ConceptScheme.from_file("src/heliokos/domain/helioregion.ttl")
+cs_openalex = ConceptScheme.from_file("src/heliokos/infra/openalex.ttl")
+
+
+def expand_prefix(prefix):
+    core_map = core_context_prefix_map()
+    if prefix in core_map:
+        return core_map[prefix]
+    elif prefix == "helior":
+        return "https://n2t.net/ark:57802/p03295/"
+    elif prefix == "openalex":
+        return "https://openalex.org/"
+    else:
+        return prefix

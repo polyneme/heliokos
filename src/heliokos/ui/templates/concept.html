@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Concept: {{concept.pref_label}} </h3>
+<dl>
+    <dt>id</dt>
+    <dd>{{concept.id}}</dd>
+
+    <dt>skos:prefLabel</dt>
+    <dd>{{concept.pref_label}}</dd>
+</dl>
+{% endblock %}

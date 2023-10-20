@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>  HelioKOS — {% block title %}{% endblock %}</title>
+    <script src="{{ url_for('static', path='/htmx.min.js') }}"></script>
+</head>
+<body>
+        <header>
+            {% block header %}
+            <form style="display: inline-block">
+                <label for="pref_label">Preferred Label</label>
+                <input id="pref_label" name="pref_label" type="text" />
+                <button hx-post="/concept" hx-target="body" hx-push-url="true">
+                    Create Concept
+                </button>
+            </form>
+            |
+            <form style="display: inline-block">
+                <button hx-post="/conceptscheme" hx-target="body" hx-push-url="true">
+                    Create Concept Scheme
+                </button>
+            </form>
+            {% endblock %}
+        </header>
+        <main>{% block content %}{% endblock %}</main>
+        <footer style="margin-top: 3em">
+            <div>
+                <a href="/">Home</a>
+            </div>
+            {% block footer %}
+                <div>
+                    &copy; Copyright {{ GLOBALS_today_year }}
+                    <a href="https://polyneme.xyz/">Polyneme LLC</a>.
+                </div>
+            {% endblock %}
+        </footer>
+</body>
+</html>
