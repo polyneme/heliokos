@@ -92,20 +92,10 @@ class RDFGraphRepo:
             filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
         g = Graph()
         g.parse(filepath)
-        return cls(data=json.loads(g.serialize(format="json-ld"))[0])
+        return cls(g=g)
 
-    def __init__(self, data=None):
-        self.g = Graph()
-        init_data = {} if data is None else data
-        if len(init_data) == 1:
-            me_doc = RDFGraphDocument()
-            self.add_graph_document(me_doc)
-            self.g.add((me_doc.id, RDF.type, SKOS.ConceptScheme))
-        else:
-            self.g.parse(
-                data=init_data,
-                format="json-ld",
-            )
+    def __init__(self, g=None):
+        self.g = Graph() if g is None else g
 
     def copy(self):
         g_copy = Graph()

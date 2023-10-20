@@ -37,12 +37,12 @@ class Concept(RDFGraphDocument):
 
 
 class ConceptScheme(RDFGraphRepo):
-    def __init__(self, data=None):
-        if data is None:
-            init_data = {"@type": "skos:ConceptScheme"}
-        else:
-            init_data = data
-        super().__init__(init_data)
+    def __init__(self, g=None):
+        super().__init__(g=g)
+        if g is None:
+            me_doc = RDFGraphDocument()
+            self.add_graph_document(me_doc)
+            self.g.add((me_doc.id, RDF.type, SKOS.ConceptScheme))
 
     @property
     def id(self):
@@ -88,19 +88,20 @@ class ConceptScheme(RDFGraphRepo):
 
     @property
     def concepts(self):
-        return list(
-            self.g.query(
-                f"""
-        SELECT ?c ?clabel
-        WHERE {{
-            ?c a skos:Concept .
-            ?c skos:inScheme <{self.id}> .
-            ?c skos:prefLabel ?clabel
-        }}
-        """,
-                initNs={"skos": SKOS},
-            )
-        )
+        rv = []
+        for id_, pref_label in self.g.query(
+            f"""
+                SELECT ?ogc ?clabel
+                WHERE {{
+                ?c a skos:Concept .
+                ?c owl:sameAs ?ogc .
+                ?c skos:inScheme <{self.id}> .
+                ?c skos:prefLabel ?clabel
+                }}""",
+            initNs={"skos": SKOS},
+        ):
+            rv.append(Concept({"@id": str(id_), "skos:prefLabel": pref_label}))
+        return rv
 
 
 class Harmonization(RDFGraphRepo):
@@ -114,6 +115,8 @@ class Harmonization(RDFGraphRepo):
         return me_copy
 
     def connect(self, concept_1, concept_2, property_=SKOS.relatedMatch):
+        if concept_1 is None or concept_2 is None:
+            raise ValueError("'empty' concept(s) supplied")
         allowed = {
             SKOS.closeMatch,
             SKOS.exactMatch,
@@ -164,8 +167,12 @@ class ConceptRepo(RDFGraphRepo):
         super().__init__()
 
 
-cs_helioregion = ConceptScheme.from_file("src/heliokos/domain/helioregion.ttl")
-cs_openalex = ConceptScheme.from_file("src/heliokos/infra/openalex.ttl")
+cs_helioregion = ConceptScheme.from_file(
+    str(Path(__file__).parent.joinpath("helioregion.ttl"))
+)
+cs_openalex = ConceptScheme.from_file(
+    str(Path(__file__).parent.parent.joinpath("infra/openalex.ttl"))
+)
 
 
 def expand_prefix(prefix):
