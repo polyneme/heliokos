@@ -20,10 +20,10 @@ pip install -e .
 ## bill of materials (BOM)
 
 |name|description|website|origin|
-|----|-----------|-|------|------|
-|fastapi|API framework|https://fastapi.tiangolo.com/ | https://pypi.org/project/fastapi/ |
-|rdflib|RDF graph library|https://github.com/RDFLib/rdflib | https://pypi.org/project/rdflib/ |
-|toolz|utility functions library|https://github.com/pytoolz/toolz/ | https://pypi.org/project/toolz/ |
+|----|-----------|-------|------|
+|fastapi|API framework|https://github.com/tiangolo/fastapi | https://pypi.org/project/fastapi |
+|rdflib|RDF graph library|https://github.com/RDFLib/rdflib | https://pypi.org/project/rdflib |
+|toolz|utility functions library|https://github.com/pytoolz/toolz | https://pypi.org/project/toolz |
 
 
 To start the Web server for development:
