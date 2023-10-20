@@ -1,10 +1,12 @@
 """
+Intent: a hypermedia application,
+i.e. sticking to HTTP-over-HTML as much as possible,
+with the aid of the <a href="https://htmx.org/">htmx</a> Javascript library.
 
-- one HTTP Route, returning HTML Representation of Resource
-
-infra:
+backend:
 - FastAPI app returning HTML responses
 - Jinja2 to render Representation of Resource
+- File-backed RDFLib graphs (for now)
 """
 from datetime import date
 from pathlib import Path

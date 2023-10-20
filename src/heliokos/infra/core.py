@@ -7,7 +7,7 @@ from rdflib.namespace import SKOS, RDFS, RDF, OWL
 from toolz import merge
 
 RDFA_CORE_INITIAL_CONTEXT = json.loads(
-    Path(__file__).parent.joinpath("rdfa11.json").read_text()
+    Path(__file__).parent.joinpath("static/rdfa11.json").read_text()
 )
 
 
@@ -33,7 +33,7 @@ class RDFGraphDocument:
     """
 
     @classmethod
-    def from_file(cls, filepath: str = ".concept/abc123.ttl"):
+    def from_file(cls, filepath: str):
         if not filepath.startswith("/"):
             # relative to `helioweb` project root dir
             filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
@@ -61,7 +61,7 @@ class RDFGraphDocument:
 
     @property
     def id_suffix(self):
-        return self.id.split("/")[-1]
+        return str(self.id).split("/")[-1]
 
     @property
     def label(self):
@@ -85,8 +85,19 @@ class RDFGraphDocument:
 
 
 class RDFGraphRepo:
+    """
+    A general rdf graph.
+
+    IDEA: make this class abstract,
+        with rdflib implementation for
+        - testing (in-memory),
+        - prototyping (file-backed), and
+        - production (oxigraph-backed).
+
+    """
+
     @classmethod
-    def from_file(cls, filepath: str = "src/heliokos/domain/helioregion.ttl"):
+    def from_file(cls, filepath: str):
         if not filepath.startswith("/"):
             # relative to `helioweb` project root dir
             filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
