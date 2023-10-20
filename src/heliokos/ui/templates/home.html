@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
+<h4>Schemes:</h4>
+<ul>
+{% for scheme in schemes %}
+<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
+{% endfor %}
+</ul>
 {% endblock %}

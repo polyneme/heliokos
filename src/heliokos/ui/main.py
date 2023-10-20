@@ -32,7 +32,12 @@ templates.env.globals.update({"GLOBALS_today_year": str(date.today().year)})
 
 @app.get("/", response_class=HTMLResponse)
 async def read_home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
+    schemes = []
+    for filepath in Path(".scheme/").glob("*.ttl"):
+        schemes.append(ConceptScheme.from_file(str(filepath)))
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "schemes": schemes}
+    )
 
 
 @app.post("/concept", response_class=HTMLResponse)
