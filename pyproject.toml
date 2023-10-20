@@ -18,13 +18,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "fastapi",
-    "jinja2",
-    "python-multipart",
+    "fastapi[all]",
     "rdflib",
     "toolz",
-    "tqdm",
-    "uvicorn[standard]",
 ]
 
 [project.urls]

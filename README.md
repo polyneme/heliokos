@@ -1,5 +1,14 @@
 # heliokos
-A knowledge organization system (KOS) service for Heliophysics
+A knowledge organization system (KOS) service for Heliophysics.
+
+# use
+
+Executable [functional tests](tests/test_functions.py) describe target use cases. Currently, the first two tests pass,
+so you can follow their bodies as usage examples. The rest of the functional test suite can be considered a roadmap
+for this tool.
+
+You can `pip install heliokos` to get the last-released version,
+or you can `git clone` this repository and `pip install .` to build the tool using the current `main`-branch head.
 
 # development
 
@@ -7,6 +16,15 @@ A knowledge organization system (KOS) service for Heliophysics
 ```bash
 pip install -e .
 ```
+
+## bill of materials (BOM)
+
+|name|description|website|origin|
+|----|-----------|-|------|------|
+|fastapi|API framework|https://fastapi.tiangolo.com/ | https://pypi.org/project/fastapi/ |
+|rdflib|RDF graph library|https://github.com/RDFLib/rdflib | https://pypi.org/project/rdflib/ |
+|toolz|utility functions library|https://github.com/pytoolz/toolz/ | https://pypi.org/project/toolz/ |
+
 
 To start the Web server for development:
 ```bash
