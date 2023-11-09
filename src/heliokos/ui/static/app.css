@@ -1,0 +1,17 @@
+main {
+	min-height: 65vh;
+}
+
+/*dl,
+dd {
+	margin: 0;
+	padding: 0;
+}*/
+
+dd {
+	margin-bottom: 1.5em;
+}
+
+dt {
+	font-weight: bold;
+}
