@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="padding-top-3">Your Schemes</h2>
-<ul>
-{% for scheme in schemes %}
-<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
-{% endfor %}
-</ul>
+<h1>Schemes</h1>
+
+<div class="grid-row grid-gap">
+	<div class="tablet:grid-col-6">
+		<h2 class="margin-bottom-0">Create a Scheme</h2>
+		<form class="usa-form">
+			<button class="usa-button" hx-post="/conceptscheme" hx-target="body" hx-push-url="true">
+				Create Concept Scheme
+			</button>
+		</form>
+	</div>
+	<div class="tablet:grid-col-6">
+		<h2 class="padding-top-3 tablet:padding-top-0">Your Schemes</h2>
+		<ul>
+		{% for scheme in schemes %}
+		<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
 {% endblock %}

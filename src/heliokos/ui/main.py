@@ -37,8 +37,11 @@ async def read_home(request: Request):
     schemes = []
     for filepath in Path(".scheme/").glob("*.ttl"):
         schemes.append(ConceptScheme.from_file(str(filepath)))
+    concepts = []
+    for filepath in Path(".concept/").glob("*.ttl"):
+        concepts.append(Concept.from_file(str(filepath)))
     return templates.TemplateResponse(
-        "home.html", {"request": request, "schemes": schemes}
+        "home.html", {"request": request, "schemes": schemes, "concepts": concepts}
     )
 
 
