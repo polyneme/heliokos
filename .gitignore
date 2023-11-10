@@ -162,3 +162,5 @@ cython_debug/
 repl.ipynb
 .scheme/
 .concept/
+
+.DS_Store
