@@ -42,6 +42,16 @@ async def read_home(request: Request):
     )
 
 
+@app.get("/concept", response_class=HTMLResponse)
+async def read_concepts(request: Request):
+    concepts = []
+    for filepath in Path(".concept/").glob("*.ttl"):
+        concepts.append(Concept.from_file(str(filepath)))
+    return templates.TemplateResponse(
+        "concepts.html", {"request": request, "concepts": concepts}
+    )
+
+
 @app.post("/concept", response_class=HTMLResponse)
 async def create_concept(pref_label: Annotated[str, Form()], request: Request):
     concept = Concept(pref_label)
@@ -57,6 +67,16 @@ async def read_concept(id_: str, request: Request):
     concept = Concept.from_file(f".concept/{id_}.ttl")
     return templates.TemplateResponse(
         "concept.html", {"request": request, "concept": concept}
+    )
+
+
+@app.get("/conceptscheme", response_class=HTMLResponse)
+async def read_concept_schemes(request: Request):
+    schemes = []
+    for filepath in Path(".scheme/").glob("*.ttl"):
+        schemes.append(ConceptScheme.from_file(str(filepath)))
+    return templates.TemplateResponse(
+        "schemes.html", {"request": request, "schemes": schemes}
     )
 
 
