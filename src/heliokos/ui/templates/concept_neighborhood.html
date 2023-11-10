@@ -1,7 +1,7 @@
 <h1><a href="{{ concept_id }}"> {{ concept_preflabel }}</a></h1>
 
 <h2>Inbound Links</h2>
-<ul>
+<ul class="usa-list">
 {% for s, p, o in inbound %}
     <li><a href="{{ s }}">{{ s }}</a>
         <a href="{{ p }}">{{ p.removeprefix("http://www.w3.org/2004/02/skos/core#") }}</a>
@@ -10,7 +10,7 @@
 </ul>
 
 <h2>Outbound Links</h2>
-<ul>
+<ul class="usa-list">
 {% for s, p, o in outbound %}
     {% if p.endswith("Label") %}
      <li>

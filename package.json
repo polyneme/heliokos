@@ -1,0 +1,14 @@
+{
+	"name": "heliokos",
+	"version": "0.0.1",
+	"description": "A knowledge organization system (KOS) service for Heliophysics.",
+	"license": "AGPL-3.0-or-later",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/polyneme/heliokos"
+	},
+	"scripts": {
+		"install": "pip install -e .",
+		"watch": "uvicorn heliokos.ui.main:app --reload"
+	}
+}

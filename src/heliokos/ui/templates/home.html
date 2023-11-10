@@ -1,6 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Schemes:</h4>
+<h1>Heliokos</h1>
+<p>A knowledge organization system (KOS) service for Heliophysics.</p>
+
+
+<div class="usa-card__container">
+	<div class="usa-card__body">
+		<div class="grid-row grid-gap">
+			<div class="tablet:grid-col-6">
+				<h2 class="margin-top-0">Step 1: Create a Concept</h2>
+				<p>Start by creating one or more concepts.</p>
+
+				<form class="usa-form">
+					<label class="usa-label" for="pref_label">Preferred Label</label>
+					<input class="usa-input" id="pref_label" name="pref_label" type="text" required>
+					<button class="usa-button" hx-post="/concept" hx-target="body" hx-push-url="true">
+						Create Concept
+					</button>
+				</form>
+			</div>
+			<div class="tablet:grid-col-6">
+				<h2 class="margin-top-5 tablet:margin-top-0">Step 2: Create a Scheme</h2>
+				<p>Next, create a new scheme.</p>
+
+				<form class="usa-form">
+					<button class="usa-button" hx-post="/conceptscheme" hx-target="body" hx-push-url="true">
+						Create Concept Scheme
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h2 class="padding-top-3">Your Schemes</h2>
 <ul>
 {% for scheme in schemes %}
 <li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>Scheme: {{scheme.id}} </h3>
+<h1 class="margin-bottom-0">Scheme</h1>
+<p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
 <dl>
     <dt>id</dt>
     <dd>{{scheme.id}}</dd>
@@ -10,13 +11,16 @@
     <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
     {% endfor %}
 </dl>
-<form>
-    <select id="selected_concept" name="selected_concept">
+<form class="usa-form">
+    <label class="usa-label" for="selected_concept">Pick a Concept</label>
+    <select class="usa-select" id="selected_concept" name="selected_concept">
+        <option value>- Select -</option>
         {% for concept in concepts %}
         <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
         {% endfor %}
     </select>
-    <button hx-post="/conceptscheme/{{scheme.id_suffix}}/concept"
+
+    <button class="usa-button" hx-post="/conceptscheme/{{scheme.id_suffix}}/concept"
             hx-include="#selected_concept"
             hx-target="body"
     >Add Concept</button>
