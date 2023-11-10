@@ -163,4 +163,7 @@ repl.ipynb
 .scheme/
 .concept/
 
+# OS files
 .DS_Store
+.Spotlight-V100
+.Trashes
