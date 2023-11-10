@@ -5,13 +5,15 @@
 <div class="grid-row grid-gap">
 	<div class="tablet:grid-col-6">
 		<h2>Create a Concept</h2>
-		<form class="usa-form">
+		<form class="usa-form margin-bottom-4">
 			<label class="usa-label" for="pref_label">Preferred Label</label>
 			<input class="usa-input" id="pref_label" name="pref_label" type="text" required>
 			<button class="usa-button" hx-post="/concept" hx-target="body" hx-push-url="true">
 				Create Concept
 			</button>
 		</form>
+
+		<p><em>When you're done, <a href="/conceptscheme">click here to create or update a scheme</a>.</em></p>
 	</div>
 	<div class="tablet:grid-col-6">
 		<h2 class="padding-top-3 tablet:padding-top-0">Your Concepts</h2>
