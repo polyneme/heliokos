@@ -15,7 +15,7 @@
 	<!-- Stylesheet & Init Class -->
 	<script src="{{ url_for('static', path='/nasawds/js/uswds-init.min.js') }}"></script>
 	<link rel="stylesheet" href="{{ url_for('static', path='/nasawds/css/styles.css') }}" />
-	<link rel="stylesheet" href="{{ url_for('static', path='/app.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', path='/css/app.css') }}" />
 </head>
 <body>
 
@@ -25,7 +25,7 @@
 		<div class="usa-nav-container">
 			<div class="usa-navbar">
 				<div class="usa-logo">
-					<em class="usa-logo__text"><a href="/"><img alt="" height="24px" width="29px" src="{{ url_for('static', path='/logo.png') }}"> HelioKOS</a></em>
+					<em class="usa-logo__text"><a href="/"><img alt="" height="24px" width="29px" src="{{ url_for('static', path='/img/logo.png') }}"> HelioKOS</a></em>
 				</div>
 				<button type="button" class="usa-menu-btn">Menu</button>
 			</div>
@@ -67,6 +67,12 @@
 							<li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
 								<a class="usa-footer__primary-link" href="/">Home</a>
 							</li>
+							<li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
+								<a href="/concept" class="usa-footer__primary-link">Concepts</a>
+							</li>
+							<li class="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
+								<a href="/conceptscheme" class="usa-footer__primary-link">Schemes</a>
+							</li>
 						</ul>
 					</nav>
 				</div>
@@ -83,7 +89,7 @@
 			<div class="grid-container">
 				<div class="usa-footer__logo grid-row grid-gap-2">
 					<div class="grid-col-auto">
-						<img alt="" height="92px" width="112px" src="{{ url_for('static', path='/logo-large.png') }}">
+						<img alt="" height="92px" width="112px" src="{{ url_for('static', path='/img/logo-large.png') }}">
 					</div>
 					<div class="grid-col-auto">
 						<p class="usa-footer__logo-heading">HelioKOS</p>
@@ -94,7 +100,8 @@
 	</footer>
 
 	<!-- JavaScript -->
+	<script type="module" src="{{ url_for('static', path='/js/app.js') }}"></script>
 	<script src="{{ url_for('static', path='/nasawds/js/uswds.min.js') }}"></script>
-	<script src="{{ url_for('static', path='/htmx.min.js') }}"></script>
+	<script src="{{ url_for('static', path='/js/htmx.min.js') }}"></script>
 </body>
 </html>

@@ -2,7 +2,8 @@
 {% block content %}
 <h1 class="margin-bottom-0">Scheme</h1>
 <p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
-<dl>
+
+<dl id="scheme-concepts-list">
     <dt>id</dt>
     <dd>{{scheme.id}}</dd>
 
@@ -11,7 +12,8 @@
     <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
     {% endfor %}
 </dl>
-<form class="usa-form">
+
+<form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept" data-form="addConceptToScheme">
     <label class="usa-label" for="selected_concept">Pick a Concept</label>
     <select class="usa-select" id="selected_concept" name="selected_concept">
         <option value>- Select -</option>
@@ -20,9 +22,8 @@
         {% endfor %}
     </select>
 
-    <button class="usa-button" hx-post="/conceptscheme/{{scheme.id_suffix}}/concept"
-            hx-include="#selected_concept"
-            hx-target="body"
-    >Add Concept</button>
+    <button class="usa-button">Add Concept</button>
+
+    <div role="status"></div>
 </form>
 {% endblock %}
