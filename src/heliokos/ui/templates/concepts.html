@@ -17,12 +17,18 @@
 		<p><em>When you're done, <a href="/conceptscheme">click here to create or update a scheme</a>.</em></p>
 	</div>
 	<div class="tablet:grid-col-6">
+		{% if concepts | length > 0 %}
 		<h2 class="padding-top-3 tablet:padding-top-0">Your Concepts</h2>
 		<ul id="concepts-list">
-		{% for concept in concepts %}
+			{% for concept in concepts %}
 			<li><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></li>
-		{% endfor %}
+			{% endfor %}
 		</ul>
+		{% else %}
+			<p>
+				You don't have any concepts yet.
+			</p>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}
