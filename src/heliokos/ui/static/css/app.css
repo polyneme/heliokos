@@ -9,9 +9,14 @@ dd {
 }*/
 
 dd {
-	margin-bottom: 1.5em;
+	margin-bottom: 1.5rem;
 }
 
 dt {
 	font-weight: bold;
+}
+
+[role="status"] {
+	font-style: italic;
+	padding-top: 1rem;
 }
