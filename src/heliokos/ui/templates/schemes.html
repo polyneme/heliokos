@@ -13,8 +13,8 @@
 		</form>
 	</div>
 	<div class="tablet:grid-col-6">
-		{% if schemes | length > 0 %}
 		<h2 class="padding-top-3 tablet:padding-top-0">Your Schemes</h2>
+		{% if schemes | length > 0 %}
 		<ul>
 		{% for scheme in schemes %}
 			<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
