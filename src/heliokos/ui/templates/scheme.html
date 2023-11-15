@@ -3,7 +3,7 @@
 <h1 class="margin-bottom-0">Scheme</h1>
 <p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
 
-<dl id="scheme-concepts-list">
+<dl data-list="scheme-concepts">
     <dt>id</dt>
     <dd>{{scheme.id}}</dd>
 
@@ -13,6 +13,7 @@
     {% endfor %}
 </dl>
 
+{% if concepts | length > 0 %}
 <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept" data-form="addConceptToScheme">
     <label class="usa-label" for="selected_concept">Pick a Concept</label>
     <select class="usa-select" id="selected_concept" name="selected_concept">
@@ -26,4 +27,9 @@
 
     <div role="status"></div>
 </form>
+{% else %}
+<p>You don't have any concepts yet.</p>
+<p><a class="usa-button" href="/concept">Create a Concept</a></p>
+{% endif %}
+
 {% endblock %}

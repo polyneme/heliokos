@@ -4,27 +4,31 @@
 
 <div class="grid-row grid-gap">
 	<div class="tablet:grid-col-6">
+
 		<h2 class="margin-bottom-0">Create a Scheme</h2>
+
 		<form class="usa-form" method="post" action="/conceptscheme" data-form="addScheme">
 			<button class="usa-button">
 				Create Concept Scheme
 			</button>
 			<div role="status"></div>
 		</form>
+
 	</div>
 	<div class="tablet:grid-col-6">
+
 		<h2 class="padding-top-3 tablet:padding-top-0">Your Schemes</h2>
-		{% if schemes | length > 0 %}
-		<ul>
+
+		{% if schemes | length < 1 %}
+		<p data-message="no-schemes">You don't have any schemes yet.</p>
+		{% endif %}
+
+		<ul data-list="schemes">
 		{% for scheme in schemes %}
 			<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
 		{% endfor %}
 		</ul>
-		{% else %}
-		<p>
-			You don't have any schemes yet.
-		</p>
-		{% endif %}
+
 	</div>
 </div>
 {% endblock %}
