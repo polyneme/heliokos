@@ -3,7 +3,7 @@
 <h1 class="margin-bottom-0">Scheme</h1>
 <p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
 
-<dl data-list="scheme-concepts">
+<dl data-hk-list="scheme-concepts">
     <dt>id</dt>
     <dd>{{scheme.id}}</dd>
 
@@ -14,19 +14,19 @@
 </dl>
 
 {% if concepts | length > 0 %}
-<form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept" data-form="addConceptToScheme">
-    <label class="usa-label" for="selected_concept">Pick a Concept</label>
-    <select class="usa-select" id="selected_concept" name="selected_concept">
-        <option value>- Select -</option>
-        {% for concept in concepts %}
-        <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
-        {% endfor %}
-    </select>
+<hk-form prevent-default msg-submitting='Adding the "${selected_concept}" concept...' msg-success='The "${selected_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"]'>
+    <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept" data-form="addConceptToScheme">
+        <label class="usa-label" for="selected_concept">Pick a Concept</label>
+        <select class="usa-select" id="selected_concept" name="selected_concept">
+            <option value>- Select -</option>
+            {% for concept in concepts %}
+            <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+            {% endfor %}
+        </select>
 
-    <button class="usa-button">Add Concept</button>
-
-    <div role="status"></div>
-</form>
+        <button class="usa-button">Add Concept</button>
+    </form>
+</hk-form>
 {% else %}
 <p>You don't have any concepts yet.</p>
 <p><a class="usa-button" href="/concept">Create a Concept</a></p>
