@@ -41,28 +41,34 @@
 
 <div class="grid-row grid-gap">
 	<div class="tablet:grid-col-6 margin-bottom-3">
+
 		<h2>Your Concepts</h2>
-		{% if concepts | length > 0 %}
-		<ul id="concepts-list">
+
+		{% if concepts | length < 1 %}
+		<p data-message="no-concepts">You don't have any concepts yet.</p>
+		{% endif %}
+
+		<ul data-list="concepts">
 		{% for concept in concepts %}
 			<li><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></li>
 		{% endfor %}
 		</ul>
-		{% else %}
-		<p>You don't have any concepts yet.</p>
-		{% endif %}
+
 	</div>
 	<div class="tablet:grid-col-6 margin-bottom-3">
+
 		<h2>Your Schemes</h2>
-		{% if schemes | length > 0 %}
-		<ul id="schemes-list">
+
+		{% if schemes | length < 1 %}
+		<p data-message="no-schemes">You don't have any schemes yet.</p>
+		{% endif %}
+
+		<ul data-list="schemes">
 		{% for scheme in schemes %}
 			<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
 		{% endfor %}
 		</ul>
-		{% else %}
-		<p>You don't have any schemes yet.</p>
-		{% endif %}
+
 	</div>
 </div>
 

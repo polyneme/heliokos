@@ -9,7 +9,7 @@ import Form from './form.js';
 function addConceptToSchemeList (id, label) {
 
 	// Get the list
-	let list = document.querySelector('#scheme-concepts-list');
+	let list = document.querySelector('[data-list="scheme-concepts"]');
 	if (!list) return;
 
 	// Create list items
@@ -31,7 +31,7 @@ function addConceptToSchemeList (id, label) {
 function addConceptItem (label, url) {
 
 	// Get the list
-	let list = document.querySelector('#concepts-list');
+	let list = document.querySelector('[data-list="concepts"]');
 	if (!list) return;
 
 	// Create the list item
@@ -40,6 +40,12 @@ function addConceptItem (label, url) {
 
 	// Inject it into the UI
 	list.prepend(item);
+
+	// Check for "no concepts yet" message
+	// If it exists, hide it
+	let noMessage = document.querySelector('[data-message="no-concepts"]');
+	if (!noMessage) return;
+	noMessage.remove();
 
 }
 
