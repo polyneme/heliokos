@@ -15,9 +15,10 @@ from typing import Annotated
 from fastapi import FastAPI, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from rdflib import SKOS
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 
 from heliokos.domain.core import Concept, cs_helioregion, expand_prefix, ConceptScheme
 from heliokos.ui.html import page_for
@@ -111,6 +112,49 @@ async def add_concept_to_concept_scheme(
     scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
     concept = Concept.from_file(f".concept/{selected_concept}.ttl")
     scheme.add(concept).to_file()
+    return RedirectResponse(
+        status_code=status.HTTP_303_SEE_OTHER,
+        url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
+    )
+
+
+@app.post("/conceptscheme/{id_}/relation", response_class=HTMLResponse)
+async def add_relation_to_concept_scheme(
+    id_: str,
+    subject_concept_id: Annotated[str, Form()],
+    object_concept_id: Annotated[str, Form()],
+    relation: Annotated[str, Form()],
+    request: Request,
+):
+    allowed_relations = {"narrower", "related"}
+    if relation not in allowed_relations:
+        return Response(
+            f"relation must be one of {allowed_relations}",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
+    concepts = []
+    for filepath in Path(".concept/").glob("*.ttl"):
+        concepts.append(Concept.from_file(str(filepath)))
+    scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
+    try:
+        subject_concept = next(
+            c for c in concepts if getattr(c, "id") == subject_concept_id
+        )
+    except StopIteration:
+        return Response(
+            f"concept {subject_concept_id} not found",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
+    try:
+        object_concept = next(
+            c for c in concepts if getattr(c, "id") == object_concept_id
+        )
+    except StopIteration:
+        return Response(
+            f"concept {object_concept_id} not found",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
+    scheme.connect(subject_concept, object_concept, getattr(SKOS, relation)).to_file()
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
         url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
