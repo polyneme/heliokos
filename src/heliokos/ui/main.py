@@ -61,7 +61,7 @@ async def create_concept(pref_label: Annotated[str, Form()], request: Request):
     concept.to_file()
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
-        url=request.url_for("read_concept", id_=concept.id_suffix),
+        url=request.url_for("read_concepts"),
     )
 
 
