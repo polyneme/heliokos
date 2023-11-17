@@ -10,14 +10,15 @@
 				<h2 class="margin-top-0">Step 1: Create a Concept</h2>
 				<p>Start by creating one or more concepts.</p>
 
-				<form class="usa-form" method="post" action="/concept" data-form="addConcept">
-					<label class="usa-label" for="pref_label">Preferred Label</label>
-					<input class="usa-input" id="pref_label" name="pref_label" type="text" required>
-					<button class="usa-button">
-						Create Concept
-					</button>
-					<div role="status"></div>
-				</form>
+				<hk-form prevent-default msg-submitting='Creating the "${pref_label}" concept...' msg-success='The "${pref_label}" concept was added.' target='[data-hk-list="concepts"]'>
+					<form class="usa-form" method="post" action="/concept">
+						<label class="usa-label" for="pref_label">Preferred Label</label>
+						<input class="usa-input" id="pref_label" name="pref_label" type="text" required>
+						<button class="usa-button">
+							Create Concept
+						</button>
+					</form>
+				</hk-form>
 			</div>
 		</div>
 	</div>
@@ -27,12 +28,13 @@
 				<h2 class="margin-top-5 tablet:margin-top-0">Step 2: Create a Scheme</h2>
 				<p>Next, create a new scheme.</p>
 
-				<form class="usa-form" method="post" action="/conceptscheme" data-form="addScheme">
-					<button class="usa-button">
-						Create Concept Scheme
-					</button>
-					<div role="status"></div>
-				</form>
+				<hk-form msg-submitting="Creating a new scheme...">
+					<form class="usa-form" method="post" action="/conceptscheme">
+						<button class="usa-button">
+							Create Concept Scheme
+						</button>
+					</form>
+				</hk-form>
 			</div>
 		</div>
 
@@ -40,34 +42,34 @@
 </div>
 
 <div class="grid-row grid-gap">
-	<div class="tablet:grid-col-6 margin-bottom-3">
+	<div class="tablet:grid-col-6 margin-bottom-3" data-hk-list="concepts">
 
 		<h2>Your Concepts</h2>
 
-		{% if concepts | length < 1 %}
-		<p data-message="no-concepts">You don't have any concepts yet.</p>
+		{% if concepts | length > 0 %}
+			<ul>
+			{% for concept in concepts %}
+				<li><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<p>You don't have any concepts yet.</p>
 		{% endif %}
 
-		<ul data-list="concepts">
-		{% for concept in concepts %}
-			<li><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></li>
-		{% endfor %}
-		</ul>
-
 	</div>
-	<div class="tablet:grid-col-6 margin-bottom-3">
+	<div class="tablet:grid-col-6 margin-bottom-3" data-hk-list="schemes">
 
 		<h2>Your Schemes</h2>
 
-		{% if schemes | length < 1 %}
-		<p data-message="no-schemes">You don't have any schemes yet.</p>
+		{% if schemes | length > 0 %}
+			<ul>
+			{% for scheme in schemes %}
+				<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<p>You don't have any schemes yet.</p>
 		{% endif %}
-
-		<ul data-list="schemes">
-		{% for scheme in schemes %}
-			<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
-		{% endfor %}
-		</ul>
 
 	</div>
 </div>
