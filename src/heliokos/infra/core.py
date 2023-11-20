@@ -10,6 +10,8 @@ RDFA_CORE_INITIAL_CONTEXT = json.loads(
     Path(__file__).parent.joinpath("static/rdfa11.json").read_text()
 )
 
+CONTEXT_BASE = RDFA_CORE_INITIAL_CONTEXT["@context"]["@base"]
+
 
 def core_context_prefix_map():
     return {k: v for k, v in RDFA_CORE_INITIAL_CONTEXT["@context"].items()}

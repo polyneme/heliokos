@@ -21,6 +21,7 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse, Response
 
 from heliokos.domain.core import Concept, cs_helioregion, expand_prefix, ConceptScheme
+from heliokos.infra.core import CONTEXT_BASE
 from heliokos.ui.html import page_for
 
 app = FastAPI()
@@ -138,7 +139,9 @@ async def add_relation_to_concept_scheme(
     scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
     try:
         subject_concept = next(
-            c for c in concepts if getattr(c, "id") == subject_concept_id
+            c
+            for c in concepts
+            if str(getattr(c, "id")) == CONTEXT_BASE + subject_concept_id
         )
     except StopIteration:
         return Response(
@@ -147,7 +150,9 @@ async def add_relation_to_concept_scheme(
         )
     try:
         object_concept = next(
-            c for c in concepts if getattr(c, "id") == object_concept_id
+            c
+            for c in concepts
+            if str(getattr(c, "id")) == CONTEXT_BASE + object_concept_id
         )
     except StopIteration:
         return Response(
