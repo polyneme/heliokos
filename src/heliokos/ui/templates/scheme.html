@@ -3,33 +3,85 @@
 <h1 class="margin-bottom-0">Scheme</h1>
 <p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
 
-<dl data-hk-list="scheme-concepts">
-    <dt>id</dt>
-    <dd>{{scheme.id}}</dd>
+<div class="grid-row grid-row-reverse grid-gap-sm">
+    <div class="tablet:grid-col-6 margin-bottom-3">
 
-    {% for concept in scheme.concepts %}
-    <dt>concept</dt>
-    <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
-    {% endfor %}
-</dl>
+        <h2>Scheme Details</h2>
 
-{% if concepts | length > 0 %}
-<hk-form prevent-default msg-submitting='Adding the "${selected_concept}" concept...' msg-success='The "${selected_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"]'>
-    <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept" data-form="addConceptToScheme">
-        <label class="usa-label" for="selected_concept">Pick a Concept</label>
-        <select class="usa-select" id="selected_concept" name="selected_concept">
-            <option value>- Select -</option>
-            {% for concept in concepts %}
-            <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+        <dl data-hk-list="scheme-concepts">
+            <dt>id</dt>
+            <dd>{{scheme.id}}</dd>
+
+            {% for concept in scheme.concepts %}
+            <dt>concept</dt>
+            <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
             {% endfor %}
-        </select>
+        </dl>
 
-        <button class="usa-button">Add Concept</button>
-    </form>
-</hk-form>
-{% else %}
-<p>You don't have any concepts yet.</p>
-<p><a class="usa-button" href="/concept">Create a Concept</a></p>
-{% endif %}
+    </div>
+    <div class="tablet:grid-col-6 margin-bottom-3">
+
+        {% if concepts | length > 0 %}
+        <h2>Add a concept to this scheme</h2>
+
+        <hk-form prevent-default msg-submitting='Adding the "${selected_concept}" concept...' msg-success='The "${selected_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"]'>
+            <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept">
+                <label class="usa-label" for="selected_concept">Pick a Concept</label>
+                <select class="usa-select" id="selected_concept" name="selected_concept" required>
+                    <option value>- Select -</option>
+                    {% for concept in concepts %}
+                    <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                    {% endfor %}
+                </select>
+
+                <button class="usa-button">Add Concept</button>
+            </form>
+        </hk-form>
+
+
+        <h2 class="padding-top-3">Define relationships between concepts</h2>
+
+        <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.'>
+            <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/relation">
+                <label class="usa-label" for="subject_concept_id">Pick a Concept</label>
+                <select class="usa-select" id="subject_concept_id" name="subject_concept_id" required>
+                    <option value>- Select -</option>
+                    {% for concept in concepts %}
+                    <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                    {% endfor %}
+                </select>
+
+                <fieldset class="usa-fieldset margin-top-3">
+                    <legend class="usa-legend">Define how it's related</legend>
+                    <div class="usa-radio">
+                        <input class="usa-radio__input" id="relation_narrower" type="radio" name="relation" value="narrower" checked required>
+                        <label class="usa-radio__label" for="relation_narrower">is a broader concept than (<code>skos:narrower</code>)</label>
+                    </div>
+                    <div class="usa-radio">
+                        <input class="usa-radio__input" id="relation_related" type="radio" name="relation" value="related" required>
+                        <label class="usa-radio__label" for="relation_related">is related to (<code>skos:related</code>)</label>
+                    </div>
+                </fieldset>
+
+                <label class="usa-label" for="object_concept_id">Pick another Concept</label>
+                <select class="usa-select" id="object_concept_id" name="object_concept_id" required>
+                    <option value>- Select -</option>
+                    {% for concept in concepts %}
+                    <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                    {% endfor %}
+                </select>
+
+                <button class="usa-button">Define Concept Relationship</button>
+            </form>
+        </hk-form>
+
+        {% else %}
+        <h2>Concepts</h2>
+        <p>You don't have any concepts yet.</p>
+        <p><a class="usa-button" href="/concept">Create a Concept</a></p>
+        {% endif %}
+
+    </div>
+</div>
 
 {% endblock %}
