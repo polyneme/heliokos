@@ -1,7 +1,23 @@
+/**
+ * Make sure footer is always at bottom of viewport
+ */
 main {
 	min-height: 65vh;
 }
 
+
+/**
+ * Grid overrides
+ */
+
+.grid-row-reverse {
+	flex-direction: row-reverse;
+}
+
+
+/**
+ * Schema UI
+ */
 /*dl,
 dd {
 	margin: 0;
@@ -15,6 +31,11 @@ dd {
 dt {
 	font-weight: bold;
 }
+
+
+/**
+ * Form notifications
+ */
 
 [role="status"] {
 	font-style: italic;

@@ -8,7 +8,7 @@
 		<h2>Create a Concept</h2>
 
 		<hk-form prevent-default msg-submitting='Creating the "${pref_label}" concept...' msg-success='The "${pref_label}" concept was added.' target='[data-hk-list="concepts"]'>
-			<form class="usa-form" method="post" action="/concept" data-form="addConcept">
+			<form class="usa-form" method="post" action="/concept">
 				<label class="usa-label" for="pref_label">Preferred Label</label>
 				<input class="usa-input" id="pref_label" name="pref_label" type="text" required>
 				<button class="usa-button">
