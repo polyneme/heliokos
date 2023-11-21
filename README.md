@@ -84,8 +84,6 @@ The HelioKOS app loads two JavaScript files.
 - **`/nasawds/js/uswds.min.js`** - the main NASAWDS component JavaScript.
 - **`/js/app.js`** - the main app-specific JavaScript.
 
-The `app.js` file loads and initiates the `<hk-form>` Web Component that adds Ajax capabilities to `<form>` elements.
-
 ### HTML
 
 All UI interactions are either links (`<a href="...">`) or `<form>` elements that submit to the server.
@@ -97,6 +95,14 @@ Every `<form>` element should have a `method` attribute that defines the HTTP me
 	<!-- Form fields... -->
 </form>
 ```
+
+### Web Components
+
+The `app.js` file loads and initiates several Web Components that adds dynamic features and Ajax capabilities to interactive elements.
+
+_**Note:** for readability, all of the required NASAWDS classes have been removed from the examples below._
+
+#### `<hk-form>`
 
 Wrap `<form>` elements in the `<hk-form>` custom element to progressively add Ajax support.
 
@@ -116,7 +122,7 @@ The `<hk-form>` element can also be customized with a handful of attributes...
 - **`msg-submitting`** - Customize the "submitting" message. 
 - **`msg-success`** - Customize the "success" message.
 - **`msg-error`** - Customize the "error" message.
-- **`target`** - If you want to update the current UI after the form successfully submits, provide a selector string for the element to update. It should be identical on the current UI and the returned HTML from the server.
+- **`target`** - If you want to update the current UI after the form successfully submits, provide one or more selector strings (comma-separated) for the element to update. Each selector should be identical in the current UI and the returned HTML from the server.
 
 With the `msg-submitting`, `msg-success`, and `msg-error` attributes, you can include `${field_name}` in the attribute string to include the value of the matching field in your message.
 
@@ -147,7 +153,33 @@ With the `msg-submitting`, `msg-success`, and `msg-error` attributes, you can in
 </div>
 ```
 
-_**Note:** for readability, all of the required NASAWDS classes have been removed from this example._
+#### `<hk-select>`
+
+Wrap `<select>` elements in the `<hk-select>` custom element to add a bit of extra functionality.
+
+When the value of the `<select>` element changes, the `<hk-select>` can be used to disable that same value in one or more other `<select>` elements. 
+
+Add the `[disable-match]` attribute, and include one or more selector strings (comma-separated) for the `<select>` elements to control.
+
+```html
+<label for="subject_concept_id">Pick a Concept</label>
+<hk-select disable-match="#object_concept_id">
+    <select id="subject_concept_id" name="subject_concept_id">
+        <option value>- Select -</option>
+        <option value="abc-123">Earth</option>
+        <option value="def-456">Mars</option>
+    </select>
+</hk-select>
+
+<label for="object_concept_id">Pick another Concept</label>
+<hk-select disable-match="#subject_concept_id">
+    <select id="object_concept_id" name="object_concept_id">
+        <option value>- Select -</option>
+        <option value="abc-123">Earth</option>
+        <option value="def-456">Mars</option>
+    </select>
+</hk-select>
+```
 
 
 ## Release Process
