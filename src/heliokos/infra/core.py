@@ -82,8 +82,17 @@ class RDFGraphDocument:
         if len(list(self.g.subjects(unique=True))) != 1:
             raise ValidationError(f"document '{self.label}' has more than one subject")
 
+    @property
+    def _as_dict(self):
+        return json.loads(self.g.serialize(format="json-ld"))[0]
+
     def __repr__(self):
-        return json.dumps(json.loads(self.g.serialize(format="json-ld"))[0], indent=2)
+        return json.dumps(self._as_dict, indent=2)
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+        return self._as_dict == other._as_dict
 
 
 class RDFGraphRepo:

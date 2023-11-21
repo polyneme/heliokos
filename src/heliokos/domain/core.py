@@ -1,13 +1,18 @@
+from itertools import permutations
 from pathlib import Path
+from typing import List
 
 from rdflib.namespace import SKOS, OWL, RDF
-from rdflib import Literal
+from rdflib import Literal, URIRef
+from toolz import merge
 
 from heliokos.infra.core import (
     RDFGraphRepo,
     RDFGraphDocument,
     core_context_prefix_map,
 )
+
+RELATIONS_ALLOWED = {SKOS.narrower, SKOS.related}
 
 
 class Concept(RDFGraphDocument):
@@ -24,7 +29,7 @@ class Concept(RDFGraphDocument):
         elif isinstance(data, str):
             init_data = {"@type": "skos:Concept", "skos:prefLabel": data}
         else:
-            init_data = data
+            init_data = merge(data, {"@type": "skos:Concept"})
         super().__init__(init_data)
 
     @property
@@ -64,9 +69,8 @@ class ConceptScheme(RDFGraphRepo):
         return me_copy
 
     def connect(self, concept_1, concept_2, property_=SKOS.related):
-        allowed = {SKOS.narrower, SKOS.related}
-        if property_ not in allowed:
-            raise ValueError(f"`property_` must be in {allowed}")
+        if property_ not in RELATIONS_ALLOWED:
+            raise ValueError(f"`property_` must be in {RELATIONS_ALLOWED}")
         me_copy = self.copy()
         me_copy.g.add(
             (
@@ -77,8 +81,15 @@ class ConceptScheme(RDFGraphRepo):
         )
         return me_copy
 
-    def find_one(self, pref_label: str) -> Concept:
-        cid = self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
+    def find_one(self, key: str | URIRef) -> Concept:
+        """Find concept by pref_label (`str`) or by id (`URIRef`)."""
+        cid = None
+        if isinstance(key, str):
+            cid = self.g.value(predicate=SKOS.prefLabel, object=Literal(key))
+        elif isinstance(key, URIRef):
+            cid = key if (key, SKOS.inScheme, self.id) in self.g else None
+        else:
+            raise ValueError(f"`key` must be of type `str` or `URIRef`.")
         return Concept(self.graph_document_by_id(cid)) if cid is not None else None
 
     def to_file(self):
@@ -101,6 +112,88 @@ class ConceptScheme(RDFGraphRepo):
             initNs={"skos": SKOS},
         ):
             rv.append(Concept({"@id": str(id_), "skos:prefLabel": pref_label}))
+        return rv
+
+    @property
+    def relations(self):
+        rv = []
+        relation_values = " ".join([f"<{r}>" for r in RELATIONS_ALLOWED])
+        query = f"""
+        SELECT ?ogs ?relation ?ogo
+            WHERE {{
+                VALUES ?relation {{ {relation_values} }}
+                ?s ?relation ?o .
+                ?s a skos:Concept; owl:sameAs ?ogs; skos:inScheme <{self.id}> .
+                ?o a skos:Concept; skos:inScheme <{self.id}>; owl:sameAs ?ogo .
+            }}"""
+        for s_id, relation, o_id in self.g.query(
+            query,
+            initNs={"skos": SKOS},
+        ):
+            rv.append([s_id, URIRef(relation), o_id])
+        return rv
+
+    @property
+    def deny_relations(self):
+        """List of relations to deny.
+
+        if (?a SKOS.narrower+ ?b) then deny [
+          (?a SKOS.narrower ?b)
+          (b? SKOS.narrower ?a),
+          (a? SKOS.related ?b),
+          (b? SKOS.related ?a),
+        ] .
+        if (?a SKOS.related ?b) then deny [
+          (?a SKOS.narrower ?b),
+          (?b SKOS.narrower ?a),
+        ]
+        if (a? SKOS.narrower+ ?b . a? SKOS.related ?c OR ?c SKOS.related ?a) then deny [
+          (b? SKOS.narrower ?c),
+        ] .
+        """
+        rv = []
+        current_relations = self.relations
+        query_narrow_transitive = f"""
+        SELECT ?oga ?ogb
+            WHERE {{
+                ?a skos:narrower+ ?b .
+                ?a a skos:Concept; owl:sameAs ?oga; skos:inScheme <{self.id}> .
+                ?b a skos:Concept; owl:sameAs ?ogb; skos:inScheme <{self.id}> .
+            }}"""
+        for oga, ogb in self.g.query(query_narrow_transitive, initNs={"skos": SKOS}):
+            for c1, c2 in permutations([oga, ogb]):
+                for p in [SKOS.related, SKOS.narrower]:
+                    rv.append([c1, p, c2])
+        # current relations are redundant to include
+        rv = [denied for denied in rv if denied not in current_relations]
+
+        query_related = f"""
+        SELECT ?oga ?ogb
+            WHERE {{
+                ?a skos:related ?b .
+                ?a a skos:Concept; owl:sameAs ?oga; skos:inScheme <{self.id}> .
+                ?b a skos:Concept; owl:sameAs ?ogb; skos:inScheme <{self.id}> .
+            }}"""
+        for oga, ogb in self.g.query(query_related, initNs={"skos": SKOS}):
+            for c1, c2 in permutations([oga, ogb]):
+                rv.append(
+                    [c1, SKOS.narrower, c2],
+                )
+
+        query_narrow_transitive_with_related = f"""
+        SELECT ?oga ?ogb ?ogc
+            WHERE {{
+                ?a skos:narrower+ ?b .
+                ?a skos:related|^skos:related ?c .
+                ?a a skos:Concept; owl:sameAs ?oga; skos:inScheme <{self.id}> .
+                ?b a skos:Concept; owl:sameAs ?ogb; skos:inScheme <{self.id}> .
+                ?c a skos:Concept; owl:sameAs ?ogc; skos:inScheme <{self.id}> .
+            }}"""
+        for oga, ogb, ogc in self.g.query(
+            query_narrow_transitive_with_related, initNs={"skos": SKOS}
+        ):
+            rv.append([ogb, SKOS.narrower, ogc])
+
         return rv
 
 

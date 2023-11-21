@@ -29,9 +29,13 @@ def test_harmonizing_two_concept_schemes():
     c2 = Concept("Magnetic field")
     cs1 = ConceptScheme().add(c1).add(c2).connect(c1, c2, SKOS.narrower)
 
+    assert cs1.relations == [[c1.id, SKOS.narrower, c2.id]]
+
     c3 = Concept("Solar wind")
     c4 = Concept("Heliosphere")
     cs2 = ConceptScheme().add(c3).add(c4).connect(c3, c4, SKOS.narrower)
+
+    assert cs2.relations == [[c3.id, SKOS.narrower, c4.id]]
 
     h = Harmonization().add(cs1).add(cs2).connect(c2, c3, SKOS.narrowMatch)
 
