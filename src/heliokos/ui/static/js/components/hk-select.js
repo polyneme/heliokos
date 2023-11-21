@@ -24,9 +24,8 @@ customElements.define('hk-select', class extends HTMLElement {
 	 * @return {Function} The callback function
 	 */
 	createInputHandler () {
-		let instance = this;
-		return function (event) {
-			for (let selector of instance.disableMatches) {
+		return (event) => {
+			for (let selector of this.disableMatches) {
 
 				// Get the target element
 				let target = document.querySelector(selector);
