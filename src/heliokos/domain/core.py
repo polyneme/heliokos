@@ -115,7 +115,7 @@ class ConceptScheme(RDFGraphRepo):
         return rv
 
     @property
-    def relations(self):
+    def relations(self) -> list[list[URIRef]]:
         rv = []
         relation_values = " ".join([f"<{r}>" for r in RELATIONS_ALLOWED])
         query = f"""

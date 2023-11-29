@@ -107,8 +107,32 @@ async def read_concept_scheme(id_: str, request: Request):
     concepts = []
     for filepath in Path(".concept/").glob("*.ttl"):
         concepts.append(Concept.from_file(str(filepath)))
+    scheme_concepts_by_id = {c.id: c for c in scheme.concepts}
+    relations = [
+        [
+            scheme_concepts_by_id[s],
+            p,
+            scheme_concepts_by_id[o],
+        ]
+        for s, p, o in scheme.relations
+    ]
+    deny_relations = [
+        [
+            scheme_concepts_by_id[s].id_suffix,
+            p.fragment,
+            scheme_concepts_by_id[o].id_suffix,
+        ]
+        for s, p, o in scheme.deny_relations
+    ]
     return templates.TemplateResponse(
-        "scheme.html", {"request": request, "scheme": scheme, "concepts": concepts}
+        "scheme.html",
+        {
+            "request": request,
+            "scheme": scheme,
+            "relations": relations,
+            "deny_relations": deny_relations,
+            "concepts": concepts,
+        },
     )
 
 

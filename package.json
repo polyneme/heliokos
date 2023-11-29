@@ -9,6 +9,6 @@
 	},
 	"scripts": {
 		"install": "pip install -e .",
-		"server": "uvicorn heliokos.ui.main:app --reload-dir src/"
+		"server": "uvicorn heliokos.ui.main:app --reload --reload-dir src/"
 	}
 }
