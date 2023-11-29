@@ -20,7 +20,13 @@ from starlette import status
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse, Response
 
-from heliokos.domain.core import Concept, cs_helioregion, expand_prefix, ConceptScheme
+from heliokos.domain.core import (
+    Concept,
+    cs_helioregion,
+    expand_prefix,
+    ConceptScheme,
+    RELATIONS_ALLOWED,
+)
 from heliokos.infra.core import CONTEXT_BASE
 from heliokos.ui.html import page_for
 
@@ -127,7 +133,14 @@ async def add_relation_to_concept_scheme(
     relation: Annotated[str, Form()],
     request: Request,
 ):
-    allowed_relations = {"narrower", "related"}
+    allowed_relations = {r.fragment for r in RELATIONS_ALLOWED}
+    try:
+        getattr(SKOS, relation)
+    except AttributeError:
+        return Response(
+            f"relation must be in SKOS vocabulary",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
     if relation not in allowed_relations:
         return Response(
             f"relation must be one of {allowed_relations}",
@@ -137,26 +150,33 @@ async def add_relation_to_concept_scheme(
     for filepath in Path(".concept/").glob("*.ttl"):
         concepts.append(Concept.from_file(str(filepath)))
     scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
+    try_concept_id = subject_concept_id
     try:
         subject_concept = next(
             c
             for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + subject_concept_id
+            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
         )
-    except StopIteration:
-        return Response(
-            f"concept {subject_concept_id} not found",
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        )
-    try:
+        try_concept_id = object_concept_id
         object_concept = next(
             c
             for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + object_concept_id
+            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
         )
     except StopIteration:
         return Response(
-            f"concept {object_concept_id} not found",
+            f"concept {try_concept_id} not found",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
+    t_relation = getattr(SKOS, relation)
+    if [subject_concept.id, t_relation, object_concept.id] in scheme.relations:
+        return Response(
+            f"relation already in scheme",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        )
+    if [subject_concept.id, t_relation, object_concept.id] in scheme.deny_relations:
+        return Response(
+            f"relation disallowed due to current relations in scheme",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
     scheme.connect(subject_concept, object_concept, getattr(SKOS, relation)).to_file()

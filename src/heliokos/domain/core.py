@@ -130,7 +130,7 @@ class ConceptScheme(RDFGraphRepo):
             query,
             initNs={"skos": SKOS},
         ):
-            rv.append([s_id, URIRef(relation), o_id])
+            rv.append([s_id, relation, o_id])
         return rv
 
     @property
