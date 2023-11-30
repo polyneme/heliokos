@@ -56,7 +56,7 @@
 
             <h2 class="padding-top-3">Define relationships between concepts</h2>
 
-            <p>Cannot do any of these: {{ deny_relations }}</p>
+            <p>Cannot do any of these: {{ deny_relations | tojson }}</p>
 
             {% if scheme.concepts | length > 1 %}
             <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.'>
