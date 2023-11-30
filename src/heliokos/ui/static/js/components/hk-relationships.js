@@ -37,24 +37,52 @@ customElements.define('hk-relationships', class extends HTMLElement {
 		// If field isn't a select menu, ignore it
 		if (!event.target.matches('select')) return;
 
-		// Get all of the properties
+		// // Get all of the properties
+		// let selectors = Array.from(this.querySelectorAll('select'));
+		// let index = selectors.findIndex(field => field === event.target);
+		// let field = selectors[index];
+		// let otherIndex = index === 0 ? 1 : 0;
+		// let otherField = selectors[otherIndex];
+
+		// // Get disallowed values
+		// let disallow = this.denyList.filter(denyVals => {
+		// 	return denyVals[index] === field.value;
+		// }).map(vals => vals[otherIndex]);
+
+		// // Add currently selected value
+		// disallow.push(field.value);
+
+		// Get fields
 		let selectors = Array.from(this.querySelectorAll('select'));
-		let index = selectors.findIndex(field => field === event.target);
-		let field = selectors[index];
-		let otherIndex = index === 0 ? 1 : 0;
-		let otherField = selectors[otherIndex];
+		let otherField = selectors.find(field => field !== event.target);
+		let field = event.target;
 
-		// Get disallowed values
-		let disallow = this.denyList.filter(denyVals => {
-			return denyVals[index] === field.value;
-		}).map(vals => vals[otherIndex]);
+		// Setup disallow list
+		let disallow = new Set();
+		if (field.value) {
+			disallow.add(field.value);
+		}
 
-		// Add currently selected value
-		disallow.push(field.value);
+		// Populate disallow list
+		for (let denyVals of this.denyList) {
+
+			// If field value is in this combo, disallow other value
+			if (denyVals.includes(field.value)) {
+				disallow.add(denyVals[0]);
+				disallow.add(denyVals[2]);
+			}
+
+			// If there's a narrower relationship with disallowed value, disallow
+			if (denyVals[1] === 'narrower' && disallow.has(denyVals[0])) {
+				disallow.add(denyVals[2]);
+			}
+
+		}
 
 		// Toggle disabled attribute on all applicable options
 		for (let option of otherField.options) {
-			if (field.value &&  disallow.includes(option.value)) {
+			// if (field.value && disallow.includes(option.value)) {
+			if (field.value && disallow.has(option.value)) {
 				option.setAttribute('disabled', '');
 			} else {
 				option.removeAttribute('disabled');
