@@ -119,7 +119,6 @@ async def read_concept_scheme(id_: str, request: Request):
     deny_relations = [
         [
             scheme_concepts_by_id[s].id_suffix,
-            p.fragment,
             scheme_concepts_by_id[o].id_suffix,
         ]
         for s, p, o in scheme.deny_relations

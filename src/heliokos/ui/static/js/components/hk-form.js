@@ -17,7 +17,6 @@ customElements.define('hk-form', class extends HTMLElement {
 		// Set base properties
 		this.announce = announce;
 		this.form = this.querySelector('form');
-		this.handler = this.createSubmitHandler();
 
 		// Define options
 		this.preventDefault = this.hasAttribute('prevent-default');
@@ -26,84 +25,90 @@ customElements.define('hk-form', class extends HTMLElement {
 		this.msgError = this.getAttribute('msg-error') || 'Something went wrong. Please try again.';
 		let target = this.getAttribute('target');
 		this.targets = target ? target.split(',').map(target => target.trim()) : null;
+		this.components = [];
 
 	}
 
 	/**
-	 * Create a submit handler with the instance bound to the callback
-	 * @return {Function} The callback function
+	 * Handle event listeners
+	 * @param  {Event} event The event object
 	 */
-	createSubmitHandler () {
-		let instance = this;
-		return async function (event) {
+	handleEvent (event) {
+		this[`on${event.type}`](event);
+	}
 
-			// If the form is already submitting,
-			// OR if default should be prevented
-			// Stop form from reloading the page
-			if (instance.isDisabled() || instance.preventDefault) {
-				event.preventDefault();
-			}
+	/**
+	 * Handle submit events
+	 * @param {Event} The event object
+	 */
+	async onsubmit (event) {
 
-			// If the form is already submitting, do nothing
-			// Otherwise, disable future submissions
-			if (instance.isDisabled()) return;
-			instance.disable();
+		// If the form is already submitting,
+		// OR if default should be prevented
+		// Stop form from reloading the page
+		if (this.isDisabled() || this.preventDefault) {
+			event.preventDefault();
+		}
 
-			try {
+		// If the form is already submitting, do nothing
+		// Otherwise, disable future submissions
+		if (this.isDisabled()) return;
+		this.disable();
 
-				// Show status message
-				instance.showStatus(instance.msgSubmitting);
+		try {
 
-				// If not preventing default behavior, end early
-				if (!instance.preventDefault) return;
+			// Show status message
+			this.showStatus(this.msgSubmitting);
 
-				// Call the API
-				let {action, method} = event.target;
-				let response = await fetch(action, {
-					method,
-					body: instance.serialize(),
-					headers: {
-						'Content-type': 'application/x-www-form-urlencoded'
-					}
-				});
+			// If not preventing default behavior, end early
+			if (!this.preventDefault) return;
 
-				// If there's an error, throw
-				if (!response.ok) throw response;
-
-				// If UI should be updated, do so
-				if (instance.targets) {
-					let str = await response.text();
-					instance.render(str);
+			// Call the API
+			let {action, method} = event.target;
+			let response = await fetch(action, {
+				method,
+				body: this.serialize(),
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
 				}
+			});
 
-				// Show success URL
-				instance.showStatus(instance.msgSuccess);
+			// If there's an error, throw
+			if (!response.ok) throw response;
 
-				// Clear the form
-				instance.reset();
-
-			} catch (error) {
-				console.warn(error);
-				instance.showStatus(instance.msgError);
-			} finally {
-				instance.enable();
+			// If UI should be updated, do so
+			if (this.targets || this.components) {
+				let str = await response.text();
+				this.render(str);
 			}
 
-		};
+			// Show success URL
+			this.showStatus(this.msgSuccess);
+
+			// Clear the form
+			this.reset();
+
+		} catch (error) {
+			console.warn(error);
+			this.showStatus(this.msgError);
+		} finally {
+			this.enable();
+		}
+
 	}
 
 	/**
 	 * Listen for form submissions when the form is attached in the DOM
 	 */
 	connectedCallback () {
-		this.form.addEventListener('submit', this.handler);
+		this.form.addEventListener('submit', this);
 	}
 
 	/**
 	 * Stop listening for form submissions when the form is attached in the DOM
 	 */
 	disconnectedCallback () {
-		this.form.removeEventListener('submit', this.handler);
+		this.form.removeEventListener('submit', this);
 	}
 
 	/**
@@ -193,17 +198,15 @@ customElements.define('hk-form', class extends HTMLElement {
 	}
 
 	/**
-	 * Render the updated UI into the DOM
-	 * @param  {String} str The HTML string for the updated UI
+	 * Update target HTML
+	 * @param  {Document} doc The document element
 	 */
-	render (str) {
+	updateTargets (doc) {
 
-		// Parse returned string into HTML
-		let parser = new DOMParser();
-		let doc = parser.parseFromString(str, 'text/html');
-		if (!doc.body) return;
+		// If there are no targets, bail
+		if (!this.targets || !doc.body) return;
 
-		// Render each target
+		// Update each target
 		for (let selector of this.targets) {
 
 			// Find target element in the DOM
@@ -218,6 +221,38 @@ customElements.define('hk-form', class extends HTMLElement {
 			target.replaceWith(updated);
 
 		}
+
+	}
+
+	/**
+	 * Update nested component
+	 * @param  {Document} doc The document element
+	 */
+	updateComponents (doc) {
+
+		// If there are no components, bail
+		if (!this.components.length) return;
+
+		// Update each component
+		for (let component of this.components) {
+			component.onFormSuccess(this, doc);
+		}
+
+	}
+
+	/**
+	 * Render the updated UI into the DOM
+	 * @param  {String} str The HTML string for the updated UI
+	 */
+	render (str) {
+
+		// Parse returned string into HTML
+		let parser = new DOMParser();
+		let doc = parser.parseFromString(str, 'text/html');
+
+		// Do updates
+		this.updateTargets(doc);
+		this.updateComponents(doc);
 
 	}
 
