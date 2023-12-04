@@ -65,7 +65,7 @@
             <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.' target='[data-hk-section="scheme-relationships"]'>
                 <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/relation">
 
-                    <hk-relationships id="scheme-relationships" deny='{{ deny_relations | tojson }}'>
+                    <hk-relationships key="scheme-relationships" deny='{{ deny_relations | tojson }}'>
                             <label class="usa-label" for="subject_concept_id">Pick a Concept</label>
                             <select class="usa-select" id="subject_concept_id" name="subject_concept_id" required>
                                 <option value>- Select -</option>

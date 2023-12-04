@@ -11,6 +11,7 @@ customElements.define('hk-relationships', class extends HTMLElement {
 
 		// Set base properties
 		this.denyList = JSON.parse(this.getAttribute('deny')) || [];
+		this.key = this.getAttribute('key');
 
 	}
 
@@ -95,7 +96,7 @@ customElements.define('hk-relationships', class extends HTMLElement {
 	 */
 	updateDeny (html) {
 		if (!html) return;
-		let updated = html.querySelector(`#${this.id}`);
+		let updated = html.querySelector(`[key="${this.key}"]`);
 		if (!updated) return;
 		this.setAttribute('deny', updated.getAttribute('deny'));
 	}
