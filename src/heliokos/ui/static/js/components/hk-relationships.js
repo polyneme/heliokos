@@ -12,12 +12,6 @@ customElements.define('hk-relationships', class extends HTMLElement {
 		// Set base properties
 		this.denyList = JSON.parse(this.getAttribute('deny')) || [];
 
-		// Connect to parent <hk-form>
-		let form = this.closest('hk-form');
-		if (form) {
-			form.components.push(this);
-		}
-
 	}
 
 	/**
@@ -25,7 +19,11 @@ customElements.define('hk-relationships', class extends HTMLElement {
 	 * @param  {Event} event The event object
 	 */
 	handleEvent (event) {
-		this[`on${event.type}`](event);
+		if (event.type === 'hk-form:success') {
+			this.onFormSuccess(event.detail.html);
+		} else {
+			this[`on${event.type}`](event);
+		}
 	}
 
 	/**
@@ -93,11 +91,11 @@ customElements.define('hk-relationships', class extends HTMLElement {
 
 	/**
 	 * Update the [deny] attribute
-	 * @param  {Document} doc  The returned HTML
+	 * @param  {Element} html The returned HTML
 	 */
-	updateDeny (doc) {
-		if (!doc.body) return;
-		let updated = doc.body.querySelector(`#${this.id}`);
+	updateDeny (html) {
+		if (!html) return;
+		let updated = html.querySelector(`#${this.id}`);
 		if (!updated) return;
 		this.setAttribute('deny', updated.getAttribute('deny'));
 	}
@@ -113,11 +111,10 @@ customElements.define('hk-relationships', class extends HTMLElement {
 
 	/**
 	 * Run callback when parent form submits successfully
-	 * @param  {Element}  form The parent <hk-form> element
-	 * @param  {Document} doc  The returned HTML
+	 * @param  {Element}  html The returned HTML
 	 */
-	onFormSuccess (form, doc) {
-		this.updateDeny(doc);
+	onFormSuccess (html) {
+		this.updateDeny(html);
 		this.resetOptions();
 	}
 
@@ -126,6 +123,10 @@ customElements.define('hk-relationships', class extends HTMLElement {
 	 */
 	connectedCallback () {
 		this.addEventListener('input', this);
+		let form = this.closest('hk-form');
+		if (form) {
+			form.addEventListener('hk-form:success', this);
+		}
 	}
 
 	/**
@@ -133,6 +134,10 @@ customElements.define('hk-relationships', class extends HTMLElement {
 	 */
 	disconnectedCallback () {
 		this.removeEventListener('input', this);
+		let form = this.closest('hk-form');
+		if (form) {
+			form.removeEventListener('hk-form:success', this);
+		}
 	}
 
 	/**

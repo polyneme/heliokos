@@ -25,7 +25,6 @@ customElements.define('hk-form', class extends HTMLElement {
 		this.msgError = this.getAttribute('msg-error') || 'Something went wrong. Please try again.';
 		let target = this.getAttribute('target');
 		this.targets = target ? target.split(',').map(target => target.trim()) : null;
-		this.components = [];
 
 	}
 
@@ -51,8 +50,13 @@ customElements.define('hk-form', class extends HTMLElement {
 		}
 
 		// If the form is already submitting, do nothing
-		// Otherwise, disable future submissions
 		if (this.isDisabled()) return;
+
+		// Emit a submit event (useful for validations)
+		let data = this.getData();
+		if (!this.emit('submit', data)) return;
+
+		// Disable future submissions
 		this.disable();
 
 		try {
@@ -76,11 +80,15 @@ customElements.define('hk-form', class extends HTMLElement {
 			// If there's an error, throw
 			if (!response.ok) throw response;
 
+			// Get HTML response
+			let str = await response.text();
+			let html = this.stringToHTML(str);
+
 			// If UI should be updated, do so
-			if (this.targets || this.components) {
-				let str = await response.text();
-				this.render(str);
-			}
+			this.render(html);
+
+			// Emit event
+			this.emit('success', {html, data});
 
 			// Show success URL
 			this.showStatus(this.msgSuccess);
@@ -91,6 +99,7 @@ customElements.define('hk-form', class extends HTMLElement {
 		} catch (error) {
 			console.warn(error);
 			this.showStatus(this.msgError);
+			this.emit('error', error);
 		} finally {
 			this.enable();
 		}
@@ -198,24 +207,54 @@ customElements.define('hk-form', class extends HTMLElement {
 	}
 
 	/**
-	 * Update target HTML
-	 * @param  {Document} doc The document element
+	 * Serialize all form data into an object
+	 * @return {Object} The serialized form data
 	 */
-	updateTargets (doc) {
+	getData () {
+	    let data = new FormData(this.form);
+	    let obj = {};
+	    for (let [key, value] of data) {
+	        if (obj[key] !== undefined) {
+	            if (!Array.isArray(obj[key])) {
+	                obj[key] = [obj[key]];
+	            }
+	            obj[key].push(value);
+	        } else {
+	            obj[key] = value;
+	        }
+	    }
+	    return obj;
+	}
 
-		// If there are no targets, bail
-		if (!this.targets || !doc.body) return;
+	/**
+	 * Convert an HTML string into DOM nodes
+	 * @param  {String}  str The HTML string
+	 * @return {Element}     A document.body with the HTML nodes
+	 */
+	stringToHTML (str) {
+		let parser = new DOMParser();
+		let doc = parser.parseFromString(str, 'text/html');
+		return doc.body ? doc.body : document.createElement('body');
+	}
+
+	/**
+	 * Render the updated UI into the DOM
+	 * @param {Element} html The response HTML
+	 */
+	render (html) {
+
+		if (!this.targets || !html) return;
 
 		// Update each target
 		for (let selector of this.targets) {
 
+			// Get the target element from the returned HTML
+			let updated = html.querySelector(selector);
+			if (!updated) continue;
+
 			// Find target element in the DOM
 			let target = document.querySelector(selector);
 			if (!target) continue;
-
-			// Get the target element from the returned HTML
-			let updated = doc.body.querySelector(selector);
-			if (!updated) continue;
 
 			// Update the UI
 			target.replaceWith(updated);
@@ -225,42 +264,29 @@ customElements.define('hk-form', class extends HTMLElement {
 	}
 
 	/**
-	 * Update nested component
-	 * @param  {Document} doc The document element
-	 */
-	updateComponents (doc) {
-
-		// If there are no components, bail
-		if (!this.components.length) return;
-
-		// Update each component
-		for (let component of this.components) {
-			component.onFormSuccess(this, doc);
-		}
-
-	}
-
-	/**
-	 * Render the updated UI into the DOM
-	 * @param  {String} str The HTML string for the updated UI
-	 */
-	render (str) {
-
-		// Parse returned string into HTML
-		let parser = new DOMParser();
-		let doc = parser.parseFromString(str, 'text/html');
-
-		// Do updates
-		this.updateTargets(doc);
-		this.updateComponents(doc);
-
-	}
-
-	/**
 	 * Reset the form element values
 	 */
 	reset () {
 		this.form.reset();
+	}
+
+	/**
+	 * Emit a custom event
+	 * @param  {String} type   The event type
+	 * @param  {Object} detail Any details to pass along with the event
+	 */
+	emit (type, detail = {}) {
+
+		// Create a new event
+		let event = new CustomEvent(`hk-form:${type}`, {
+			bubbles: true,
+			cancelable: true,
+			detail: detail
+		});
+
+		// Dispatch the event
+		return this.dispatchEvent(event);
+
 	}
 
 });
