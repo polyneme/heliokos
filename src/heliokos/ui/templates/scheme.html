@@ -4,7 +4,7 @@
 <h1 class="margin-bottom-0">Scheme</h1>
 <p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
 
-<div class="grid-row grid-row-reverse grid-gap-sm">
+<div class="grid-row grid-row-reverse grid-gap">
     <div class="tablet:grid-col-6 margin-bottom-3">
 
         <h2>Scheme Details</h2>
@@ -19,16 +19,21 @@
             {% endfor %}
 
         </dl>
-        <h3>Relations</h3>
-        <ul class="scheme-relations">
-            {% for s, p, o in relations %}
-            <li>
-                <a href="/concept/{{s.id_suffix}}">{{ s.pref_label }}</a>--
-                <a href="{{p}}">{{ p.fragment }}</a>
-                --><a href="/concept/{{o.id_suffix}}">{{o.pref_label }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+
+        <div data-hk-section="scheme-relationships">
+        {% if relations | length > 0 %}
+            <h3 class="padding-top-3">Relations</h3>
+            <ul class="usa-list">
+                {% for s, p, o in relations %}
+                <li>
+                    <strong><a href="/concept/{{s.id_suffix}}">{{ s.pref_label }}</a></strong>&#32;&rarr;&#32;
+                    <a href="{{p}}">{{ p.fragment }}</a>&#32;&rarr;&#32;
+                    <strong><a href="/concept/{{o.id_suffix}}">{{o.pref_label }}</a></strong>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
 
     </div>
     <div class="tablet:grid-col-6 margin-bottom-3">
@@ -56,44 +61,42 @@
 
             <h2 class="padding-top-3">Define relationships between concepts</h2>
 
-            <p>Cannot do any of these: {{ deny_relations | tojson }}</p>
-
             {% if scheme.concepts | length > 1 %}
-            <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.'>
+            <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.' target='[data-hk-section="scheme-relationships"]'>
                 <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/relation">
-                    <label class="usa-label" for="subject_concept_id">Pick a Concept</label>
-                    <hk-select disable-match="#object_concept_id">
-                        <select class="usa-select" id="subject_concept_id" name="subject_concept_id" required>
-                            <option value>- Select -</option>
-                            {% for concept in scheme.concepts %}
-                            <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
-                            {% endfor %}
-                        </select>
-                    </hk-select>
 
-                    <fieldset class="usa-fieldset margin-top-3">
-                        <legend class="usa-legend">Define how it's related</legend>
-                        <div class="usa-radio">
-                            <input class="usa-radio__input" id="relation_narrower" type="radio" name="relation" value="narrower" checked required>
-                            <label class="usa-radio__label" for="relation_narrower">is a broader concept than (<code>skos:narrower</code>)</label>
-                        </div>
-                        <div class="usa-radio">
-                            <input class="usa-radio__input" id="relation_related" type="radio" name="relation" value="related" required>
-                            <label class="usa-radio__label" for="relation_related">is related to (<code>skos:related</code>)</label>
-                        </div>
-                    </fieldset>
+                    <hk-relationships key="scheme-relationships" deny='{{ deny_relations | tojson }}'>
+                            <label class="usa-label" for="subject_concept_id">Pick a Concept</label>
+                            <select class="usa-select" id="subject_concept_id" name="subject_concept_id" required>
+                                <option value>- Select -</option>
+                                {% for concept in scheme.concepts %}
+                                <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                                {% endfor %}
+                            </select>
 
-                    <label class="usa-label" for="object_concept_id">Pick another Concept</label>
-                    <hk-select disable-match="#subject_concept_id">
-                        <select class="usa-select" id="object_concept_id" name="object_concept_id" required>
-                            <option value>- Select -</option>
-                            {% for concept in scheme.concepts %}
-                            <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
-                            {% endfor %}
-                        </select>
-                    </hk-select>
+                            <fieldset class="usa-fieldset margin-top-3">
+                                <legend class="usa-legend">Define how it's related</legend>
+                                <div class="usa-radio">
+                                    <input class="usa-radio__input" id="relation_narrower" type="radio" name="relation" value="narrower" checked required>
+                                    <label class="usa-radio__label" for="relation_narrower">is a broader concept than (<code>skos:narrower</code>)</label>
+                                </div>
+                                <div class="usa-radio">
+                                    <input class="usa-radio__input" id="relation_related" type="radio" name="relation" value="related" required>
+                                    <label class="usa-radio__label" for="relation_related">is related to (<code>skos:related</code>)</label>
+                                </div>
+                            </fieldset>
+
+                            <label class="usa-label" for="object_concept_id">Pick another Concept</label>
+                            <select class="usa-select" id="object_concept_id" name="object_concept_id" required>
+                                <option value>- Select -</option>
+                                {% for concept in scheme.concepts %}
+                                <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                                {% endfor %}
+                            </select>
+                        </hk-relationships>
 
                     <button class="usa-button">Define Concept Relationship</button>
+
                 </form>
             </hk-form>
             {% else %}

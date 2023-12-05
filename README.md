@@ -116,6 +116,8 @@ By default, the `<hk-form>` element will add an accessible status notification e
 </hk-form>
 ```
 
+##### Options & Settings
+
 The `<hk-form>` element can also be customized with a handful of attributes...
 
 - **`prevent-default`** - Stop the form from redirecting/reloading the page. Use this if you want to keep the user on the current page after the form submits.
@@ -153,33 +155,70 @@ With the `msg-submitting`, `msg-success`, and `msg-error` attributes, you can in
 </div>
 ```
 
-#### `<hk-select>`
+##### Custom Events
 
-Wrap `<select>` elements in the `<hk-select>` custom element to add a bit of extra functionality.
+The `<hk-form>` element emits several custom events that you can hook into to extend functionality in your app.
 
-When the value of the `<select>` element changes, the `<hk-select>` can be used to disable that same value in one or more other `<select>` elements. 
+- **`hk-form:submit`** is emitted when the form is submitting. An object of field names and values is assigned to the `event.detail` property.
+- **`hk-form:success`** is emitted when the form is successfully submitted. The `event.detail` contains the response `html` and form field `data` as properties.
+- **`hk-form:error`** is emitted when there's an error submitting the form. The `event.detail` contains the error object.
 
-Add the `[disable-match]` attribute, and include one or more selector strings (comma-separated) for the `<select>` elements to control.
+```js
+document.addEventListener('hk-form:success', function (event) {
+
+	// The submitted form web component
+	let form = event.target;
+
+	// The response HTML
+	let html = event.detail.html;
+
+	// The form data
+	let data = event.detail.data;
+
+});
+```
+
+
+
+#### `<hk-relationships>`
+
+Wrap the `<select>` elements and radio buttons used for defining data relationships in the `<hk-relationships>` custom element to add a bit of extra functionality.
+
+When the value of the `<select>` element changes, the `<hk-relationships>` component will disable that same value in the other `<select>` element. 
 
 ```html
-<label for="subject_concept_id">Pick a Concept</label>
-<hk-select disable-match="#object_concept_id">
-    <select id="subject_concept_id" name="subject_concept_id">
+<hk-relationships>
+    <label for="subject_concept_id">Pick a Concept</label>
+    <select id="subject_concept_id" name="subject_concept_id" required>
         <option value>- Select -</option>
-        <option value="abc-123">Earth</option>
-        <option value="def-456">Mars</option>
+        <!-- ... -->
     </select>
-</hk-select>
 
-<label for="object_concept_id">Pick another Concept</label>
-<hk-select disable-match="#subject_concept_id">
-    <select id="object_concept_id" name="object_concept_id">
+    <fieldset>
+        <legend>Define how it's related</legend>
+
+        <input id="relation_narrower" type="radio" name="relation" value="narrower" checked required>
+        <label for="relation_narrower">is a broader concept than (<code>skos:narrower</code>)</label>
+        
+        <input id="relation_related" type="radio" name="relation" value="related" required>
+        <label for="relation_related">is related to (<code>skos:related</code>)</label>
+        
+    </fieldset>
+
+    <label for="object_concept_id">Pick another Concept</label>
+    <select id="object_concept_id" name="object_concept_id" required>
         <option value>- Select -</option>
-        <option value="abc-123">Earth</option>
-        <option value="def-456">Mars</option>
+        <!-- ... -->
     </select>
-</hk-select>
+</hk-relationships>
 ```
+
+##### Options & Settings
+
+The `<hk-relationships>` element can also be customized with two attributes...
+
+- **`deny`** - An array of relationship combinations to disallow.
+- **`key`** - A unique identified for the element. When the form is submitted, this is used to reset disabled fields and update the `[deny]` attribute.
 
 
 ## Release Process

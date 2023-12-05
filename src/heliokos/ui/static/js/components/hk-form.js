@@ -17,7 +17,6 @@ customElements.define('hk-form', class extends HTMLElement {
 		// Set base properties
 		this.announce = announce;
 		this.form = this.querySelector('form');
-		this.handler = this.createSubmitHandler();
 
 		// Define options
 		this.preventDefault = this.hasAttribute('prevent-default');
@@ -30,80 +29,95 @@ customElements.define('hk-form', class extends HTMLElement {
 	}
 
 	/**
-	 * Create a submit handler with the instance bound to the callback
-	 * @return {Function} The callback function
+	 * Handle event listeners
+	 * @param  {Event} event The event object
 	 */
-	createSubmitHandler () {
-		let instance = this;
-		return async function (event) {
+	handleEvent (event) {
+		this[`on${event.type}`](event);
+	}
 
-			// If the form is already submitting,
-			// OR if default should be prevented
-			// Stop form from reloading the page
-			if (instance.isDisabled() || instance.preventDefault) {
-				event.preventDefault();
-			}
+	/**
+	 * Handle submit events
+	 * @param {Event} The event object
+	 */
+	async onsubmit (event) {
 
-			// If the form is already submitting, do nothing
-			// Otherwise, disable future submissions
-			if (instance.isDisabled()) return;
-			instance.disable();
+		// If the form is already submitting,
+		// OR if default should be prevented
+		// Stop form from reloading the page
+		if (this.isDisabled() || this.preventDefault) {
+			event.preventDefault();
+		}
 
-			try {
+		// If the form is already submitting, do nothing
+		if (this.isDisabled()) return;
 
-				// Show status message
-				instance.showStatus(instance.msgSubmitting);
+		// Emit a submit event (useful for validations)
+		let data = this.getData();
+		if (!this.emit('submit', data)) return;
 
-				// If not preventing default behavior, end early
-				if (!instance.preventDefault) return;
+		// Disable future submissions
+		this.disable();
 
-				// Call the API
-				let {action, method} = event.target;
-				let response = await fetch(action, {
-					method,
-					body: instance.serialize(),
-					headers: {
-						'Content-type': 'application/x-www-form-urlencoded'
-					}
-				});
+		try {
 
-				// If there's an error, throw
-				if (!response.ok) throw response;
+			// Show status message
+			this.showStatus(this.msgSubmitting);
 
-				// If UI should be updated, do so
-				if (instance.targets) {
-					let str = await response.text();
-					instance.render(str);
+			// If not preventing default behavior, end early
+			if (!this.preventDefault) return;
+
+			// Call the API
+			let {action, method} = event.target;
+			let response = await fetch(action, {
+				method,
+				body: this.serialize(),
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded'
 				}
+			});
 
-				// Show success URL
-				instance.showStatus(instance.msgSuccess);
+			// If there's an error, throw
+			if (!response.ok) throw response;
 
-				// Clear the form
-				instance.reset();
+			// Get HTML response
+			let str = await response.text();
+			let html = this.stringToHTML(str);
 
-			} catch (error) {
-				console.warn(error);
-				instance.showStatus(instance.msgError);
-			} finally {
-				instance.enable();
-			}
+			// If UI should be updated, do so
+			this.render(html);
 
-		};
+			// Emit event
+			this.emit('success', {html, data});
+
+			// Show success URL
+			this.showStatus(this.msgSuccess);
+
+			// Clear the form
+			this.reset();
+
+		} catch (error) {
+			console.warn(error);
+			this.showStatus(this.msgError);
+			this.emit('error', error);
+		} finally {
+			this.enable();
+		}
+
 	}
 
 	/**
 	 * Listen for form submissions when the form is attached in the DOM
 	 */
 	connectedCallback () {
-		this.form.addEventListener('submit', this.handler);
+		this.form.addEventListener('submit', this);
 	}
 
 	/**
 	 * Stop listening for form submissions when the form is attached in the DOM
 	 */
 	disconnectedCallback () {
-		this.form.removeEventListener('submit', this.handler);
+		this.form.removeEventListener('submit', this);
 	}
 
 	/**
@@ -193,26 +207,54 @@ customElements.define('hk-form', class extends HTMLElement {
 	}
 
 	/**
-	 * Render the updated UI into the DOM
-	 * @param  {String} str The HTML string for the updated UI
+	 * Serialize all form data into an object
+	 * @return {Object} The serialized form data
 	 */
-	render (str) {
+	getData () {
+	    let data = new FormData(this.form);
+	    let obj = {};
+	    for (let [key, value] of data) {
+	        if (obj[key] !== undefined) {
+	            if (!Array.isArray(obj[key])) {
+	                obj[key] = [obj[key]];
+	            }
+	            obj[key].push(value);
+	        } else {
+	            obj[key] = value;
+	        }
+	    }
+	    return obj;
+	}
 
-		// Parse returned string into HTML
+	/**
+	 * Convert an HTML string into DOM nodes
+	 * @param  {String}  str The HTML string
+	 * @return {Element}     A document.body with the HTML nodes
+	 */
+	stringToHTML (str) {
 		let parser = new DOMParser();
 		let doc = parser.parseFromString(str, 'text/html');
-		if (!doc.body) return;
+		return doc.body ? doc.body : document.createElement('body');
+	}
 
-		// Render each target
+	/**
+	 * Render the updated UI into the DOM
+	 * @param {Element} html The response HTML
+	 */
+	render (html) {
+
+		if (!this.targets || !html) return;
+
+		// Update each target
 		for (let selector of this.targets) {
+
+			// Get the target element from the returned HTML
+			let updated = html.querySelector(selector);
+			if (!updated) continue;
 
 			// Find target element in the DOM
 			let target = document.querySelector(selector);
 			if (!target) continue;
-
-			// Get the target element from the returned HTML
-			let updated = doc.body.querySelector(selector);
-			if (!updated) continue;
 
 			// Update the UI
 			target.replaceWith(updated);
@@ -226,6 +268,25 @@ customElements.define('hk-form', class extends HTMLElement {
 	 */
 	reset () {
 		this.form.reset();
+	}
+
+	/**
+	 * Emit a custom event
+	 * @param  {String} type   The event type
+	 * @param  {Object} detail Any details to pass along with the event
+	 */
+	emit (type, detail = {}) {
+
+		// Create a new event
+		let event = new CustomEvent(`hk-form:${type}`, {
+			bubbles: true,
+			cancelable: true,
+			detail: detail
+		});
+
+		// Dispatch the event
+		return this.dispatchEvent(event);
+
 	}
 
 });
