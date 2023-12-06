@@ -1,5 +1,5 @@
 // JavaScript
-customElements.define('hk-restrict-select', class extends HTMLElement {
+customElements.define('hk-update-select', class extends HTMLElement {
 
 	/**
 	 * The class constructor object
@@ -33,7 +33,7 @@ customElements.define('hk-restrict-select', class extends HTMLElement {
 	 */
 	onFormSuccess (html) {
 		if (!html) return;
-		let updated = html.querySelector(`hk-restrict-select[key="${this.key}"] select`);
+		let updated = html.querySelector(`hk-update-select[key="${this.key}"] select`);
 		if (!updated) return;
 		this.select.innerHTML = updated.innerHTML;
 	}

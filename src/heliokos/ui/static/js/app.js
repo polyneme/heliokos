@@ -1,3 +1,3 @@
 import './components/hk-form.js';
 import './components/hk-relationships.js';
-import './components/hk-restrict-select.js';
+import './components/hk-update-select.js';
