@@ -87,11 +87,11 @@ customElements.define('hk-form', class extends HTMLElement {
 			// If UI should be updated, do so
 			this.render(html);
 
-			// Emit event
-			this.emit('success', {html, data});
-
 			// Show success URL
 			this.showStatus(this.msgSuccess);
+
+			// Emit event
+			this.emit('success', {html, data});
 
 			// Clear the form
 			this.reset();

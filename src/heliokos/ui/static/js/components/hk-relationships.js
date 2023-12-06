@@ -36,21 +36,6 @@ customElements.define('hk-relationships', class extends HTMLElement {
 		// If field isn't a select menu, ignore it
 		if (!event.target.matches('select')) return;
 
-		// // Get all of the properties
-		// let selectors = Array.from(this.querySelectorAll('select'));
-		// let index = selectors.findIndex(field => field === event.target);
-		// let field = selectors[index];
-		// let otherIndex = index === 0 ? 1 : 0;
-		// let otherField = selectors[otherIndex];
-
-		// // Get disallowed values
-		// let disallow = this.denyList.filter(denyVals => {
-		// 	return denyVals[index] === field.value;
-		// }).map(vals => vals[otherIndex]);
-
-		// // Add currently selected value
-		// disallow.push(field.value);
-
 		// Get fields
 		let selectors = Array.from(this.querySelectorAll('select'));
 		let otherField = selectors.find(field => field !== event.target);
@@ -96,7 +81,7 @@ customElements.define('hk-relationships', class extends HTMLElement {
 	 */
 	updateDeny (html) {
 		if (!html) return;
-		let updated = html.querySelector(`[key="${this.key}"]`);
+		let updated = html.querySelector(`hk-relationships[key="${this.key}"]`);
 		if (!updated) return;
 		this.setAttribute('deny', updated.getAttribute('deny'));
 	}
