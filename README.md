@@ -104,6 +104,8 @@ _**Note:** for readability, all of the required NASAWDS classes have been remove
 
 #### `<hk-form>`
 
+**Adds Ajax support to form submissions.**
+
 Wrap `<form>` elements in the `<hk-form>` custom element to progressively add Ajax support.
 
 By default, the `<hk-form>` element will add an accessible status notification element, show a `Submitting...` message, and prevent the user from submitting the form twice while waiting for a server response.
@@ -179,15 +181,16 @@ document.addEventListener('hk-form:success', function (event) {
 ```
 
 
-
 #### `<hk-relationships>`
+
+**Dynamically restricts certain scheme concept relationships.**
 
 Wrap the `<select>` elements and radio buttons used for defining data relationships in the `<hk-relationships>` custom element to add a bit of extra functionality.
 
-When the value of the `<select>` element changes, the `<hk-relationships>` component will disable that same value in the other `<select>` element. 
+When the value of the `<select>` element changes, the `<hk-relationships>` component will disable that same value in the other `<select>` element. A `[key]` attribute is required.
 
 ```html
-<hk-relationships>
+<hk-relationships key="scheme-relationships">
     <label for="subject_concept_id">Pick a Concept</label>
     <select id="subject_concept_id" name="subject_concept_id" required>
         <option value>- Select -</option>
@@ -219,6 +222,27 @@ The `<hk-relationships>` element can also be customized with two attributes...
 
 - **`deny`** - An array of relationship combinations to disallow.
 - **`key`** - A unique identified for the element. When the form is submitted, this is used to reset disabled fields and update the `[deny]` attribute.
+
+
+
+#### `<hk-update-select>`
+
+**Dynamically updates a `<select>` menu after form submission.**
+
+Wrap the `<select>` element in the `<hk-update-select>` custom element to dynamically update it's `<option>` elements after the form is submitted. A `[key]` attribute is required.
+
+```html
+<hk-update-select key="add-concept">
+    <label for="selected_concept">Pick a Concept</label>
+    <select id="selected_concept" name="selected_concept" required>
+        <option value>- Select -</option>
+        <option value="earth">Earth</option>
+        <option value="mars">Mars</option>
+        <option value="jupiter">Jupiter</option>
+    </select>
+</hk-update-select>
+```
+
 
 
 ## Release Process

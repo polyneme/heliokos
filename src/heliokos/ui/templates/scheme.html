@@ -44,13 +44,17 @@
 
         <hk-form prevent-default msg-submitting='Adding the "${selected_concept}" concept...' msg-success='The "${selected_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"], [data-hk-section="define-relationship"]'>
             <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept">
-                <label class="usa-label" for="selected_concept">Pick a Concept</label>
-                <select class="usa-select" id="selected_concept" name="selected_concept" required>
-                    <option value>- Select -</option>
-                    {% for concept in concepts %}
-                    <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
-                    {% endfor %}
-                </select>
+                <hk-update-select key="add-concept">
+                    <label class="usa-label" for="selected_concept">Pick a Concept</label>
+                    <select class="usa-select" id="selected_concept" name="selected_concept" required>
+                        <option value>- Select -</option>
+                        {% for concept in concepts %}
+                        {% if concept not in scheme.concepts %}
+                        <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </hk-update-select>
 
                 <button class="usa-button">Add Concept</button>
             </form>
