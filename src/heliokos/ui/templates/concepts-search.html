@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Search Concepts | {% endblock %}
+{% block content %}
+<h1 class="margin-bottom-0">Search Concepts</h1>
+
+<h3>
+  Search Concepts
+  <span class="htmx-indicator">
+    <img src="{{ url_for('static', path='/img/bars.svg') }}"/> Searching...
+   </span>
+</h3>
+<input class="usa-input form-control" type="search"
+       name="search" placeholder="Begin Typing To Search Concepts..."
+       hx-post="/concepts-search"
+       hx-trigger="input changed delay:500ms, search"
+       hx-target="#search-results"
+       hx-indicator=".htmx-indicator"
+>
+<br><br>
+<table class="usa-table">
+    <thead>
+    <tr>
+      <th scope="col">URI</th>
+      <th scope="col">Preferred Label</th>
+    </tr>
+    </thead>
+    <tbody id="search-results">
+    {% for r in results %}
+    <tr>
+      <th scope="row">{{r.id_}}</th>
+      <td>{{r.pl}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

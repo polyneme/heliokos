@@ -264,7 +264,7 @@ cs_helioregion = ConceptScheme.from_file(
     str(Path(__file__).parent.joinpath("helioregion.ttl"))
 )
 cs_openalex = ConceptScheme.from_file(
-    str(Path(__file__).parent.parent.joinpath("infra/openalex.ttl"))
+    str(Path(__file__).parent.parent.joinpath("infra/static/openalex.ttl"))
 )
 
 

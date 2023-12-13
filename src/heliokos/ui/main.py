@@ -12,7 +12,7 @@ from datetime import date
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from rdflib import SKOS
@@ -26,6 +26,7 @@ from heliokos.domain.core import (
     expand_prefix,
     ConceptScheme,
     RELATIONS_ALLOWED,
+    cs_openalex,
 )
 from heliokos.infra.core import CONTEXT_BASE
 from heliokos.ui.html import page_for
@@ -61,6 +62,51 @@ async def read_concepts(request: Request):
     return templates.TemplateResponse(
         "concepts.html", {"request": request, "concepts": concepts}
     )
+
+
+@app.get("/concepts-search", response_class=HTMLResponse)
+async def search_concepts(request: Request):
+    return templates.TemplateResponse(
+        "concepts-search.html", {"request": request, "results": []}
+    )
+
+
+concept_pref_labels = {
+    str(pref_label): str(id_)
+    for id_, pref_label in cs_openalex.g.query(
+        "SELECT ?c ?clabel WHERE { ?c a skos:Concept . ?c skos:prefLabel ?clabel }",
+        initNs={"skos": SKOS},
+    )
+}
+
+
+@app.post("/concepts-search", response_class=HTMLResponse)
+async def search_concepts(
+    request: Request,
+    search: Annotated[str, Form()],
+    hx_request: Annotated[str | None, Header()] = None,
+):
+    if search:
+        results = (
+            [
+                {"pl": pl, "id_": id_}
+                for pl, id_ in concept_pref_labels.items()
+                if search in pl
+            ]
+            if search
+            else []
+        )
+    else:
+        results = []
+    if hx_request:
+        return "".join(
+            f"<tr><th scope='row'>{r['id_']}</th><td>{r['pl']}</td></tr>"
+            for r in results
+        )
+    else:
+        return templates.TemplateResponse(
+            "concepts-search.html", {"request": request, "results": results}
+        )
 
 
 @app.post("/concept", response_class=HTMLResponse)
