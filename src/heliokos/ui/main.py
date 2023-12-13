@@ -101,7 +101,7 @@ async def search_concepts(
     if hx_request:
         return "".join(
             f"<tr><th scope='row'>{r['id_']}</th><td>{r['pl']}</td></tr>"
-            for r in results
+            for r in results[:50]  # return at most 50 results at a time
         )
     else:
         return templates.TemplateResponse(
