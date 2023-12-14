@@ -100,7 +100,7 @@ async def search_concepts(
         results = []
     if hx_request:
         return "".join(
-            f"<tr><th scope='row'>{r['id_']}</th><td>{r['pl']}</td></tr>"
+            f"<li class='usa-combo-box__list-option' tabindex='-1' role='option' data-value='{r['id_']}'>{r['pl']}</li>"
             for r in results[:50]  # return at most 50 results at a time
         )
     else:

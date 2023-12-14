@@ -41,3 +41,13 @@ dt {
 	font-style: italic;
 	padding-top: 1rem;
 }
+
+
+/**
+ * Combo Box
+ */
+
+.hk-combo-box {
+	max-width: 30rem;
+	position: relative;
+}
