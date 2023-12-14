@@ -94,7 +94,7 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 			if (!response.ok) throw response;
 
 			// Otherwise, get response
-			let data = await response.text();
+			let data = await response.json();
 
 			// Render
 			this.renderDatalist(data);
@@ -112,27 +112,20 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 	renderDatalist (data) {
 
 		// Render datalist content
-		this.datalist.innerHTML = data;
+		this.datalist.innerHTML =
+			data.map(function (item) {
+				return `<option>${item.value}</option>`;
+			}).join('');
 
-		// If selected text matches option, set ID field
-		let selected = this.datalist.querySelector(`[data-value="${this.input.value}"]`);
+		// If selected text matches valid option, set ID field
+		let selected = data.find((item) => item.value === this.input.value);
 		if (selected) {
-			this.field.value = selected.getAttribute('data-id');
+			this.field.value = selected.id;
 		}
 
-		// Set [pattern] attribute
-		let pattern = Array.from(this.datalist.querySelectorAll('option')).map(function (option) {
-			return option.textContent;
-		}).join('|');
+		// Set [pattern] attribute for validation
+		let pattern = data.map((item) => item.value).join('|');
 		this.input.setAttribute('pattern', pattern);
-
-	}
-
-	/**
-	 * Handle clicks on the datalist
-	 * @param  {Event} event The event object
-	 */
-	onclick (event) {
 
 	}
 

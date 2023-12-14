@@ -59,7 +59,3 @@ dt {
 	white-space: nowrap;
 	width: 1px;
 }
-
-#search:invalid {
-	border-color: red;
-}
