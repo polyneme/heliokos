@@ -84,7 +84,7 @@ concept_pref_labels = {
 async def search_concepts(
     request: Request,
     search: Annotated[str, Form()],
-    hx_request: Annotated[str | None, Header()] = None,
+    hk_combo_box: Annotated[str | None, Header()] = None,
 ):
     if search:
         results = (
@@ -98,7 +98,7 @@ async def search_concepts(
         )
     else:
         results = []
-    if hx_request:
+    if hk_combo_box:
         return "".join(
             f"<option data-id='{r['id_']}' data-value='{r['pl']}'>{r['pl']}</option>"
             for r in results[:50]  # return at most 50 results at a time

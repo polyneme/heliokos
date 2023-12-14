@@ -85,7 +85,7 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/x-www-form-urlencoded',
-					'Hx-Request': true
+					'Hk-Combo-Box': true
 				},
 				body: new URLSearchParams([[this.input.name, this.input.value]]).toString()
 			});
