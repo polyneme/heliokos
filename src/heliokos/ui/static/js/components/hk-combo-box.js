@@ -10,8 +10,11 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 		super();
 
 		// Set base properties
+		this.endpoint = this.getAttribute('endpoint');
 		this.input = this.querySelector('input');
-		this.list = this.querySelector('ul');
+		let delay = this.getAttribute('delay');
+		this.delay = delay ? parseFloat(delay) : 500;
+		this.debounce = null;
 
 		// Render UI
 		this.init();
@@ -22,15 +25,33 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 	 * Initialize the UI
 	 */
 	init () {
-		let wrapper = document.createElement('div');
-		wrapper.className = 'hk-combo-box';
-		wrapper.innerHTML =
-			`<span class="usa-combo-box__input-button-separator">&nbsp;</span>
-			<span class="usa-combo-box__toggle-list__wrapper" tabindex="-1"><button type="button" tabindex="-1" class="usa-combo-box__toggle-list" aria-label="Toggle the dropdown list">&nbsp;</button></span>`;
-		this.append(wrapper);
-		wrapper.prepend(this.input);
-		wrapper.append(this.list);
-		this.toggle = wrapper.querySelector('button');
+
+		// Create datalist
+		this.datalist = document.createElement('datalist');
+		this.datalist.id = `${this.input.id}-list`;
+
+		// Create hidden field with ID
+		this.field = document.createElement('input');
+		this.field.type = 'hidden';
+		this.field.name = `${this.input.name}-id`;
+
+		// Create hidden note
+		let note = document.createElement('div');
+		note.className = 'visually-hidden';
+		note.textContent = 'Suggested options will display as you type.';
+		note.id = `${this.input.id}-describedby`;
+
+		// Associate input with datalist and note
+		this.input.setAttribute('list', this.datalist.id);
+		this.input.setAttribute('aria-describedby', note.id);
+
+		// Add everything to the UI
+		this.append(this.datalist, this.field, note);
+
+		// Listen for input events
+		this.input.addEventListener('input', this);
+		this.datalist.addEventListener('click', this);
+
 	}
 
 	/**
@@ -38,11 +59,81 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 	 * @param  {Event} event The event object
 	 */
 	handleEvent (event) {
-		if (event.type === 'hk-form:success') {
-			this.onFormSuccess(event.detail.html);
-		} else {
-			this[`on${event.type}`](event);
+		this[`on${event.type}`](event);
+	}
+
+	/**
+	 * Handle input updates
+	 * @param  {Event} event The event object
+	 */
+	oninput (event) {
+		clearTimeout(this.debounce);
+		this.debounce = setTimeout(() => {
+			this.updateDatalist();
+		}, this.delay);
+	}
+
+	/**
+	 * Update the datalist
+	 */
+	async updateDatalist () {
+
+		try {
+
+			// Query the API
+			let response = await fetch(this.endpoint, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded',
+					'Hx-Request': true
+				},
+				body: new URLSearchParams([[this.input.name, this.input.value]]).toString()
+			});
+
+			// If the response is bad, throw error
+			if (!response.ok) throw response;
+
+			// Otherwise, get response
+			let data = await response.text();
+
+			// Render
+			this.renderDatalist(data);
+
+		} catch (error) {
+			console.warn(error);
 		}
+
+	}
+
+	/**
+	 * Render the datalist
+	 * @param  {String} data The data to render
+	 */
+	renderDatalist (data) {
+
+		// Render datalist content
+		this.datalist.innerHTML = data;
+
+		// If selected text matches option, set ID field
+		let selected = this.datalist.querySelector(`[data-value="${this.input.value}"]`);
+		if (selected) {
+			this.field.value = selected.getAttribute('data-id');
+		}
+
+		// Set [pattern] attribute
+		let pattern = Array.from(this.datalist.querySelectorAll('option')).map(function (option) {
+			return option.textContent;
+		}).join('|');
+		this.input.setAttribute('pattern', pattern);
+
+	}
+
+	/**
+	 * Handle clicks on the datalist
+	 * @param  {Event} event The event object
+	 */
+	onclick (event) {
+
 	}
 
 });

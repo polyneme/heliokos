@@ -3,15 +3,11 @@
 {% block content %}
 <h1>Search Concepts</h1>
 
-<hk-combo-box key="search-box">
-  <label class="usa-label" for="search" id="search-label">Text input label</label>
-  <input class="usa-input" id="search" name="search" hx-post="/concepts-search" hx-trigger="input changed delay:500ms, search" hx-target="#search-list">
-  <ul tabindex="-1" id="search-list" class="usa-combo-box__list" role="listbox" aria-labelledby="search-label">
-    {% for r in results %}
-      <li class="usa-combo-box__list-option" tabindex="-1" role="option" data-value="{{r.id_}}">{{r.pl}}</li>
-    {% endfor %}
-  </ul>
+<form>
+<hk-combo-box endpoint="/concepts-search" delay="500">
+  <label class="usa-label" for="search">Text input label</label>
+  <input class="usa-input" id="search" name="search" required>
 </hk-combo-box>
-
+</form>
 
 {% endblock %}
