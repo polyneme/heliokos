@@ -18,7 +18,7 @@ from fastapi.templating import Jinja2Templates
 from rdflib import SKOS
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse, Response
+from starlette.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
 
 from heliokos.domain.core import (
     Concept,
@@ -80,11 +80,11 @@ concept_pref_labels = {
 }
 
 
-@app.post("/concepts-search", response_class=HTMLResponse)
+@app.post("/concepts-search")
 async def search_concepts(
     request: Request,
-    search: Annotated[str, Form()],
-    hx_request: Annotated[str | None, Header()] = None,
+    search: Annotated[str | None, Form()] = None,
+    hk_combo_box: Annotated[str | None, Header()] = None,
 ):
     if search:
         results = (
@@ -98,11 +98,11 @@ async def search_concepts(
         )
     else:
         results = []
-    if hx_request:
-        return "".join(
-            f"<tr><th scope='row'>{r['id_']}</th><td>{r['pl']}</td></tr>"
+    if hk_combo_box:
+        return [
+            {"id": r["id_"], "value": r["pl"]}
             for r in results[:50]  # return at most 50 results at a time
-        )
+        ]
     else:
         return templates.TemplateResponse(
             "concepts-search.html", {"request": request, "results": results}

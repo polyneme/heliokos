@@ -245,6 +245,27 @@ Wrap the `<select>` element in the `<hk-update-select>` custom element to dynami
 
 
 
+#### `<hk-combo-box>`
+
+**Convert an `input` into an API-driven type-ahead component.**
+
+Wrap the `<input>` element in the `<hk-combo-box>` custom element, and provide an `[endpoint]` attribute that points to the data API. You can optionally set a `[delay]` attribute to specify how many milliseconds to wait before querying the API.
+
+```html
+<hk-combo-box endpoint="/concepts-search" delay="500">
+  <label for="search">Text input label</label>
+  <input id="search" name="search" required>
+</hk-combo-box>
+```
+
+The component expects the API `endpoint` to return an array of objects. Each object should have an `id` and `value` that will be used to generate additional markup.
+
+As the user types, a list of available options will be displayed in a `<datalist>`. A `[pattern]` attribute will be added to the `<input>` element with all of the available options for form validation purposes.
+
+Additionally, a `type="hidden"` field will be added. It will have the same name as the `<input>`, with `-id` added to the end (ex `name="search-id"`). It's value will be dynamically set to the matching ID for the selected user text.
+
+
+
 ## Release Process
 
 1. bump `version` in [pyproject.toml](/pyproject.toml).
