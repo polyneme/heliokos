@@ -106,6 +106,15 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 	}
 
 	/**
+	 * Escape string for use as RegEx pattern
+	 * @param  {String} str The string to escape
+	 * @return {String}     The escaped string
+	 */
+	escapeRegExp (str) {
+	    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	/**
 	 * Render the datalist
 	 * @param  {String} data The data to render
 	 */
@@ -124,7 +133,7 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 		}
 
 		// Set [pattern] attribute for validation
-		let pattern = data.map((item) => item.value).join('|');
+		let pattern = data.map((item) => escapeRegExp(item.value)).join('|');
 		this.input.setAttribute('pattern', pattern);
 
 	}
