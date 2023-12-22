@@ -57,7 +57,7 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
         )
     )
     cs_openalex = ConceptScheme.from_file(
-        str(Path(__file__).parent.parent.joinpath("src/heliokos/infra/openalex.ttl"))
+        str(Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl"))
     )
     h = (
         Harmonization()
@@ -105,7 +105,9 @@ def test_load_corpus_and_make_search_index():
     1. Load the `ads_playground` corpus, which is a subset of ADS records that are known to appear in
         OpenAlex and thus may be tagged with concepts from the `openalex` concept scheme.
 
-    2. Make a search index for the corpus using a harmonization of the `openalex` and `helioregion` concept schemes.
+    2. Load a search index for the corpus that uses the `openalex` concept scheme.
+
+    3. Load a harmonization of 'uat' as retrieval scheme to `openalex` as tagging scheme.
 
     3. Perform a search that demonstrates an increase in recall relative to a search on an index made only
         from `openalex`.
