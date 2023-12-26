@@ -57,7 +57,11 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
         )
     )
     cs_openalex = ConceptScheme.from_file(
-        str(Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl"))
+        str(
+            Path(__file__).parent.parent.joinpath(
+                "src/heliokos/infra/static/openalex.ttl"
+            )
+        )
     )
     h = (
         Harmonization()
