@@ -15,21 +15,13 @@ from typing import Annotated
 from fastapi import FastAPI, Form, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from rdflib import SKOS
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
+from starlette.responses import HTMLResponse, RedirectResponse
 
-from heliokos.domain.core import (
-    Concept,
-    cs_helioregion,
-    expand_prefix,
-    ConceptScheme,
-    RELATIONS_ALLOWED,
-    cs_openalex,
-)
-from heliokos.infra.core import CONTEXT_BASE
-from heliokos.ui.html import page_for
+from heliokos.infra.core import Concept
+
+from heliokos.domain.core import ConceptScheme, concept_repo
 
 app = FastAPI()
 app.mount(
@@ -45,10 +37,10 @@ templates.env.globals.update({"GLOBALS_today_year": str(date.today().year)})
 async def read_home(request: Request):
     schemes = []
     for filepath in Path(".scheme/").glob("*.ttl"):
-        schemes.append(ConceptScheme.from_file(str(filepath)))
+        schemes.append(ConceptScheme.from_file(filepath))
     concepts = []
     for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
+        concepts.append(Concept.from_file(filepath))
     return templates.TemplateResponse(
         "home.html", {"request": request, "schemes": schemes, "concepts": concepts}
     )
@@ -58,26 +50,10 @@ async def read_home(request: Request):
 async def read_concepts(request: Request):
     concepts = []
     for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
+        concepts.append(Concept.from_file(filepath))
     return templates.TemplateResponse(
         "concepts.html", {"request": request, "concepts": concepts}
     )
-
-
-@app.get("/concepts-search", response_class=HTMLResponse)
-async def search_concepts(request: Request):
-    return templates.TemplateResponse(
-        "concepts-search.html", {"request": request, "results": []}
-    )
-
-
-concept_pref_labels = {
-    str(pref_label): str(id_)
-    for id_, pref_label in cs_openalex.g.query(
-        "SELECT ?c ?clabel WHERE { ?c a skos:Concept . ?c skos:prefLabel ?clabel }",
-        initNs={"skos": SKOS},
-    )
-}
 
 
 @app.post("/concepts-search")
@@ -112,7 +88,7 @@ async def search_concepts(
 @app.post("/concept", response_class=HTMLResponse)
 async def create_concept(pref_label: Annotated[str, Form()], request: Request):
     concept = Concept(pref_label)
-    concept.to_file()
+    concept_repo.merge_graph_document(concept)
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
         url=request.url_for("read_concepts"),
@@ -131,7 +107,7 @@ async def read_concept(id_: str, request: Request):
 async def read_concept_schemes(request: Request):
     schemes = []
     for filepath in Path(".scheme/").glob("*.ttl"):
-        schemes.append(ConceptScheme.from_file(str(filepath)))
+        schemes.append(ConceptScheme.from_file(filepath))
     return templates.TemplateResponse(
         "schemes.html", {"request": request, "schemes": schemes}
     )
@@ -152,7 +128,7 @@ async def read_concept_scheme(id_: str, request: Request):
     scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
     concepts = []
     for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
+        concepts.append(Concept.from_file(filepath))
     scheme_concepts_by_id = {c.id: c for c in scheme.concepts}
     relations = [
         [
@@ -253,20 +229,4 @@ async def add_relation_to_concept_scheme(
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
         url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
-    )
-
-
-@app.get("/resources/{id_}")
-async def read_resource(id_: str, req: Request):
-    print(id_)
-    if ":" in id_:
-        prefix, id_ = id_.split(":", maxsplit=1)
-        id_ = expand_prefix(prefix) + id_
-
-    concept = Concept(cs_helioregion.graph_document_by_id(id_))
-    inbound, outbound = cs_helioregion.graph_neighborhood_for_concept(concept)
-    if len(outbound) == 0:
-        return HTMLResponse(f"{id_} not found", status_code=status.HTTP_404_NOT_FOUND)
-    return HTMLResponse(
-        content=page_for(concept=concept, inbound=inbound, outbound=outbound),
     )

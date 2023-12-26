@@ -52,12 +52,10 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
     """
     # TODO also consider SPASE schema for harmonization workflow
     cs_helioregion = ConceptScheme.from_file(
-        str(
-            Path(__file__).parent.parent.joinpath("src/heliokos/domain/helioregion.ttl")
-        )
+        Path(__file__).parent.parent.joinpath("src/heliokos/domain/helioregion.ttl")
     )
     cs_openalex = ConceptScheme.from_file(
-        str(Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl"))
+        Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl")
     )
     h = (
         Harmonization()

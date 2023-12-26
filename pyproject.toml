@@ -20,14 +20,18 @@ classifiers = [
 ]
 dependencies = [
     "fastapi[all]",
+    "PyLD",
     "pymongo",
     "rdflib",
     "toolz",
 ]
 
 [project.optional-dependencies]
+linting = [
+    'black',
+]
 tests = [
-  'tox',
+    'tox',
 ]
 
 [project.urls]
