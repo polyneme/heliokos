@@ -1,6 +1,5 @@
 {
   "@context": {
-    "@base": "https://heliokos.example/",
     "as": "https://www.w3.org/ns/activitystreams#",
     "cc": "http://creativecommons.org/ns#",
     "csvw": "http://www.w3.org/ns/csvw#",

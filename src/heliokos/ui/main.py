@@ -12,16 +12,16 @@ from datetime import date
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import FastAPI, Form, Header
+from fastapi import FastAPI, Form, Header, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse
 
-from heliokos.infra.core import Concept
+from heliokos.domain.core import get_repo
+from heliokos.infra.core import Concept, GraphRepo, ConceptScheme
 
-from heliokos.domain.core import ConceptScheme, concept_repo
 
 app = FastAPI()
 app.mount(
@@ -34,13 +34,9 @@ templates.env.globals.update({"GLOBALS_today_year": str(date.today().year)})
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_home(request: Request):
-    schemes = []
-    for filepath in Path(".scheme/").glob("*.ttl"):
-        schemes.append(ConceptScheme.from_file(filepath))
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(filepath))
+async def read_home(request: Request, repo: GraphRepo = Depends(get_repo)):
+    schemes = repo.concept_schemes()
+    concepts = repo.concepts(sort=[("env.lu", -1)], limit=25)
     return templates.TemplateResponse(
         "home.html", {"request": request, "schemes": schemes, "concepts": concepts}
     )

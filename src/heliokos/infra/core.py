@@ -8,9 +8,9 @@ from zoneinfo import ZoneInfo
 
 from bson import ObjectId
 from pymongo import MongoClient, UpdateOne
-from rdflib import Graph, URIRef, XSD, Literal
-from rdflib.namespace import SKOS, RDFS, RDF
-from toolz import merge, merge_with
+from rdflib import Graph, URIRef, XSD, Literal, Dataset, OWL
+from rdflib.namespace import SKOS, RDFS, RDF, Namespace
+from toolz import merge, merge_with, dissoc
 
 from heliokos.infra.config import MONGO_HOST, MONGO_USER, MONGO_PASSWORD, MONGO_TLS
 
@@ -18,15 +18,28 @@ RDFA_CORE_INITIAL_CONTEXT = json.loads(
     Path(__file__).parent.joinpath("static/rdfa11.json").read_text()
 )
 
-CONTEXT_BASE = RDFA_CORE_INITIAL_CONTEXT["@context"]["@base"]
+HK_CONTEXT = {
+    "@context": {k: v for k, v in RDFA_CORE_INITIAL_CONTEXT["@context"].items()}
+}
+HK_CONTEXT["@context"] = merge(
+    HK_CONTEXT["@context"],
+    {
+        "@base": "https://heliokos.example/",
+        "helior": "https://n2t.net/ark:57802/p03295/",
+        "openalex": "https://openalex.org/",
+    },
+)
+
+
+CONTEXT_BASE = HK_CONTEXT["@context"]["@base"]
 
 
 def core_context_prefix_map():
-    return {k: v for k, v in RDFA_CORE_INITIAL_CONTEXT["@context"].items()}
+    return {k: v for k, v in HK_CONTEXT["@context"].items()}
 
 
 def with_core_context(d):
-    return merge(d, RDFA_CORE_INITIAL_CONTEXT)
+    return merge(d, HK_CONTEXT)
 
 
 def with_oid_id(d):
@@ -35,6 +48,35 @@ def with_oid_id(d):
 
 class ValidationError(Exception):
     pass
+
+
+class HKGraph(Graph):
+    """rdflib.Graph with particular prefix-to-namespace mappings."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        for prefix, uri in core_context_prefix_map().items():
+            if not prefix.startswith("@"):
+                self.bind(prefix, Namespace(uri))
+            elif prefix == "@base":
+                self.bind("_", Namespace(uri))
+
+
+hkgraph_namespace_manager = HKGraph().namespace_manager
+
+
+def curiefy(thing):
+    if isinstance(thing, URIRef):
+        return thing.n3(hkgraph_namespace_manager)
+    else:
+        return thing
+
+
+def expand_curie(s: str):
+    if s.startswith("<"):  # not a CURIE. a full URI.
+        return URIRef(s[1:-1])  # strip leading '<' and trailing '>'
+    else:
+        return hkgraph_namespace_manager.expand_curie(s)
 
 
 class GraphDocument:
@@ -125,25 +167,87 @@ def datetime_now():
 
 
 _collection = get_mongodb()["nodes"]
+
+_collection.create_index({"s": 1, "edge.p": 1, "edge.o": 1, "g": 1})
+_collection.create_index({"edge.p": 1, "edge.o": 1, "s": 1, "g": 1})
+_collection.create_index({"edge.o": 1, "edge.p": 1, "s": 1, "g": 1})
+
 _collection.create_index({"g": 1, "s": 1, "edge.p": 1, "edge.o": 1})
 _collection.create_index({"g": 1, "edge.p": 1, "edge.o": 1, "s": 1})
-_collection.create_index({"edge.p": 1, "edge.o": 1, "s": 1, "g": 1})
+_collection.create_index({"g": 1, "edge.o": 1, "edge.p": 1, "s": 1})
+
+
+def label_from_repo_doc(doc):
+    for edge in doc["edge"]:
+        if edge["p"] == "dcterms:title":
+            return edge["o"]
+        elif edge["p"] == "skos:prefLabel":
+            return edge["o"]
+        elif edge["p"] == "rdfs:label":
+            return edge["o"]
+    return None
 
 
 class GraphRepo:
-    """An interface to a named graph."""
+    """An interface to a persisted set of named graphs."""
 
-    def __init__(self, uri=None):
-        if uri is None:
-            uri = f"{CONTEXT_BASE}{ObjectId()}"
-        self.uri = str(uri)
-        self.filter = {"g": uri}
-        self.coll = get_mongodb()["nodes"]
+    def __init__(self, name=None):
+        self.ds = Dataset()  # In-memory representation
+        self.coll = get_mongodb()[
+            "nodes" if name is None else name
+        ]  # Persisted information
 
-    def merge_rdflib_graph(self, g: Graph):
+    _filter_concept_schemes = {
+        "edge": {"$elemMatch": {"p": "rdf:type", "o": "skos:ConceptScheme"}}
+    }
+    _filter_concepts = {"edge": {"$elemMatch": {"p": "rdf:type", "o": "skos:Concept"}}}
+
+    def concept_schemes(self):
+        return [
+            {"id": doc["s"], "label": label_from_repo_doc(doc)}
+            for doc in self.coll.find(
+                filter=self._filter_concept_schemes,
+            )
+        ]
+
+    def concepts(self, sort=None, limit=0):
+        return [
+            {"id": doc["s"], "label": label_from_repo_doc(doc)}
+            for doc in self.coll.find(
+                filter=self._filter_concepts, sort=sort, limit=limit
+            )
+        ]
+
+    def load_graph(self, graph_id):
+        if not isinstance(graph_id, URIRef):
+            raise ValueError("`graph_id` must be a uri (`URIRef`)")
+        g = HKGraph()
+        for s_doc in self.coll.find({"g": curiefy(graph_id)}, ["s", "edge"]):
+            s_id = expand_curie(s_doc["s"])
+            for s_edge in s_doc["edge"]:
+                s_edge_p = expand_curie(s_edge["p"])
+                s_edge_o = (
+                    Literal(s_edge["o"])
+                    if s_edge_p in has_literal_range
+                    else expand_curie(s_edge["o"])
+                )
+                g.add(
+                    (
+                        s_id,
+                        s_edge_p,
+                        s_edge_o,
+                    )
+                )
+        dsg = self.ds.graph(graph_id)
+        dsg += g
+        return dsg
+
+    def upsert_graph(self, g: Graph, graph_id):
+        if not isinstance(graph_id, URIRef):
+            raise ValueError("`graph_id` must be a uri (`URIRef`)")
         s_edge = defaultdict(list)
-        for s, p, o in g:
-            s, p = str(s), str(p)
+        for triple in g:
+            s, p, o = [curiefy(term) for term in triple]
             if isinstance(o, Literal):
                 match o.datatype:
                     case dt if dt == XSD.integer:
@@ -157,12 +261,11 @@ class GraphRepo:
 
             s_edge[s].append({"p": p, "o": o})
         now = datetime_now()
+        g_id = curiefy(graph_id)
         updates = [
             {
-                "filter": merge(self.filter, {"s": s}),
-                "update": {
-                    "$set": {"g": self.uri, "s": s, "edge": edge, "env.lu": now}
-                },
+                "filter": {"g": g_id, "s": s},
+                "update": {"$set": {"g": g_id, "s": s, "edge": edge, "env.lu": now}},
                 "upsert": True,
             }
             for s, edge in s_edge.items()
@@ -203,22 +306,6 @@ class GraphRepo:
         g.parse(filepath)
         self.merge_rdflib_graph(g)
 
-    def to_rdflib_graph(self):
-        g = Graph()
-        for s_doc in self.coll.find(self.filter, ["s", "edge"]):
-            for s_edge in s_doc["edge"]:
-                s_edge_p = URIRef(s_edge["p"])
-                s_edge_o = (
-                    Literal(s_edge["o"])
-                    if s_edge_p in has_literal_range
-                    else URIRef(s_edge["o"])
-                )
-                g.add((URIRef(s_doc["s"]), s_edge_p, s_edge_o))
-        return g
-
-    def subjects(self):
-        return self.coll.distinct("s", self.filter)
-
     def to_file(self):
         Path(".graph").mkdir(exist_ok=True)
         self.to_rdflib_graph().serialize(f".graph/{quote_plus(self.uri)}.ttl")
@@ -238,7 +325,7 @@ class GraphRepo:
         types = []
         other_edges = []
         for e in rdoc["edge"]:
-            if e["p"] in ("a", "rdf:type"):
+            if e["p"] == "rdf:type":
                 types.append(e["o"])
             else:
                 other_edges.append({e["p"]: e["o"]})
@@ -251,11 +338,6 @@ class GraphRepo:
 CONCEPT_RELATIONS_ALLOWED = {SKOS.narrower, SKOS.related}
 
 
-class ConceptRepo(GraphRepo):
-    def __init__(self, uri=None):
-        super().__init__(uri=uri)
-
-
 class Concept:
     """
     Represent a skos:Concept.
@@ -264,84 +346,105 @@ class Concept:
     Rationale: https://www.w3.org/TR/vocab-data-cube/#schemes-hierarchy
     """
 
-    def __init__(self, data=None):
-        if data is None:
-            init_data = {"@type": "skos:Concept"}
-        elif isinstance(data, str):
-            init_data = {"@type": "skos:Concept", "skos:prefLabel": data}
-        else:
-            init_data = merge(data, {"@type": "skos:Concept"})
-        self.gd = GraphDocument(init_data)
+    def __init__(self, label=None, uri=None):
+        self.g = HKGraph()
+
+        if uri is None:
+            uri = f"{CONTEXT_BASE}{ObjectId()}"
+        self.uri = URIRef(uri)
+        self.g.add((self.uri, RDF.type, SKOS.Concept))
+
+        if label is not None:
+            self.g.add((self.uri, SKOS.prefLabel, Literal(label)))
 
     @property
     def pref_label(self):
-        return self.gd.g.value(subject=URIRef(self.gd.uri), predicate=SKOS.prefLabel)
+        return self.g.value(self.uri, SKOS.prefLabel)
 
 
 class ConceptScheme:
-    def __init__(self, uri=None):
-        self.repo = GraphRepo()
+    def __init__(self, label=None, uri=None):
+        self.g = HKGraph()
+
         if uri is None:
             uri = f"{CONTEXT_BASE}{ObjectId()}"
-        self.uri = str(uri)
-        self.repo.merge_graph_document(
-            GraphDocument({"@id": self.uri, "@type": "skos:ConceptScheme"})
-        )
+        self.uri = URIRef(uri)
+        self.g.add((self.uri, RDF.type, SKOS.ConceptScheme))
+
+        self.label = Literal(str(self.uri))
+        if label is not None:
+            self.g.add((self.uri, SKOS.prefLabel, Literal(label)))
+            self.label = Literal(label)
 
     @classmethod
     def from_file(cls, filepath: Path):
-        g = Graph()
-        g.parse(filepath)
+        file_graph = Graph()
+        file_graph.parse(filepath)
+        uri = file_graph.value(predicate=RDF.type, object=SKOS.ConceptScheme)
+        if uri is None:
+            raise ValueError(f"no ConceptScheme found in {filepath}")
+        label = file_graph.value(subject=uri, predicate=SKOS.prefLabel)
+        cs = cls(label=label, uri=uri)
+        cs.g = file_graph
+        return cs
+
+    @classmethod
+    def from_repo(cls, repo, uri):
+        g = repo.load_graph(uri)
         uri = g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
-        rv = cls(uri=uri)
-        rv.repo = GraphRepo(uri=uri)
-        rv.repo.merge_rdflib_graph(g)
-        return rv
+        if uri is None:
+            raise ValueError(f"no ConceptScheme {uri} found in `repo`.")
+        label = g.value(subject=uri, predicate=SKOS.prefLabel)
+        cs = cls(label=label, uri=uri)
+        cs.g = g
+        return cs
 
     @property
     def uri_suffix(self):
         return self.uri.split("/")[-1]
 
     def add(self, concept: Concept):
-        gdoc = GraphDocument(merge(concept.to_dict(), {"skos:inScheme": self.uri}))
-        self.repo.merge_graph_document(gdoc)
+        for triple in concept.g:
+            self.g.add(triple)
         return self
 
     def set_as_top_concept(self, concept: Concept):
-        self.repo.set_edge(self.uri, "skos:hasTopConcept", concept.uri)
+        self.g.add((self.uri, SKOS.hasTopConcept, concept.uri))
 
-    def connect(self, concept_1, concept_2, property_=SKOS.related):
+    def connect(
+        self, concept_1: Concept, concept_2: Concept, property_: URIRef = SKOS.related
+    ):
         if property_ not in CONCEPT_RELATIONS_ALLOWED:
             raise ValueError(f"`property_` must be in {CONCEPT_RELATIONS_ALLOWED}")
-        self.repo.set_edge(concept_1.uri, property_, concept_2.uri)
+        self.g.add((concept_1.uri, property_, concept_2.uri))
+        return self
 
-    def find_by_pref_label(self, pref_label):
-        if isinstance(key, str):
-            cid = self.g.value(predicate=SKOS.prefLabel, object=Literal(key))
+    def find_concept_by_pref_label(self, pref_label):
+        return self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
 
-    def find_one_by_id(self, id_) -> Concept:
-        return Concept(self.repo.graph_document_for(id_))
+    #
+    # def to_file(self):
+    #     me_id = self.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
+    #     Path(".scheme").mkdir(exist_ok=True)
+    #     self.g.serialize(f".scheme/{me_id.split('/')[-1]}.ttl")
 
-    def to_file(self):
-        me_id = self.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
-        Path(".scheme").mkdir(exist_ok=True)
-        self.g.serialize(f".scheme/{me_id.split('/')[-1]}.ttl")
+    @property
+    def concept_uris(self):
+        return set(self.g.subjects(predicate=RDF.type, object=SKOS.Concept))
 
     @property
     def concepts(self):
         rv = []
-        for id_, pref_label in self.repo.to_rdflib_graph().query(
+        for uri, pref_label in self.g.query(
             f"""
-                SELECT ?ogc ?clabel
+                SELECT ?c ?clabel
                 WHERE {{
                 ?c a skos:Concept .
-                ?c owl:sameAs ?ogc .
-                ?c skos:inScheme <{self.uri}> .
-                ?c skos:prefLabel ?clabel
+                ?c skos:prefLabel ?clabel .
                 }}""",
             initNs={"skos": SKOS},
         ):
-            rv.append(Concept({"@id": str(id_), "skos:prefLabel": pref_label}))
+            rv.append(Concept(label=pref_label, uri=uri))
         return rv
 
     @property
@@ -349,17 +452,12 @@ class ConceptScheme:
         rv = []
         relation_values = " ".join([f"<{r}>" for r in CONCEPT_RELATIONS_ALLOWED])
         query = f"""
-        SELECT ?ogs ?relation ?ogo
+        SELECT ?s ?relation ?o
             WHERE {{
                 VALUES ?relation {{ {relation_values} }}
                 ?s ?relation ?o .
-                ?s a skos:Concept; owl:sameAs ?ogs; skos:inScheme <{self.id}> .
-                ?o a skos:Concept; skos:inScheme <{self.id}>; owl:sameAs ?ogo .
             }}"""
-        for s_id, relation, o_id in self.g.query(
-            query,
-            initNs={"skos": SKOS},
-        ):
+        for s_id, relation, o_id in self.g.query(query):
             rv.append([s_id, relation, o_id])
         return rv
 
@@ -427,47 +525,91 @@ class ConceptScheme:
         return rv
 
 
-# class Harmonization(GraphRepo):
-#     def __init__(self):
-#         super().__init__()
-#
-#     def add(self, concept_scheme: ConceptScheme):
-#         me_copy = self.copy()
-#         for triple in concept_scheme.g:
-#             me_copy.g.add(triple)
-#         return me_copy
-#
-#     def connect(self, concept_1, concept_2, property_=SKOS.relatedMatch):
-#         if concept_1 is None or concept_2 is None:
-#             raise ValueError("'empty' concept(s) supplied")
-#         allowed = {
-#             SKOS.closeMatch,
-#             SKOS.exactMatch,
-#             SKOS.narrowMatch,
-#             SKOS.relatedMatch,
-#         }
-#         if property_ not in allowed:
-#             raise ValueError(f"`property_` must be in {allowed}")
-#         me_copy = self.copy()
-#         me_copy.g.add(
-#             (
-#                 self.local_id_for_concept(concept_1),
-#                 property_,
-#                 self.local_id_for_concept(concept_2),
-#             )
-#         )
-#         return me_copy
-#
-#     def narrowmatch_bridge(self, concept_1, concept_2):
-#         c1 = self.local_id_for_concept(concept_1).n3()
-#         c2 = self.local_id_for_concept(concept_2).n3()
-#         qres = self.g.query(
-#             f"""
-#         SELECT *
-#         WHERE {{
-#          {c1} skos:narrower*/(skos:narrowMatch|skos:exactMatch)/skos:narrower* {c2} .
-#         }}
-#         """,
-#             initNs={"skos": SKOS},
-#         )
-#         return len(qres) != 0
+SSSOM = Namespace("https://w3id.org/sssom/")
+
+
+def new_uri():
+    return URIRef(f"{CONTEXT_BASE}{ObjectId()}")
+
+
+class Harmonization:
+    """A sssom:MappingSet from subjects in a tagging scheme to objects in a retrieval scheme."""
+
+    def __init__(self, label=None, uri=None):
+        self.g = HKGraph()
+
+        if uri is None:
+            uri = new_uri()
+        self.uri = URIRef(uri)
+        self.uri_mappings = new_uri()
+        self.retrieval_scheme, self.tagging_scheme = None, None
+
+        self.g.add((self.uri, RDF.type, SSSOM.MappingSet))
+        self.g.add((self.uri, SSSOM.mappings, self.uri_mappings))
+        self.g.add((self.uri_mappings, RDF.type, RDF.Bag))
+
+        if label is not None:
+            self.g.add((self.uri, SKOS.prefLabel, Literal(label)))
+
+    def set_retrieval_scheme(self, concept_scheme: ConceptScheme):
+        self.retrieval_scheme = concept_scheme
+        for triple in self.retrieval_scheme.g:
+            self.g.add(triple)
+        return self
+
+    def set_tagging_scheme(self, concept_scheme: ConceptScheme):
+        self.tagging_scheme = concept_scheme
+        for triple in self.tagging_scheme.g:
+            self.g.add(triple)
+        return self
+
+    def add_mapping(
+        self, subject_id=None, predicate_id=SKOS.relatedMatch, object_id=None
+    ):
+        if subject_id is None or object_id is None:
+            raise ValueError("both `subject_id` and `object_id` are required")
+        allowed = {
+            SKOS.closeMatch,
+            SKOS.exactMatch,
+            SKOS.narrowMatch,
+            SKOS.relatedMatch,
+        }
+        if predicate_id not in allowed:
+            raise ValueError(f"`predicate_id` must be in {allowed}")
+        if subject_id not in self.tagging_scheme.concept_uris:
+            raise ValueError(
+                f"subject {subject_id} not in tagging scheme {self.tagging_scheme.label}."
+            )
+        if object_id not in self.retrieval_scheme.concept_uris:
+            raise ValueError(
+                f"object {object_id} not in retrieval scheme {self.retrieval_scheme.label}."
+            )
+        uri_m = new_uri()
+        for triple in [
+            (uri_m, RDF.type, SSSOM.Mapping),
+            (uri_m, RDFS.member, self.uri_mappings),
+            (uri_m, OWL.annotatedSource, subject_id),
+            (uri_m, OWL.annotatedProperty, predicate_id),
+            (uri_m, OWL.annotatedTarget, object_id),
+        ]:
+            self.g.add(triple)
+        return self
+
+    def narrowmatch_bridge(self, concept_1_uri, concept_2_uri):
+        c1, c2 = concept_1_uri.n3(), concept_2_uri.n3()
+        qres = self.g.query(
+            f"""
+        SELECT *
+        WHERE {{
+         VALUES ?property {{ skos:narrowMatch skos:exactMatch }}
+         ?mapping a sssom:Mapping .
+         ?mapping owl:annotatedProperty ?property .
+         ?mapping owl:annotatedSource ?mapping_subject .
+         {c1} skos:narrower* ?mapping_subject .
+         ?mapping owl:annotatedTarget ?mapping_object .
+         ?mapping_object skos:narrower* {c2} .
+        }}
+        """,
+            initNs={"skos": SKOS, "owl": OWL, "sssom": SSSOM},
+        )
+        return len(qres) != 0

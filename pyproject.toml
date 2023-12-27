@@ -31,7 +31,13 @@ linting = [
     'black',
 ]
 tests = [
+    'beautifulsoup4',
+    'httpx',
     'tox',
+]
+dev = [
+    'jupyter',
+    'tqdm',
 ]
 
 [project.urls]
