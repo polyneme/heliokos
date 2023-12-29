@@ -18,6 +18,4 @@ def test_narrower():
     cs = (
         ConceptScheme().add(physics).add(plasma).connect(physics, plasma, SKOS.narrower)
     )
-    assert cs.g.value(cs.local_id_for(physics.uri), SKOS.narrower) == cs.local_id_for(
-        plasma.uri
-    )
+    assert cs.g.value(physics.uri, SKOS.narrower) == plasma.uri
