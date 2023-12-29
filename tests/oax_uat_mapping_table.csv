@@ -1,0 +1,628 @@
+c_merging,merging,action,primary,c_primary
+https://openalex.org/C56276427,Achondrite (meteorites that show signs of differentiation (no chondrules)),,Achondrites (),http://astrothesaurus.org/uat/15
+https://openalex.org/C2776906135,Alfvén wave (type of magnetohydrodynamic wave),,"Alfven waves (Alfven surface waves, Alfvén surface waves, Alfvén waves)",http://astrothesaurus.org/uat/23
+https://openalex.org/C11413529,Algorithm (unambiguous specification of how to solve a class of problems),,Algorithms (),http://astrothesaurus.org/uat/1883
+https://openalex.org/C34628019,Algorithmics (study of algorithms and data structures),,Algorithms (),http://astrothesaurus.org/uat/1883
+https://openalex.org/C2779121111,Astronomer (scientist who studies celestial bodies),,Astronomers (),http://astrothesaurus.org/uat/81
+https://openalex.org/C22510352,Astrophysical plasma (astronomical object),,Space plasmas (Astrophysical plasmas),http://astrothesaurus.org/uat/1544
+https://openalex.org/C91586092,Atmospheric sciences (umbrella term for the study of the atmosphere),,Atmospheric science (),http://astrothesaurus.org/uat/116
+https://openalex.org/C145025062,"Atmospheric tide (global-scale periodic oscillations of the atmosphere, analogous to ocean tides)",,Atmospheric tides (),http://astrothesaurus.org/uat/118
+https://openalex.org/C148055847,Barred spiral galaxy (spiral galaxy with a central bar-shaped structure composed of stars),,Barred spiral galaxies (SB galaxies),http://astrothesaurus.org/uat/136
+https://openalex.org/C207201462,Bayes' theorem (theorem),,Bayes' Theorem (),http://astrothesaurus.org/uat/1924
+https://openalex.org/C2779699494,"Be star (in astronomy, a B-type star)",,Be stars (Be-type stars),http://astrothesaurus.org/uat/142
+https://openalex.org/C139153390,"Binary pulsar (pulsar with a binary companion, often a white dwarf or neutron star)",,Binary pulsars (),http://astrothesaurus.org/uat/153
+https://openalex.org/C193786831,Binary star (star system consisting of two stars),,Binary stars (Binaries),http://astrothesaurus.org/uat/154
+https://openalex.org/C182283691,Binary system (system of two astronomical bodies which orbit each other),,"Asteroid satellites (Asteroid moons, Binary asteroids, Binary systems, Multiple systems, Double asteroids, Satellites of asteroids, Minor planet moons, Binary small Solar System body systems, Multiple small Solar System body systems, Binary small Solar System bodies, Multiple small Solar System bodies, Multi-body asteroids, Binary SSSB systems, Binary SSSBs, Multiple SSSB systems, Multiple SSSBs, Multiple asteroids, Asteroid multiples)",http://astrothesaurus.org/uat/2207
+https://openalex.org/C2781197716,Biomarker (indicator of a biological state or condition),,Biosignatures (Biomarkers),http://astrothesaurus.org/uat/2018
+https://openalex.org/C187204502,Bipolar outflow (two continuous flows of gas from the poles of a star),,"Stellar jets (Bipolar outflows, Jet outflows)",http://astrothesaurus.org/uat/1607
+https://openalex.org/C111717503,BL Lac object (Type of active galactic nucleus),,BL Lacertae objects (BL Lac objects),http://astrothesaurus.org/uat/158
+https://openalex.org/C100752510,Blazar (very compact quasi-stellar radio source),,Blazars (),http://astrothesaurus.org/uat/164
+https://openalex.org/C168020605,Blue straggler (main-sequence star in an open or globular cluster that is more luminous and bluer than stars at the main sequence turnoff point for the cluster),,"Blue straggler stars (Blue stragglers, Blue-straggler stars)",http://astrothesaurus.org/uat/168
+https://openalex.org/C152268414,Brightest cluster galaxy (brightest galaxy within a cluster),,Brightest cluster galaxies (),http://astrothesaurus.org/uat/181
+https://openalex.org/C47371412,Carbon star (star whose atmosphere contains more carbon than oxygen),,Carbon stars (),http://astrothesaurus.org/uat/199
+https://openalex.org/C2779517257,Carbonaceous chondrite (class of chondritic meteorites),,Carbonaceous chondrites (),http://astrothesaurus.org/uat/200
+https://openalex.org/C197902243,"Cardinal direction (directions of north, east, south, and west)",,Cardinal directions (),http://astrothesaurus.org/uat/2340
+https://openalex.org/C196778148,"Cataclysmic variable star (stars which irregularly increase in brightness by a large factor, then drop back down to a quiescent state)",,"Cataclysmic variable stars (Cataclysmic binaries, Cataclysmic binary stars, Cataclysmic variables)",http://astrothesaurus.org/uat/203
+https://openalex.org/C2777922441,Cataloging (process of creating meta-data for information resources to include in a catalog database),,Catalogs (Catalogues),http://astrothesaurus.org/uat/205
+https://openalex.org/C207953293,Centaur (mythological creature of a combination of a man and a horse),,"Centaur group (Centaur asteroids, Centaurs)",http://astrothesaurus.org/uat/215
+https://openalex.org/C36185635,Center of mass (relativistic) (center of mass of a system of particles in relativistic mechanics and relativistic quantum mechanics),,"Center of mass (Centre of mass, Center of gravity)",http://astrothesaurus.org/uat/216
+https://openalex.org/C150739758,Cepheid variable (type of variable star),,"Cepheid variable stars (Bump cepheid, Cepheid stars, Cepheid variables, Cepheids, Classical Cepheid)",http://astrothesaurus.org/uat/218
+https://openalex.org/C183915046,Charged black hole (None),,Charged black holes (),http://astrothesaurus.org/uat/223
+https://openalex.org/C2779017260,"Chlorofluorocarbon (hydrocarbon derivative that contains only carbon, chlorine and fluorine)",,Chlorofluorocarbons (),http://astrothesaurus.org/uat/227
+https://openalex.org/C116862484,Chondrite (class of stony meteorites),,Chondrites (),http://astrothesaurus.org/uat/228
+https://openalex.org/C165783156,Chondrule (round grain found in chondrites),,Chondrules (),http://astrothesaurus.org/uat/229
+https://openalex.org/C106933524,"Chromosphere (2nd of the 3 main layers in the Sun's atmosphere (above the photosphere, below the solar transition region); 3000–5000 km deep, with a rosy red color only apparent during eclipses)",,Stellar chromospheres (Chromospheres),http://astrothesaurus.org/uat/230
+https://openalex.org/C94130837,"Circumstellar disk (torus, pancake or ring-shaped accumulation of matter in orbit around a star)",,Circumstellar disks (Circumstellar discs),http://astrothesaurus.org/uat/235
+https://openalex.org/C2776368116,Circumstellar envelope (part of a star),,"Circumstellar envelopes (Expanding circumstellar envelope, Stellar envelope)",http://astrothesaurus.org/uat/237
+https://openalex.org/C2779200277,Collimator (device which narrows a beam of particles or waves),,Collimation (Collimated light),http://astrothesaurus.org/uat/268
+https://openalex.org/C94081185,Comet (icy small astronomical object),,Comets (),http://astrothesaurus.org/uat/280
+https://openalex.org/C198738867,"Comet tail (dust or gases blown off a comet by solar wind in the inner solar system, leaving a visible trail)",,Comet tails (),http://astrothesaurus.org/uat/274
+https://openalex.org/C18444321,Compact star (classification in astronomy),,Compact objects (Compact stars),http://astrothesaurus.org/uat/288
+https://openalex.org/C70352696,"Constellation (one of the 88 divisions of the celestial sphere, defined by the IAU, many of which derive from traditional asterisms)",,Constellations (),http://astrothesaurus.org/uat/296
+https://openalex.org/C139653429,Convection zone ((of a star) layer which is unstable to convection. Energy is primarily or partially transported by convection in such a region),,"Stellar convective zones (Convective zones, Convection zones)",http://astrothesaurus.org/uat/301
+https://openalex.org/C81363708,"Convolutional neural network (A class of deep neural networks, most commonly applied to analyzing visual imagery.)",,Convolutional neural networks (Deep learning),http://astrothesaurus.org/uat/1938
+https://openalex.org/C12241035,Cooling flow (None),,Cooling flows (),http://astrothesaurus.org/uat/2028
+https://openalex.org/C111309251,"Cosmic ray (high-speed, i.e. high-energy particle, mainly originating in outer space, outside the Solar system)",,"Cosmic rays (Cosmic radiation, Primary cosmic ray)",http://astrothesaurus.org/uat/329
+https://openalex.org/C2992891135,Cosmological model (branch of astronomy),,Cosmological models (Classical tests of cosmology),http://astrothesaurus.org/uat/337
+https://openalex.org/C27181475,Cross-validation (statistical model validation technique),,Cross-validation  (),http://astrothesaurus.org/uat/1909
+https://openalex.org/C43060483,Cyclotomic fast Fourier transform (None),,Fast Fourier transform (),http://astrothesaurus.org/uat/1958
+https://openalex.org/C88148261,Dark matter halo (theoretical component of a galaxy that envelops the galactic disc and extends well beyond the edge of the visible galaxy),,"Galaxy dark matter halos (Dark matter halos, Dark halos, Dark halo)",http://astrothesaurus.org/uat/1880
+https://openalex.org/C19262093,De Sitter universe (None),,de Sitter universe (),http://astrothesaurus.org/uat/361
+https://openalex.org/C73411000,Debris disk (circumstellar disk of dust and debris in orbit around a star),,Debris disks (Debris discs),http://astrothesaurus.org/uat/363
+https://openalex.org/C2780091087,Dimensional reduction (procedure of putting a quantum field theory on fewer spatial dimensions than before),,Dimensionality reduction (),http://astrothesaurus.org/uat/1943
+https://openalex.org/C106996143,"Disc galaxy (galaxy characterized by a flattened circular volume of stars, that may include a central bulge)",,Disk galaxies (Disc galaxies),http://astrothesaurus.org/uat/391
+https://openalex.org/C2986158284,Distance measurement (techniques for measuring distance),,Distance measure (),http://astrothesaurus.org/uat/395
+https://openalex.org/C2639959,Distance measures (definitions for distance between two objects or events in the universe),,Distance measure (),http://astrothesaurus.org/uat/395
+https://openalex.org/C65949645,Distributed minimum spanning tree (None),,Minimum spanning tree (),http://astrothesaurus.org/uat/1950
+https://openalex.org/C2776761171,"Doming (vacuum tube that can show moving pictures, vector graphics, or lines)",,Domes (Telescope dome),http://astrothesaurus.org/uat/399
+https://openalex.org/C37119246,Dwarf galaxy (small galaxy composed of up to several billion stars),,Dwarf galaxies (),http://astrothesaurus.org/uat/416
+https://openalex.org/C33773777,Dwarf planet (planetary-mass object),,"Dwarf planets (Solar system dwarf planets, Dwarf planets (Solar system))",http://astrothesaurus.org/uat/419
+https://openalex.org/C438757,"Dwarf spheroidal galaxy (small, low-luminosity galaxies with very little dust and an older stellar population)",,Dwarf spheroidal galaxies (Dwarf spheroidals),http://astrothesaurus.org/uat/420
+https://openalex.org/C122592724,Dynamic Monte Carlo method (None),,Monte Carlo methods (),http://astrothesaurus.org/uat/2238
+https://openalex.org/C100784341,Eccentric (circular disk rigidly fixed to a rotating axle with its centre offset from that of the axle),,Eccentricity (),http://astrothesaurus.org/uat/441
+https://openalex.org/C2778505590,Eclipse (astronomical event where one body hides another),,Eclipses (),http://astrothesaurus.org/uat/442
+https://openalex.org/C20059206,Einstein ring (An image of a distant light source (such as a galaxy or star) which has been distorted into a ring through gravitational lensing caused by an object with an extremely large mass (such as another galaxy or a black hole).),,"Einstein rings (Chwolson ring, Einstein-Chwolson ring)",http://astrothesaurus.org/uat/451
+https://openalex.org/C33893257,Electron spectroscopy (Detecting photoelectrons that are ejected by x-rays),,Electronic spectroscopy (),http://astrothesaurus.org/uat/2247
+https://openalex.org/C173990265,Elliptic orbit (Kepler's orbit with an eccentricity of less than 1),,"Elliptical orbits (Eccentric orbit, Elliptical orbit)",http://astrothesaurus.org/uat/457
+https://openalex.org/C871022,"Elliptical galaxy (galaxy having an approximately ellipsoidal shape and a smooth, nearly featureless brightness profile)",,Elliptical galaxies (E galaxies),http://astrothesaurus.org/uat/456
+https://openalex.org/C97818539,Emission nebula (cloud of ionized gas emitting light of various colors),,Emission nebulae (),http://astrothesaurus.org/uat/461
+https://openalex.org/C145685049,Euclidean minimum spanning tree (the shortest network collecting a given set of points in the plane),,Minimum spanning tree (),http://astrothesaurus.org/uat/1950
+https://openalex.org/C148292158,Event horizon (the point of no return; boundary of a region of spacetime from which one cannot escape once entered),,Event horizons (),http://astrothesaurus.org/uat/479
+https://openalex.org/C163479331,Exoplanet (any planet beyond the Solar System),,"Exoplanets (Extrasolar planets, Planets, Planets (Extrasolar))",http://astrothesaurus.org/uat/498
+https://openalex.org/C182081679,Expectation–maximization algorithm (iterative method for finding maximum likelihood estimates in statistical models),,Expectation-Maximization Algorithm (),http://astrothesaurus.org/uat/1888
+https://openalex.org/C110460608,"F-test (statistical hypothesis test, mostly using multiple restrictions)",,F test (),http://astrothesaurus.org/uat/1931
+https://openalex.org/C27523624,Fibril (Extracellular matrix material consisting of polysaccharides and protein.),,Solar fibrils (Fibrills),http://astrothesaurus.org/uat/532
+https://openalex.org/C2777356233,Fibrillation (irregular movement of muscle fibers),,Solar fibrils (Fibrills),http://astrothesaurus.org/uat/532
+https://openalex.org/C2780068352,Field galaxy (galaxy that does not belong to a larger cluster of galaxies),,Field galaxies (),http://astrothesaurus.org/uat/533
+https://openalex.org/C4907923,Filamentation (None),,Interstellar filaments (Filaments),http://astrothesaurus.org/uat/842
+https://openalex.org/C164546044,Flare star (type of variable star that can undergo unpredictable dramatic increases in brightness for a few minutes),,Flare stars (),http://astrothesaurus.org/uat/540
+https://openalex.org/C30864177,Friedmann–Lemaître–Robertson–Walker metric (metric properties of the spacetime based on Albert Einstein's metric tensor and field solution for the spacetime),,Friedmann-Robertson-Walker metric (),http://astrothesaurus.org/uat/550
+https://openalex.org/C162862793,Fullerene (class of allotropes of carbon),,Fullerenes (),http://astrothesaurus.org/uat/2257
+https://openalex.org/C71176878,Functional principal component analysis (statistical method for investigating the dominant modes of variation of functional data),,Principal component analysis (),http://astrothesaurus.org/uat/1944
+https://openalex.org/C132552067,Galactic Center (rotational center of the Milky Way galaxy),,"Galactic center (Center of the Milky Way, Galactic Centre, Milky Way Galaxy nucleus, Milky Way center)",http://astrothesaurus.org/uat/565
+https://openalex.org/C34528125,Galactic tide (tidal force experienced by objects subject to the gravitational field of a galaxy),,"Galaxy tides (Galactic tidal interactions, Galactic tides, Galaxial tidal interactions, Galaxial tides, Galaxy tidal interactions)",http://astrothesaurus.org/uat/623
+https://openalex.org/C98444146,Galaxy (huge cluster of celestial bodies),,Galaxies (),http://astrothesaurus.org/uat/573
+https://openalex.org/C156055797,Galaxy cluster (structure made up of a gravitationally-bound aggregation of hundreds of galaxies; is larger than a galaxy group),,"Galaxy clusters (Cluster of galaxies, Galaxy clustering, Groups of galaxies)",http://astrothesaurus.org/uat/584
+https://openalex.org/C160147972,Galaxy group (structure made up of a gravitationally-bound aggregation of hundreds of galaxies; is larger than a galaxy group),,Galaxy groups (),http://astrothesaurus.org/uat/597
+https://openalex.org/C205327720,Galaxy merger (process by which two galaxies join into one),,Galaxy mergers (),http://astrothesaurus.org/uat/608
+https://openalex.org/C206564472,Galaxy rotation curve (Observed discrepancy in galactic angular momenta believed by many astronomers to support the theory of dark matter),,Galaxy rotation curves (Rotation curves),http://astrothesaurus.org/uat/619
+https://openalex.org/C7910260,Gamma ray (electromagnetic radiation of high frequency and therefore high energy),,"Gamma-rays (Gamma radiation, Gamma rays)",http://astrothesaurus.org/uat/637
+https://openalex.org/C30424772,Gamma-ray burst progenitors (types of celestial objects),,"Gamma-ray bursts (γ-ray bursts, Cosmic gamma ray burst, Cosmic gamma-ray burst, GRB, Gamma ray burst, Gamma ray bursts, Gamma-ray burst)",http://astrothesaurus.org/uat/629
+https://openalex.org/C173740370,Gas giant (giant planet which mainly consist of light elements such as hydrogen and helium),,"Solar system gas giant planets (Outer planets, Gas giants, Jovian planets)",http://astrothesaurus.org/uat/1191
+https://openalex.org/C165818556,Geodesic (Shortest path on a curved surface or a Riemannian manifold),,Geodesics (),http://astrothesaurus.org/uat/645
+https://openalex.org/C85837739,"Giant star (type of star with a radius 10-100 times, and luminosity 10-1000x that of the Sun)",,Giant stars (CS stars),http://astrothesaurus.org/uat/655
+https://openalex.org/C100834320,Glacier (large persistent body of ice),,Glaciers (),http://astrothesaurus.org/uat/2303
+https://openalex.org/C113461152,Globular cluster (spherical collection of stars),,Globular star clusters (Globular clusters),http://astrothesaurus.org/uat/656
+https://openalex.org/C88463166,Granulation (act or process of forming into grains or granules),,"Solar granules (Solar granule, Granule)",http://astrothesaurus.org/uat/1875
+https://openalex.org/C14257148,Gravitational field (direction and intensity of gravity in every point of space),,Gravitational fields (Gravity field),http://astrothesaurus.org/uat/667
+https://openalex.org/C12843,Gravitational singularity (location in space-time where the gravitational field of a celestial body becomes infinite),,"Gravitational singularities (Cosmic singularities, Singularity, Space-time singularities, Spacetime singularities)",http://astrothesaurus.org/uat/674
+https://openalex.org/C190330329,Gravitational wave (propagating spacetime ripple),,Gravitational waves (),http://astrothesaurus.org/uat/678
+https://openalex.org/C101053622,Gravitational-wave astronomy (Type of astronomy involving observation of gravitational waves),,Gravitational wave astronomy (),http://astrothesaurus.org/uat/675
+https://openalex.org/C2778042268,"H II region (large, low-density cloud of partially ionized gas)",,"H II regions (H I I clouds, H I I regions, H II clouds, HII clouds, HII regions)",http://astrothesaurus.org/uat/694
+https://openalex.org/C2779544647,Halley's Comet (Short-period comet visible from Earth every 75–76 years),,"Comet Halley (1P/Halley, Halley's comet)",http://astrothesaurus.org/uat/2181
+https://openalex.org/C135436540,"Heliostat (device that includes a mirror, which turns so as to keep reflecting sunlight toward a predetermined target)",,Heliostats (),http://astrothesaurus.org/uat/712
+https://openalex.org/C1329718,"Herbig Ae/Be star (in astronomy, a B-type star)",,"Herbig Ae/Be stars (HAeBe stars, Herbig Ae-Be stars, Herbig stars)",http://astrothesaurus.org/uat/723
+https://openalex.org/C206489886,Hot Jupiter (planet type),,"Hot Jupiters (Epistellar jovians, Pegasean planets, Pegasids, Roaster planets)",http://astrothesaurus.org/uat/753
+https://openalex.org/C2987592732,Hubble space telescope (unmanned space telescope launched into outer space by NASA and ESA in April 1990),,Hubble Space Telescope (HST),http://astrothesaurus.org/uat/761
+https://openalex.org/C164918935,Hydrogen line (spectral line of hydrogen state transitions),,"H I line emission (21 cm lines, 21-cm line emissions, 21-cm lines, H I lines, HI line, Hydrogen lines, H1 line emission)",http://astrothesaurus.org/uat/690
+https://openalex.org/C2776163771,Infrared telescope (telescope that uses infrared light to detect celestial bodies),,Infrared telescopes (IR telescopes),http://astrothesaurus.org/uat/794
+https://openalex.org/C198087647,Instrumentalism (position in the philosophy of science),,"Astronomical instrumentation (Equipment and apparatus, Instrumentation)",http://astrothesaurus.org/uat/799
+https://openalex.org/C22540661,Interacting galaxy (individual galaxy whose gravitational field disturbs another galaxy),,Interacting galaxies (Colliding galaxies),http://astrothesaurus.org/uat/802
+https://openalex.org/C69750868,Intermediate polar (type of variable star),,"DQ Herculis stars (Intermediate polar stars, Intermediate polars)",http://astrothesaurus.org/uat/407
+https://openalex.org/C18609725,Intermediate-mass black hole (class of black hole),,Intermediate-mass black holes (),http://astrothesaurus.org/uat/816
+https://openalex.org/C146864707,"Internal wave (wave within a fluid medium, rather than on the surface)",,Internal waves (),http://astrothesaurus.org/uat/819
+https://openalex.org/C32449521,Interplanetary dust cloud (cosmic dust in the space between the planets of the solar system),,Interplanetary dust (Interplanetary dust clouds),http://astrothesaurus.org/uat/821
+https://openalex.org/C102988692,Interplanetary magnetic field (component of the Sun's magnetic field which fills the Solar System),,Interplanetary magnetic fields (),http://astrothesaurus.org/uat/824
+https://openalex.org/C2909024267,Interrupted Time Series Analysis (Method of analysis involving tracking a long-term period around an intervention),,Time series analysis (),http://astrothesaurus.org/uat/1916
+https://openalex.org/C151465644,"Interstellar cloud (accumulation of gas, plasma and dust in a galaxy)",,Interstellar clouds (Interstellar globules),http://astrothesaurus.org/uat/834
+https://openalex.org/C156562940,"Interstellar comet (astronomical object in interstellar space, such as a comet)",,"Interstellar objects (Aperiodic comets, Interstellar comets)",http://astrothesaurus.org/uat/52
+https://openalex.org/C106289968,Ion trap (combination of electric or magnetic fields used to capture charged particles),,Ion trapping (),http://astrothesaurus.org/uat/2224
+https://openalex.org/C2777108582,Iron meteorite (meteorite composed of iron-nickel alloy called meteoric iron),,Iron meteorites (),http://astrothesaurus.org/uat/863
+https://openalex.org/C188525179,"Irregular galaxy (galaxy that does not have a distinct regular shape, unlike a spiral or an elliptical galaxy)",,Irregular galaxies (),http://astrothesaurus.org/uat/864
+https://openalex.org/C52003146,Isotopic shift (mass effects on spectroscopy),,Isotope shifts (),http://astrothesaurus.org/uat/2069
+https://openalex.org/C202750272,k-minimum spanning tree (None),,Minimum spanning tree (),http://astrothesaurus.org/uat/1950
+https://openalex.org/C80518518,K-type main-sequence star (stellar classification),,"K dwarf stars (K dwarfs, K-type dwarfs, K-type main sequence stars, K-type dwarf stars)",http://astrothesaurus.org/uat/876
+https://openalex.org/C182335926,Kernel principal component analysis (multivariate analysis technique with kernel method),,Principal component analysis (),http://astrothesaurus.org/uat/1944
+https://openalex.org/C82581908,Kolmogorov–Smirnov test (nonparametric statistical test),,Kolmogorov-Smirnov test (),http://astrothesaurus.org/uat/1928
+https://openalex.org/C140619461,Lagrangian point (one of five positions in an orbital configuration of two large bodies where a small object can maintain a stable relative position),,"Lagrangian points (L-points, Lagrange points, Libration points)",http://astrothesaurus.org/uat/897
+https://openalex.org/C55743289,Laser guide star (artificial star image created for use in astronomical adaptive optics imaging.),,Laser guide stars (),http://astrothesaurus.org/uat/904
+https://openalex.org/C2777371749,Late-type star (classification of stars based on their spectral characteristics),,"Late-type stars (Late type stars, Cool stars)",http://astrothesaurus.org/uat/909
+https://openalex.org/C134122466,Lenticular galaxy (type of galaxy),,Lenticular galaxies (S0 galaxies),http://astrothesaurus.org/uat/915
+https://openalex.org/C130726490,"Light curve (graph of light intensity of a celestial object or region, as a function of time)",,Light curves (Lightcurves),http://astrothesaurus.org/uat/918
+https://openalex.org/C9483764,Likelihood-ratio test (statistical test based on the ratio of a constrained and unconstrained likelihood),,Likelihood ratio test (),http://astrothesaurus.org/uat/1942
+https://openalex.org/C2780928442,Line-of-sight (straight line between a missile and its target),,Line of sight (),http://astrothesaurus.org/uat/924
+https://openalex.org/C186231131,Line-of-sight propagation (characteristic of electromagnetic radiation or acoustic wave propagation which means waves which travel in a direct path from the source to the receiver),,Line of sight (),http://astrothesaurus.org/uat/924
+https://openalex.org/C2777385958,Luminous blue variable (class of variable stars; highly luminous blue pulsing super- or hypergiants),,"Luminous blue variable stars (Luminous blue variables, LBV)",http://astrothesaurus.org/uat/944
+https://openalex.org/C89108925,Luminous infrared galaxy (Galaxy with luminosity above 1011 L☉),,"Luminous infrared galaxies (LIRG, LIRGs, IRAS galaxies)",http://astrothesaurus.org/uat/946
+https://openalex.org/C2778517091,Lunate (crescent or moon-shaped microlith),,Lunation (),http://astrothesaurus.org/uat/2316
+https://openalex.org/C2779066697,Lunatic (antiquated adjective epithet of one given to lunacy),,Lunation (),http://astrothesaurus.org/uat/2316
+https://openalex.org/C12296473,Mach–Zehnder interferometer (interferometer),,"Mach-Zehnder interferometers (Mach Zehnder modulators, Mach zehnder interferometers, Mach–Zehnder modulators)",http://astrothesaurus.org/uat/989
+https://openalex.org/C86888617,Magnetar (type of neutron star),,Magnetars (),http://astrothesaurus.org/uat/992
+https://openalex.org/C194482375,Magnetic anomaly (anomaly of the Earth's or other astronomical object's magnetic field),,Magnetic anomalies (),http://astrothesaurus.org/uat/993
+https://openalex.org/C115260700,Magnetic field (vector field that describes the magnetic influence of electric charges in relative motion),,Magnetic fields (),http://astrothesaurus.org/uat/994
+https://openalex.org/C191462741,Maximum likelihood sequence estimation (algorithm for analyzing noisy data streams),,Maximum likelihood estimation (MLE),http://astrothesaurus.org/uat/1901
+https://openalex.org/C159907372,Megamaser (type of astrophysical maser with large isotropic luminosity),,Megamasers (),http://astrothesaurus.org/uat/1023
+https://openalex.org/C544153396,"Metal (element, compound or alloy that is a good conductor of both electricity and heat)",,Metallicity (Metal abundances),http://astrothesaurus.org/uat/1031
+https://openalex.org/C2775855785,Metalation (chemical reaction),,Metallicity (Metal abundances),http://astrothesaurus.org/uat/1031
+https://openalex.org/C193341735,Metallizing (technique of coating metal on the surface of objects),,Metallicity (Metal abundances),http://astrothesaurus.org/uat/1031
+https://openalex.org/C2778212905,Meteor shower (celestial event caused by streams of meteoroids entering Earth's atmosphere),,Meteor showers (),http://astrothesaurus.org/uat/1034
+https://openalex.org/C130635790,Meteorite (piece of solid matter from outer space that has hit the earth),,Meteorites (),http://astrothesaurus.org/uat/1038
+https://openalex.org/C10393806,Meteoroid (sand- to boulder-sized particle of debris in the Solar System),,Meteoroids (),http://astrothesaurus.org/uat/1040
+https://openalex.org/C123703457,Methanation (Conversion of carbon monoxide and carbon dioxide (CO<sub>x</sub>) to methane (CH<sub>4</sub>)),,"Methane (C h4, C h_4)",http://astrothesaurus.org/uat/1042
+https://openalex.org/C105525253,Methanizer (None),,"Methane (C h4, C h_4)",http://astrothesaurus.org/uat/1042
+https://openalex.org/C512554520,Method (computer function or subroutine that is tied to a particular instance or class),,"Astronomical methods (Observation methods, Methods)",http://astrothesaurus.org/uat/1043
+https://openalex.org/C84220965,Methodism (philosophy),,"Astronomical methods (Observation methods, Methods)",http://astrothesaurus.org/uat/1043
+https://openalex.org/C9809166,Michelson interferometer (common configuration for optical interferometry invented by Albert Abraham Michelson),,Michelson interferometers (),http://astrothesaurus.org/uat/1044
+https://openalex.org/C191432529,"Micrometeoroid (small particle of rock in space, usually weighing less than a gram)",,Micrometeoroids (),http://astrothesaurus.org/uat/1048
+https://openalex.org/C90639681,Millisecond pulsar (Pulsar with a rotational period less than about 10 milliseconds),,Millisecond pulsars (),http://astrothesaurus.org/uat/1062
+https://openalex.org/C64271015,Minimum degree spanning tree (None),,Minimum spanning tree (),http://astrothesaurus.org/uat/1950
+https://openalex.org/C2781209320,Minor planet (astronomical object in direct orbit around a star that is neither a planet nor a comet),,"Asteroids (Asteroid, Minor planets)",http://astrothesaurus.org/uat/72
+https://openalex.org/C54419926,Molecular beam (None),,Molecular beams (),http://astrothesaurus.org/uat/2223
+https://openalex.org/C86021447,Molecular cloud (type of interstellar cloud),,Molecular clouds (H2 clouds),http://astrothesaurus.org/uat/1072
+https://openalex.org/C19499675,Monte Carlo method (broad class of computational algorithms using random sampling to obtain numerical results),,Monte Carlo methods (),http://astrothesaurus.org/uat/2238
+https://openalex.org/C8105449,Naked singularity (a hypothetical gravitational singularity without an event horizon),,Naked singularities (),http://astrothesaurus.org/uat/1087
+https://openalex.org/C93623110,Near-Earth object (Solar System object whose orbit brings it into proximity with Earth),,"Near-Earth objects (NECs, NEOs, Near-Earth asteroids, Near-Earth comets, Near Earth objects)",http://astrothesaurus.org/uat/1092
+https://openalex.org/C107966497,Neutrino oscillation (phenomenon in which a neutrino changes lepton flavor as it travels),,Neutrino oscillations (),http://astrothesaurus.org/uat/1104
+https://openalex.org/C192887742,Neutron star (Collapsed core of a massive star),,Neutron stars (),http://astrothesaurus.org/uat/1108
+https://openalex.org/C171676967,O-type main-sequence star (stellar classification),,"O dwarf stars (O dwarfs, O-type dwarfs, O-type dwarf stars, O-type main sequence stars)",http://astrothesaurus.org/uat/1135
+https://openalex.org/C169233029,O-type star (stellar classification),,"O stars (Class O stars, O-type stars)",http://astrothesaurus.org/uat/1137
+https://openalex.org/C2779919027,Observatory (location used for observing terrestrial or celestial events),,Observatories (),http://astrothesaurus.org/uat/1147
+https://openalex.org/C2992147104,Ocean tide (rise and fall of sea levels caused by the combined effects of the gravitational forces exerted by the Moon and the Sun and the rotation of the Earth),,"Ocean tides (Diurnal, Semi-diurnal)",http://astrothesaurus.org/uat/1152
+https://openalex.org/C52348108,"Open cluster (group of ""sibling"" stars that are loosely gravitationally bound to one another)",,Open star clusters (Open clusters),http://astrothesaurus.org/uat/1160
+https://openalex.org/C2780745866,Open university (school with minimal entry requirements),,Open universe (),http://astrothesaurus.org/uat/1161
+https://openalex.org/C2778642129,Open-source software development (download),,Open source software (),http://astrothesaurus.org/uat/1866
+https://openalex.org/C45613198,Optical filter (device that selectively transmits light of certain wavelengths),,Optical filters (),http://astrothesaurus.org/uat/2331
+https://openalex.org/C202572682,Optical telescope (telescope which is used to focus light from the visible part of the electromagnetic spectrum),,Optical telescopes (),http://astrothesaurus.org/uat/1174
+https://openalex.org/C2776481522,Orbiter (manned vehicle or unmanned machine designed to fly in outer space),,Orbiters (),http://astrothesaurus.org/uat/1183
+https://openalex.org/C2984157986,Periodic orbits (set of points linked through the evolution function of a dynamical system),,Periodic orbit (),http://astrothesaurus.org/uat/1212
+https://openalex.org/C2778316820,"Photometric system (set of well-defined passbands (or filters), with a known sensitivity to incident radiation)",,Photometric systems (Magnitude systems),http://astrothesaurus.org/uat/1233
+https://openalex.org/C108884401,"Photosphere (visible surface, stellar surface layers (star's outer shell) from which optical radiation escapes; region from which externally received light originates; deepest region of a luminous object, that is transparent to photons of certain wavelengths)",,Stellar photospheres (Photospheres),http://astrothesaurus.org/uat/1237
+https://openalex.org/C74880916,Plage (bright region in the chromosphere of the Sun),,Plages (),http://astrothesaurus.org/uat/1240
+https://openalex.org/C51244244,Planet (celestial body directly orbiting a star or stellar remnant),,"Exoplanets (Extrasolar planets, Planets, Planets (Extrasolar))",http://astrothesaurus.org/uat/498
+https://openalex.org/C86338904,Planetary boundary layer (lowest part of the atmosphere directly influenced by contact with the planetary surface),,Planetary boundary layers (),http://astrothesaurus.org/uat/1245
+https://openalex.org/C95373548,Planetary nebula (type of emission nebula),,Planetary nebulae (),http://astrothesaurus.org/uat/1249
+https://openalex.org/C75876914,Planetesimal (solid objects thought to exist in protoplanetary disks and in debris disks),,Planetesimals (),http://astrothesaurus.org/uat/1259
+https://openalex.org/C29705727,Polar (type of cataclysmic variable binary star system),,AM Herculis stars (Polars),http://astrothesaurus.org/uat/32
+https://openalex.org/C2993273692,Polar cap (high-latitude region of an astronomical body (e.g. planet) with major parts covered in ice),,"Polar caps (Polar ice caps, Polar icecaps)",http://astrothesaurus.org/uat/1273
+https://openalex.org/C77530849,Polarimeter (instrument for measuring polarization),,"Polarimeters (Polarimetric instrumentation, Polarimetric instruments)",http://astrothesaurus.org/uat/1277
+https://openalex.org/C121524040,Polarizer (optical filter device),,AM Herculis stars (Polars),http://astrothesaurus.org/uat/32
+https://openalex.org/C2779033964,Polycyclic aromatic hydrocarbon (hydrocarbons composed of multiple aromatic rings),,"Polycyclic aromatic hydrocarbons (Polyaromatic hydrocarbons, PAHs, Polynuclear aromatic hydrocarbons)",http://astrothesaurus.org/uat/1280
+https://openalex.org/C2779408389,Polytrope (solution of the Lane-Emden pressure-density equation for astrophysical bodies),,"Polytropes (Polytropic solutions, Polytropic stars)",http://astrothesaurus.org/uat/1281
+https://openalex.org/C125277925,Potential energy surface (None),,Potential energy surfaces (),http://astrothesaurus.org/uat/2234
+https://openalex.org/C182877743,Primordial black hole (hypothetical type of black hole),,Primordial black holes (Mini black hole),http://astrothesaurus.org/uat/1292
+https://openalex.org/C176673079,Proper motion (astronomical measure of the observed changes in the apparent places of stars in the sky),,Proper motions (Stellar spatial motions),http://astrothesaurus.org/uat/1295
+https://openalex.org/C87449069,Protogalaxy (gas cloud forming into a galaxy),,Protogalaxies (),http://astrothesaurus.org/uat/1298
+https://openalex.org/C2780909310,Protoplanetary disk (rotating circumstellar disk of dense gas surrounding a young newly formed star),,Protoplanetary disks (Protoplanetary disks (Extrasolar)),http://astrothesaurus.org/uat/1300
+https://openalex.org/C18797539,Protostar (early stage in the process of star formation),,Protostars (),http://astrothesaurus.org/uat/1302
+https://openalex.org/C110363677,"Pulsar (highly magnetized, rapidly rotating neutron star or white dwarf)",,Pulsars (),http://astrothesaurus.org/uat/1306
+https://openalex.org/C68080601,"Pulsar planet (planets that are found orbiting pulsars, or rapidly rotating neutron stars)",,Pulsar planets (),http://astrothesaurus.org/uat/1304
+https://openalex.org/C2776156206,Pulsar wind nebula (nebula powered by the pulsar wind of a pulsar),,"Pulsar wind nebulae (Plerion, PWN, PWNe)",http://astrothesaurus.org/uat/2215
+https://openalex.org/C135041427,Quasar (active galactic nuclei containing a massive black hole),,"Quasars (QSO, Quasi-stellar galaxies, Quasi-stellar object, Quasi-stellar radio sources)",http://astrothesaurus.org/uat/1319
+https://openalex.org/C63320529,Quasi-Monte Carlo method (numerical integration process),,Monte Carlo methods (),http://astrothesaurus.org/uat/2238
+https://openalex.org/C2780870619,Quasinormal mode (mode of energy dissipation in a perturbed system),,Quasinormal modes (),http://astrothesaurus.org/uat/1320
+https://openalex.org/C20249676,Radio galaxy (types of active galaxy nuclei that are very luminous at radio wavelengths),,Radio galaxies (),http://astrothesaurus.org/uat/1343
+https://openalex.org/C161813005,Radio telescope (form of directional radio antenna used in radio astronomy),,Radio telescopes (),http://astrothesaurus.org/uat/1360
+https://openalex.org/C169258074,Random forest (statistical algorithm that is used to cluster points of data in functional groups),,Random Forests (),http://astrothesaurus.org/uat/1935
+https://openalex.org/C175113610,Reaction rate (for a reactant or product in a particular reaction is intuitively defined as how quickly or slowly a reaction takes place),,Reaction rates (),http://astrothesaurus.org/uat/2081
+https://openalex.org/C70239388,Recombineering (None),,Recombination (),http://astrothesaurus.org/uat/2072
+https://openalex.org/C2776026716,Red giant (stars powered by fusion of hydrogen in shell with an inactive core of helium),,"Red giant stars (Red giant branch stars, Red giants)",http://astrothesaurus.org/uat/1372
+https://openalex.org/C179801107,Red supergiant (stars with a supergiant luminosity class),,Red supergiant stars (Red supergiants),http://astrothesaurus.org/uat/1375
+https://openalex.org/C2781052365,Red-giant branch (stars powered by fusion of hydrogen in shell with an inactive core of helium),,Red giant branch (),http://astrothesaurus.org/uat/1368
+https://openalex.org/C177272240,Redshift survey (astronomical survey focused on measuring red shifts of distant galaxies),,"Redshift surveys (Galaxy redshifts, Galaxy surveys)",http://astrothesaurus.org/uat/1378
+https://openalex.org/C70033521,Reflecting telescope (telescope design that collects and focuses light with a combination of mirrors),,"Reflecting telescopes (Catoptric telescopes, Reflector telescopes)",http://astrothesaurus.org/uat/1380
+https://openalex.org/C182564260,Refracting telescope (type of optical telescope),,Refracting telescopes (Dioptrics),http://astrothesaurus.org/uat/1382
+https://openalex.org/C190094992,Ring singularity (Ring-shaped gravitational singularity of a rotating blackhole),,Ring singularities (),http://astrothesaurus.org/uat/1402
+https://openalex.org/C2777749129,Robust principal component analysis (None),,Principal component analysis (),http://astrothesaurus.org/uat/1944
+https://openalex.org/C82422596,Rotating black hole (Black hole with angular momentum),,Rotating black holes (),http://astrothesaurus.org/uat/1406
+https://openalex.org/C172338258,RR Lyrae variable (type of variable star),,"RR Lyrae variable stars (Cluster type variable stars, RR Lyrae, RR Lyrae type variable stars, RR Lyrae variables, Bailey type stars)",http://astrothesaurus.org/uat/1410
+https://openalex.org/C87791202,Schmidt camera (scientific instrument),,Schmidt cameras (Schmidt telescopes),http://astrothesaurus.org/uat/1432
+https://openalex.org/C161624437,Small molecule (molecule that weighs less than 800 Dalton),,Small molecules (),http://astrothesaurus.org/uat/2267
+https://openalex.org/C102634674,Smoothness (function having derivatives of any order),,Smoothing (),http://astrothesaurus.org/uat/1929
+https://openalex.org/C2777118497,Solar eclipse (natural phenomenon wherein the Sun is obscured by the Moon),,Solar eclipses (),http://astrothesaurus.org/uat/1489
+https://openalex.org/C185001636,"Solar flare (sudden flash of increased brightness on the Sun, usually observed near its surface and in close proximity to a sunspot group.)",,Solar flares (),http://astrothesaurus.org/uat/1496
+https://openalex.org/C5807566,Solar neutrino (neutrinos produced in the core of the sun through various nuclear fusion reactions),,Solar neutrinos (),http://astrothesaurus.org/uat/1511
+https://openalex.org/C2781008069,Solar observatory (observatory that specializes in monitoring the Sun),,Solar observatories (),http://astrothesaurus.org/uat/1513
+https://openalex.org/C539450922,Solar System (planetary system of the Sun),,Solar system (),http://astrothesaurus.org/uat/1528
+https://openalex.org/C2780684822,Solar telescope (special purpose telescope used to observe the Sun),,Solar telescopes (Tower telescope),http://astrothesaurus.org/uat/1531
+https://openalex.org/C202228572,Space observatory (instrument in outer space for observing distant space objects),,Space observatories (Orbiting observatory),http://astrothesaurus.org/uat/1543
+https://openalex.org/C17967879,"Space Science (study of issues specifically related to space exploration, space travel and space colonisation)",,Space research (Space science),http://astrothesaurus.org/uat/1546
+https://openalex.org/C2776888684,"Space vehicle (vehicle designed for outer space, including both the launch vehicle and spacecraft)",,Space vehicles (),http://astrothesaurus.org/uat/1549
+https://openalex.org/C207677746,Space weathering (type of weathering),,Space weather (),http://astrothesaurus.org/uat/2037
+https://openalex.org/C33390570,Spectrometer (used to measure spectral components of light),,Spectrometers (),http://astrothesaurus.org/uat/1554
+https://openalex.org/C63585750,Spiral galaxy (galaxy having a number of arms of younger stars that spiral out from the centre containing older ones),,Spiral galaxies (S galaxies),http://astrothesaurus.org/uat/1560
+https://openalex.org/C148699463,SSS* (search algorithm),,"Ultraluminous x-ray sources (ULX, Ultraluminous supersoft sources, ULS, Pulsating ultraluminous X-ray sources, PULX, Luminous supersoft x-ray source,  SSXS, Supersoft sources, SSS)",http://astrothesaurus.org/uat/2164
+https://openalex.org/C48393594,Star cluster (large group of stars),,"Star clusters (Cluster of stars, Star clouds)",http://astrothesaurus.org/uat/1567
+https://openalex.org/C188195645,Star count (bookkeeping survey of stars),,"Star counts (Star distribution, Stellar statistics)",http://astrothesaurus.org/uat/1568
+https://openalex.org/C32161561,Starspot (spot on a star - on the Sun these are sunspots),,Starspots (Star spots),http://astrothesaurus.org/uat/1572
+https://openalex.org/C187640670,Steady State theory (alternative to the Big Bang model of the evolution of the universe),,Steady-state theory (Steady state theory),http://astrothesaurus.org/uat/1574
+https://openalex.org/C101638190,Stellar atmosphere (outer region of the volume of a star),,Stellar atmospheres (),http://astrothesaurus.org/uat/1584
+https://openalex.org/C105500671,Stellar black hole (black hole formed by a collapsed star),,Stellar mass black holes (Stellar black holes),http://astrothesaurus.org/uat/1611
+https://openalex.org/C162635859,Stellar magnetic field (magnetic field generated by the motion of conductive plasma inside a star),,Stellar magnetic fields (Stellar magnetospheres),http://astrothesaurus.org/uat/1610
+https://openalex.org/C168589115,Stellar mass (mass of a star in astronomy),,Stellar masses (),http://astrothesaurus.org/uat/1614
+https://openalex.org/C2778623024,Stellar population (group of stars sharing similar characteristics),,Stellar populations (),http://astrothesaurus.org/uat/1622
+https://openalex.org/C2778023049,Stellar pulsation (type of variable star),,Stellar pulsations (),http://astrothesaurus.org/uat/1625
+https://openalex.org/C137650753,"Stellar structure (structure of a star. Stars of different mass, age have varying internal structures. Stellar structure models describe the internal structure of a star in detail,make detailed predictions about the luminosity,the color,the future evolution of the star)",,Stellar structures (),http://astrothesaurus.org/uat/1631
+https://openalex.org/C202577360,Stellar wind (gas flow from the stars),,Stellar winds (Stellar outflows),http://astrothesaurus.org/uat/1636
+https://openalex.org/C125168437,Structured support vector machine (None),,Support vector machine (),http://astrothesaurus.org/uat/1936
+https://openalex.org/C2779513048,Subgiant (type of star larger than main-sequence but smaller than a giant),,Subgiant stars (Subgiants),http://astrothesaurus.org/uat/1646
+https://openalex.org/C197370839,Sunspot (temporary phenomena on the photosphere of the Sun that appear visibly as dark spots compared to surrounding region),,Sunspots (Sun spots),http://astrothesaurus.org/uat/1653
+https://openalex.org/C200459643,Super-Earth (planet type),,Super Earths (Super-Earths),http://astrothesaurus.org/uat/1655
+https://openalex.org/C172809573,Superbubble (cavity hundreds of light years across created by strong stellar winds in a galaxy),,Superbubbles (),http://astrothesaurus.org/uat/1656
+https://openalex.org/C55366258,Superheterodyne receiver (common type of radio receiver that shifts the received signal to an easily-processed intermediate frequency),,"Heterodyne receivers (Superhet, Superheterodyne receivers)",http://astrothesaurus.org/uat/727
+https://openalex.org/C173120059,Supermassive black hole (largest type of black hole; usually found at the centers of galaxies),,Supermassive black holes (),http://astrothesaurus.org/uat/1663
+https://openalex.org/C127592171,Supernova (star exploding at the end of its stellar lifespan),,Supernovae (),http://astrothesaurus.org/uat/1668
+https://openalex.org/C2778339168,Supernova remnant (remnants of an exploded star),,Supernova remnants (),http://astrothesaurus.org/uat/1667
+https://openalex.org/C2780725113,Symbiotic star (astronomic object class),,"Symbiotic binary stars (Symbiotic binaries, Symbiotic stars)",http://astrothesaurus.org/uat/1674
+https://openalex.org/C178075534,T Tauri star (class of variable star),,T Tauri stars (TT),http://astrothesaurus.org/uat/1681
+https://openalex.org/C2780848835,Telescope (instrument that aids in the observation of remote objects),,Telescopes (),http://astrothesaurus.org/uat/1689
+https://openalex.org/C79413701,Test theories of special relativity (None),,Special relativity (Special theory of relativity),http://astrothesaurus.org/uat/1551
+https://openalex.org/C2780856220,Titanate (inorganic compounds composed of titanium oxides),,Titan (),http://astrothesaurus.org/uat/2186
+https://openalex.org/C12335792,Trans-Neptunian object (any object in the Solar System that orbits the Sun at a greater average distance than Neptune),,"Trans-Neptunian objects (Kuiper belt objects, TNO, Trans Neptunian objects, Transneptunian objects)",http://astrothesaurus.org/uat/1705
+https://openalex.org/C174333608,Trojan (minor planet or natural satellite that shares an orbit with a planet or larger moon),,"Trojan asteroids (Trojan group, Trojans)",http://astrothesaurus.org/uat/1715
+https://openalex.org/C31461409,Type II supernova (Explosion of a star 8 to 45 times the mass of the Sun),,Type II supernovae (),http://astrothesaurus.org/uat/1731
+https://openalex.org/C36006759,Type-cD galaxy (galaxy morphology classification),,"cD galaxies (Type-cD galaxies, cD-type galaxies)",http://astrothesaurus.org/uat/209
+https://openalex.org/C91752515,Ultra-high-energy cosmic ray (cosmic-ray particle with a kinetic energy greater than 1 EeV (10¹⁸ eV)),,"Ultra-high-energy cosmic radiation (Ultra high energy cosmic radiation, Ultra high energy cosmic rays, Ultra-high-energy-cosmic rays)",http://astrothesaurus.org/uat/1733
+https://openalex.org/C118836567,Unbarred spiral galaxy (None),,Unbarred spiral galaxies (SA galaxies),http://astrothesaurus.org/uat/1745
+https://openalex.org/C54173289,Van Allen radiation belt (zone of energetic charged particles around the planet earth),,"Van Allen radiation belts (Radiation belts, Van Allen belts)",http://astrothesaurus.org/uat/1758
+https://openalex.org/C17352008,Variable star (star whose brightness as seen from Earth fluctuates),,Variable stars (Variables),http://astrothesaurus.org/uat/1761
+https://openalex.org/C79896159,Very-long-baseline interferometry (type of astronomical interferometry used in radio astronomy),,"Very long baseline interferometry (VLB interferometry, VLBI)",http://astrothesaurus.org/uat/1769
+https://openalex.org/C2781109611,Virtual observatory (collection of data archives and tools for astronomy research over the internet),,Virtual observatories (),http://astrothesaurus.org/uat/1774
+https://openalex.org/C169539834,Visual binary (star system where stars are sufficiently far apart then can be resolved into two stars),,Visual binary stars (Visual binaries),http://astrothesaurus.org/uat/1777
+https://openalex.org/C197445014,White dwarf (type of stellar remnant composed mostly of electron-degenerate matter),,"White dwarf stars (White dwarfs, Degenerate dwarf stars, Degenerate dwarf)",http://astrothesaurus.org/uat/1799
+https://openalex.org/C154700174,"Wolf–Rayet star (evolved, massive star)",,"Wolf-Rayet stars (WR stars, Wolf Rayet stars)",http://astrothesaurus.org/uat/1806
+https://openalex.org/C29013271,Wormhole (hypothetical topological feature of spacetime),,Wormholes (Einstein-Rosen Bridge),http://astrothesaurus.org/uat/1808
+https://openalex.org/C137179401,X-ray binary (class of binary stars),,X-ray binary stars (X-ray binaries),http://astrothesaurus.org/uat/1811
+https://openalex.org/C177786621,X-ray burster (Class of X-ray binary stars),,X-ray bursters (),http://astrothesaurus.org/uat/1813
+https://openalex.org/C146108262,X-ray detector (instrument that can detect x-rays),,X-ray detectors (),http://astrothesaurus.org/uat/1815
+https://openalex.org/C194798765,X-ray telescope (telescope designed to observe objects in the X‑ray band of the electromagnetic spectrum),,X-ray telescopes (),http://astrothesaurus.org/uat/1825
+https://openalex.org/C23254167,Young stellar object (star in its early stage of evolution),,"Young stellar objects (YSO, YSOs)",http://astrothesaurus.org/uat/1834
+https://openalex.org/C50693072,Absolute magnitude (logarithmic measure of the luminosity of a celestial object),ok,Absolute magnitude (),http://astrothesaurus.org/uat/10
+https://openalex.org/C132771110,Adaptive optics (Technique used to improve performance of optical systems by compensating for distortions),ok,Adaptive optics (),http://astrothesaurus.org/uat/2281
+https://openalex.org/C183191521,Aeronomy (science of the upper region of the atmosphere),ok,Aeronomy (),http://astrothesaurus.org/uat/22
+https://openalex.org/C151456734,Air shower (shower of particles from a high energy cosmic ray hitting Earth's atmosphere),ok,"Cosmic ray showers (Air shower, Auger shower)",http://astrothesaurus.org/uat/327
+https://openalex.org/C126674687,Akaike information criterion (statistics),ok,Akaike information criterion (),http://astrothesaurus.org/uat/1940
+https://openalex.org/C2778039530,Andromeda Galaxy (spiral galaxy within the Local Group),ok,"Andromeda Galaxy (M31, Messier 31, NGC 224)",http://astrothesaurus.org/uat/39
+https://openalex.org/C86580146,Anthropic principle (philosophical consideration that observations of the Universe must be compatible with the conscious and sapient life that observes it),ok,Anthropic principle (),http://astrothesaurus.org/uat/48
+https://openalex.org/C22094913,Aperture synthesis (mixing signals from many telescopes to produce images with high angular resolution),ok,"Aperture synthesis (Synthesis imaging, Synthetic aperture)",http://astrothesaurus.org/uat/53
+https://openalex.org/C188984411,"Apparent magnitude (measure of brightness for celestial objects, as seen from Earth)",ok,Apparent magnitude (Visual magnitude),http://astrothesaurus.org/uat/59
+https://openalex.org/C58142911,Asteroid (a minor planet of the inner Solar System; not a comet),ok,"Asteroids (Asteroid, Minor planets)",http://astrothesaurus.org/uat/72
+https://openalex.org/C2779700264,Asteroid belt (the circumstellar disk (accumulation of matter) in an orbit around Sun between those of Mars and Jupiter),ok,Asteroid belt (),http://astrothesaurus.org/uat/70
+https://openalex.org/C54002840,Asteroseismology (study of oscillations in stars),ok,"Asteroseismology (Astroseismology, Stellar seismology)",http://astrothesaurus.org/uat/73
+https://openalex.org/C87355193,Astrobiology (study of the formation of life on Earth and elsewhere),ok,"Astrobiology (Extraterrestrial life, Space biology, Exobiology)",http://astrothesaurus.org/uat/74
+https://openalex.org/C180920033,Astrochemistry (study of the abundance and reactions of chemical elements and molecules in the universe),ok,Astrochemistry (),http://astrothesaurus.org/uat/75
+https://openalex.org/C133725777,"Astrometry (part of astronomy, covers star positions and their movements)",ok,Astrometry (),http://astrothesaurus.org/uat/80
+https://openalex.org/C131432281,"Astronomical spectroscopy (science of temporal, spatial, and spectral distributions of radiation)",ok,Spectroscopy (Astronomical spectroscopy),http://astrothesaurus.org/uat/1558
+https://openalex.org/C534381523,Astroparticle physics (None),ok,Particle astrophysics (Astroparticle physics),http://astrothesaurus.org/uat/96
+https://openalex.org/C181313176,Asymptotic giant branch (stars powered by fusion of hydrogen and helium in shell with an inactive core of carbon and oxygen),ok,Asymptotic giant branch (AGB),http://astrothesaurus.org/uat/108
+https://openalex.org/C150284090,"Atmospheric circulation (large-scale movement of air, a means by which thermal energy is distributed on Earth's surface)",ok,Atmospheric circulation (),http://astrothesaurus.org/uat/112
+https://openalex.org/C2985143073,Atmospheric composition (branch of atmospheric science),ok,Atmospheric composition (),http://astrothesaurus.org/uat/2120
+https://openalex.org/C2994030904,Atmospheric dynamics (interdisciplinary scientific study of the atmosphere),ok,Atmospheric dynamics (Atmosphere dynamics),http://astrothesaurus.org/uat/2300
+https://openalex.org/C13468771,Atmospheric refraction (deviation of light or other electromagnetic wave from a straight line as it passes through the atmosphere),ok,Atmospheric refraction (),http://astrothesaurus.org/uat/115
+https://openalex.org/C184779094,Atomic physics (field of physics studying atoms),ok,Atomic physics (),http://astrothesaurus.org/uat/2063
+https://openalex.org/C161451022,Atomic spectroscopy (None),ok,Atomic spectroscopy (),http://astrothesaurus.org/uat/2099
+https://openalex.org/C159737794,Azimuth (the angle between a reference plane and a point),ok,Azimuth (Bearing),http://astrothesaurus.org/uat/124
+https://openalex.org/C76655392,"Baryogenesis (hypothesized processes that could produce baryonic asymmetry, favoring matter (baryons) over antimatter (antibaryons))",ok,Baryogenesis (Matter-antimatter asymmetry),http://astrothesaurus.org/uat/137
+https://openalex.org/C72838231,"Baryon acoustic oscillations (fluctuations in the density of the visible baryonic matter of the universe, caused by acoustic density waves in the primordial plasma of the early universe)",ok,Baryon acoustic oscillations (BAO),http://astrothesaurus.org/uat/138
+https://openalex.org/C126377216,Baryonic dark matter (None),ok,Baryonic dark matter (),http://astrothesaurus.org/uat/140
+https://openalex.org/C142291917,Bayes factor (statistical factor used to compare competing hypotheses),ok,Bayes factor (),http://astrothesaurus.org/uat/1919
+https://openalex.org/C168136583,Bayesian information criterion (statistical concept),ok,Bayesian information criterion (),http://astrothesaurus.org/uat/1920
+https://openalex.org/C101112237,Bayesian statistics (theory in the field of statistics),ok,Bayesian statistics (),http://astrothesaurus.org/uat/1900
+https://openalex.org/C16743098,Big Bang nucleosynthesis (nucleosynthesis that occurred during the Big Bang),ok,Big Bang nucleosynthesis (Nucleogenesis),http://astrothesaurus.org/uat/151
+https://openalex.org/C6293838,Bipolar nebula (distinctive nebular formation),ok,Bipolar nebulae (Bipolar nebula),http://astrothesaurus.org/uat/155
+https://openalex.org/C63745668,Black hole thermodynamics (area of physical study that seeks to reconcile the laws of thermodynamics with the existence of black hole event horizons),ok,Black hole thermodynamics (Thermodynamics of black holes),http://astrothesaurus.org/uat/161
+https://openalex.org/C183152904,Blueshift (relative increase in wavelength of electromagnetic radiation in the emission spectrum of astronomical objects),ok,"Blueshifted (Blue shift, Blueshift)",http://astrothesaurus.org/uat/169
+https://openalex.org/C57979875,Brane cosmology (several theories in particle physics and cosmology related to superstring theory and M-theory),ok,Brane cosmology (),http://astrothesaurus.org/uat/179
+https://openalex.org/C53802167,Brightness temperature (temperature associated with the measured intensity and frequency),ok,Brightness temperature (),http://astrothesaurus.org/uat/182
+https://openalex.org/C163531172,Brown dwarf (type of substellar object),ok,"Brown dwarfs (Brown dwarf stars, Brown dwarf)",http://astrothesaurus.org/uat/185
+https://openalex.org/C165838908,Calibration (comparison of measurement values delivered by a device under test with those of a calibration standard of known accuracy),ok,Calibration (),http://astrothesaurus.org/uat/2179
+https://openalex.org/C6939412,Carbon cycle (biogeochemical cycle by which carbon is exchanged among the biosphere),ok,"Carbon-nitrogen cycle (CNO cycle, Carbon cycle, Carbon cycling, Carbon nitrogen cycle)",http://astrothesaurus.org/uat/194
+https://openalex.org/C530467964,Carbon dioxide (chemical compound),ok,"Carbon dioxide (CO2, CO_2)",http://astrothesaurus.org/uat/196
+https://openalex.org/C27638517,Celestial mechanics (branch of astronomy),ok,Celestial mechanics (),http://astrothesaurus.org/uat/211
+https://openalex.org/C186467627,"Celestial sphere (imaginary sphere of arbitrarily large radius, concentric with the observer)",ok,Celestial sphere (),http://astrothesaurus.org/uat/214
+https://openalex.org/C132668919,Center of gravity (military concept),ok,"Center of mass (Centre of mass, Center of gravity)",http://astrothesaurus.org/uat/216
+https://openalex.org/C67576285,Chandrasekhar limit (maximum mass of a stable white dwarf star),ok,Chandrasekhar limit (),http://astrothesaurus.org/uat/221
+https://openalex.org/C149849071,"Chemical composition (concept in chemistry that has different, but similar, meanings if referred to a single pure substance or a mixture)",ok,"Chemical abundances (Chemical abundance, Element abundance, Elemental abundances, Elemental composition, Chemical composition)",http://astrothesaurus.org/uat/224
+https://openalex.org/C36663273,Chemical kinetics (Study of the rates of chemical reactions),ok,Chemical kinetics (),http://astrothesaurus.org/uat/2233
+https://openalex.org/C5201495,Chemical thermodynamics (study of chemical reactions within the laws of thermodynamics),ok,Chemical thermodynamics (),http://astrothesaurus.org/uat/2236
+https://openalex.org/C87367554,Chromatic aberration (failure of a lens to focus all colors on the same point),ok,Chromatic aberration (),http://astrothesaurus.org/uat/2342
+https://openalex.org/C59108619,Circular orbit (orbit with a fixed distance from the barycenter),ok,Circular orbits (Circular orbit),http://astrothesaurus.org/uat/233
+https://openalex.org/C8865038,Circumstellar dust (cosmic dust),ok,Circumstellar dust (),http://astrothesaurus.org/uat/236
+https://openalex.org/C79974875,"Cloud computing (form of Internet-based computing, whereby shared resources, software and information are provided to computers and other devices)",ok,Cloud computing (),http://astrothesaurus.org/uat/1970
+https://openalex.org/C126320844,Cold dark matter (dark matter),ok,Cold dark matter (),http://astrothesaurus.org/uat/265
+https://openalex.org/C34445779,"Collimated light (light whose rays are parallel, and therefore will spread minimally as it propagates)",ok,Collimation (Collimated light),http://astrothesaurus.org/uat/268
+https://openalex.org/C2776858108,Coma Cluster (cluster of galaxies in the constellation Coma Berenices),ok,Coma Cluster (Abell 1656),http://astrothesaurus.org/uat/270
+https://openalex.org/C26873012,Condensed matter physics (branch of physics),ok,"Solid matter physics (Dust and ices astrophysics, Dust and ices physics, Condensed matter physics)",http://astrothesaurus.org/uat/2090
+https://openalex.org/C44249647,Confidence interval (type of interval estimate (of a population parameter) that is computed from observed data),ok,Confidence interval (),http://astrothesaurus.org/uat/1961
+https://openalex.org/C172578880,Continental drift (the movement of the Earth's continents relative to each other),ok,Plate tectonics (Continental drift),http://astrothesaurus.org/uat/1265
+https://openalex.org/C62796785,"Cosmic background radiation (type of spectrum apart from the Big Bang, whichever shows the universe)",ok,Cosmic background radiation (CBR),http://astrothesaurus.org/uat/317
+https://openalex.org/C182358072,Cosmic distance ladder (succession of methods by which astronomers determine the distances to celestial objects),ok,"Stellar distance (Cosmic distance ladder, Cosmic distance scale, Extragalactic Distance Scale)",http://astrothesaurus.org/uat/1595
+https://openalex.org/C190841160,Cosmic dust (dust floating in space),ok,"Interstellar dust (Cosmic dust, Dust grain, Dust grains, Interstellar dust clouds, Interstellar dust grains, Interstellar grains)",http://astrothesaurus.org/uat/836
+https://openalex.org/C207297109,"Cosmic microwave background (type of thermal radiation; cosmic background radiation that is fundamental to observational cosmology because it is the oldest light in the universe, dating to the epoch of recombination)",ok,"Cosmic microwave background radiation (CMB, CMBR, Cosmic microwave background, MBR, Relic radiation)",http://astrothesaurus.org/uat/322
+https://openalex.org/C102900547,Cosmochemistry (study of the chemical composition of matter in the universe and the processes that led to those compositions),ok,"Cosmochemistry (Chemical cosmology, Cosmic chemistry)",http://astrothesaurus.org/uat/331
+https://openalex.org/C56324269,"Cosmogony (study of the origin, and sometimes the development, of the universe)",ok,Cosmogony (Cosmogeny),http://astrothesaurus.org/uat/333
+https://openalex.org/C166861157,Cosmological constant (constant representing stress-energy density of the vacuum in Einstein's equation),ok,Cosmological constant (Lambda),http://astrothesaurus.org/uat/334
+https://openalex.org/C2780100471,Cosmological perturbation theory (theory by which the evolution of structure is understood in the big bang model),ok,Cosmological perturbation theory (),http://astrothesaurus.org/uat/341
+https://openalex.org/C2880193,Cosmological principle (notion that the spatial distribution of matter in the universe is homogeneous and isotropic at large scales),ok,Cosmological principle (),http://astrothesaurus.org/uat/2363
+https://openalex.org/C26405456,Cosmology (academic study of the universe),ok,Cosmology (Physical cosmology),http://astrothesaurus.org/uat/343
+https://openalex.org/C111410970,"Curved space (spatial geometry which is not ""flat"" or Euclidean)",ok,Curved space (),http://astrothesaurus.org/uat/345
+https://openalex.org/C3018057567,D region (atmospheric layer of Earth),ok,D layer (D region),http://astrothesaurus.org/uat/347
+https://openalex.org/C172790937,"Dark energy (repulsive property, theorized to make up most of our universe in order to explain its observed expansion; has constant energy density)",ok,Dark energy (),http://astrothesaurus.org/uat/351
+https://openalex.org/C159249277,Dark matter (mysterious non-luminous matter (and/or radiation) comprising most of the matter in our observable universe),ok,Dark matter (),http://astrothesaurus.org/uat/353
+https://openalex.org/C149421171,Dark nebula (astronomical object type),ok,"Dark interstellar clouds (Absorption nebula, Absorption nebulae, Dark clouds, Dark nebula, Dark nebulae)",http://astrothesaurus.org/uat/352
+https://openalex.org/C2776023875,Debris (scattered remains of something destroyed or discarded),ok,Space debris (Debris),http://astrothesaurus.org/uat/1542
+https://openalex.org/C2778086583,Deceleration parameter (dimensionless measure of the cosmic acceleration of the expansion of space),ok,Deceleration parameter (Q-parameter),http://astrothesaurus.org/uat/364
+https://openalex.org/C124200008,Declination (astronomical coordinate),ok,Declination (Celestial latitude),http://astrothesaurus.org/uat/365
+https://openalex.org/C174576160,Deconvolution (algorithm-based process used to reverse the effects of convolution on recorded data),ok,Deconvolution (),http://astrothesaurus.org/uat/1910
+https://openalex.org/C108583219,Deep learning (branch of machine learning),ok,Convolutional neural networks (Deep learning),http://astrothesaurus.org/uat/1938
+https://openalex.org/C205561991,Density wave theory (theory to explain the spiral arm structure of spiral galaxies),ok,Density wave model (Density wave theory),http://astrothesaurus.org/uat/373
+https://openalex.org/C196875640,Diffuse sky radiation (Solar radiation scattered and absorbed in Earth's atmosphere),ok,"Diffuse radiation (Diffuse sky radiation, Skylight, Sky radiation, Diffuse skylight)",http://astrothesaurus.org/uat/383
+https://openalex.org/C70518039,Dimensionality reduction (process of reducing the number of random variables under consideration),ok,Dimensionality reduction (),http://astrothesaurus.org/uat/1943
+https://openalex.org/C2993546912,Direct imaging (overview about the methods of detecting exoplanets),ok,Direct imaging (),http://astrothesaurus.org/uat/387
+https://openalex.org/C120314980,Distributed computing (system whose components are located on different networked computers),ok,Distributed computing (),http://astrothesaurus.org/uat/1971
+https://openalex.org/C142757262,Doppler effect (frequency change of a wave for observer relative to its source),ok,Doppler shift (Doppler effect),http://astrothesaurus.org/uat/401
+https://openalex.org/C109982973,Doppler imaging (technique for using spectral distortions to image the surface of a distance star),ok,Doppler imaging (Doppler-imaging),http://astrothesaurus.org/uat/400
+https://openalex.org/C2775961173,Dwarf nova (None),ok,"Dwarf novae (Dwarf nova, U Geminorum-type variable stars)",http://astrothesaurus.org/uat/418
+https://openalex.org/C3038340,Dynamical friction (loss of momentum and kinetic energy of moving bodies through gravitational interactions with surrounding matter in space),ok,Dynamical friction (Gravitational drag),http://astrothesaurus.org/uat/422
+https://openalex.org/C193587279,Ecliptic (apparent path of the Sun on the celestial sphere),ok,Ecliptic (),http://astrothesaurus.org/uat/2336
+https://openalex.org/C543511877,Educational software (software used in education),ok,Educational software (),http://astrothesaurus.org/uat/1870
+https://openalex.org/C13565188,Effective temperature (estimated temperature of an astronomical body),ok,Effective temperature (),http://astrothesaurus.org/uat/449
+https://openalex.org/C2780791080,Einstein field equations (field equations in general relativity),ok,Einstein field equations (),http://astrothesaurus.org/uat/450
+https://openalex.org/C92150305,Ejecta (particles that came out of a volcanic vent or from an impact),ok,Ejecta (),http://astrothesaurus.org/uat/453
+https://openalex.org/C89508514,"Electric discharge (flow of electric charge through a gas, liquid or solid)",ok,Electric discharge (),http://astrothesaurus.org/uat/2244
+https://openalex.org/C2986230362,Elevation angle (coordinate system based around angle and distance from the origin),ok,Altitude angle (Elevation angle),http://astrothesaurus.org/uat/30
+https://openalex.org/C2777156515,Enceladus (natural satellite orbiting Saturn),ok,Enceladus (),http://astrothesaurus.org/uat/2280
+https://openalex.org/C43157870,Equinox (point in time defined via celestial coordinates),ok,Equinox (),http://astrothesaurus.org/uat/470
+https://openalex.org/C2982905333,"Evolution equation (change of state over time, especially in physics)",ok,Evolution equation (),http://astrothesaurus.org/uat/480
+https://openalex.org/C99521031,Exosphere (outermost layer of the atmosphere),ok,Exosphere (),http://astrothesaurus.org/uat/499
+https://openalex.org/C55037315,Experimental data (None),ok,Experimental data (),http://astrothesaurus.org/uat/2371
+https://openalex.org/C139809296,Extragalactic astronomy (astronomy dealing with objects outside the Milky Way),ok,Extragalactic astronomy (),http://astrothesaurus.org/uat/506
+https://openalex.org/C98536072,Extraterrestrial life (life that does not originate from Earth),ok,"Astrobiology (Extraterrestrial life, Space biology, Exobiology)",http://astrothesaurus.org/uat/74
+https://openalex.org/C58300830,F region (layer in ionosphere),ok,"Solar F corona (F region, Solar F coronal region, F corona)",http://astrothesaurus.org/uat/1991
+https://openalex.org/C75172450,Fast Fourier transform (O(N logN) divide and conquer algorithm to calculate the discrete Fourier transforms),ok,Fast Fourier transform (),http://astrothesaurus.org/uat/1958
+https://openalex.org/C2781282464,Fast radio burst (high-energy astrophysical phenomenon manifested as a transient radio pulse lasting only a few milliseconds),ok,"Radio transient sources (Fast radio burst, Fast radio bursts, Lorimer Burst, FRB, FRBs)",http://astrothesaurus.org/uat/2008
+https://openalex.org/C2779586443,"Few-body systems (physical systems with a few (>2,)",ok,Few-body systems (),http://astrothesaurus.org/uat/531
+https://openalex.org/C150627866,Field of view (extent of the observable world seen at any given moment),ok,"Field of view (FOV, Field of vision, Fields of view, Fields of vision)",http://astrothesaurus.org/uat/534
+https://openalex.org/C19444555,Flattening (measure of compression between circle to ellipse or sphere to an ellipsoid of revolution),ok,"Oblateness (Ellipticity, Flattening)",http://astrothesaurus.org/uat/1143
+https://openalex.org/C82552819,Focal length (measure of how strongly an optical system converges or diverges light),ok,Focal length (),http://astrothesaurus.org/uat/2352
+https://openalex.org/C59496990,Forbush decrease (rapid decrease in galactic cosmic ray intensity following a coronal mass ejection),ok,Forbush effect (Forbush decrease),http://astrothesaurus.org/uat/546
+https://openalex.org/C41217024,Galilean moons (four largest moons of Jupiter),ok,Galilean satellites (Galilean moons),http://astrothesaurus.org/uat/627
+https://openalex.org/C149717495,Gamma distribution (probability distribution),ok,Gamma distribution (Schechter function),http://astrothesaurus.org/uat/1895
+https://openalex.org/C522846370,Gamma-ray astronomy (observational astronomy performed at less than 10 nm wavelengths),ok,"Gamma-ray astronomy (Gamma astronomy, Gamma ray astronomical observations, Gamma ray astronomy, Gamma-ray astronomical observations, γ-ray astronomy)",http://astrothesaurus.org/uat/628
+https://openalex.org/C17599544,Gamma-ray burst (flashes of gamma rays from distant galaxies),ok,"Gamma-ray bursts (γ-ray bursts, Cosmic gamma ray burst, Cosmic gamma-ray burst, GRB, Gamma ray burst, Gamma ray bursts, Gamma-ray burst)",http://astrothesaurus.org/uat/629
+https://openalex.org/C147452769,"General relativity (geometric theory of gravitation published by Albert Einstein in 1916, positing that spacetime is a 4-dimensional Lorentzian manifold whose curvature (Einstein tensor) is proportional to the stress–energy tensor of matter)",ok,General relativity (General theory of relativity),http://astrothesaurus.org/uat/641
+https://openalex.org/C19123756,Geocentric model (theory that Earth is the centre of the Universe),ok,Geocentric model (),http://astrothesaurus.org/uat/2361
+https://openalex.org/C154978347,Geocentric orbit (orbit around Earth),ok,Geocentric orbit (),http://astrothesaurus.org/uat/643
+https://openalex.org/C5675118,Geology of the Moon (composition of the Moon),ok,"Selenology (Geology of the Moon, Lunar geology, Selenodesy)",http://astrothesaurus.org/uat/1441
+https://openalex.org/C124017977,Gravitation (fundamental force attracting uneven distribution of masses together),ok,"Gravitation (Gravitational force, Gravity)",http://astrothesaurus.org/uat/661
+https://openalex.org/C118396296,Gravitational collapse (contraction of an astronomical object due to the influence of its own gravity),ok,Gravitational collapse (),http://astrothesaurus.org/uat/662
+https://openalex.org/C22492302,Gravitational energy (type of potential energy),ok,Gravitational energy (),http://astrothesaurus.org/uat/665
+https://openalex.org/C2983487018,Gravitational force (fundamental force attracting uneven distribution of masses together),ok,"Gravitation (Gravitational force, Gravity)",http://astrothesaurus.org/uat/661
+https://openalex.org/C2776761751,Gravitational instability (None),ok,Gravitational instability (),http://astrothesaurus.org/uat/668
+https://openalex.org/C68498078,Gravitational lens (distribution of matter between a distant light source and a observer),ok,Gravitational lensing (Gravitational lens),http://astrothesaurus.org/uat/670
+https://openalex.org/C125125069,Gravitational microlensing (Astronomical phenomenon due to the gravitational lens effect),ok,"Gravitational microlensing (Microlensing, Planetary microlensing, Gravitational microlens)",http://astrothesaurus.org/uat/672
+https://openalex.org/C96342900,Gravity anomaly (difference between the observed acceleration of a planet's gravity and a value predicted from a model),ok,Gravity anomaly (),http://astrothesaurus.org/uat/679
+https://openalex.org/C137851953,Greenhouse effect (atmospheric phenomenon),ok,Greenhouse effect (),http://astrothesaurus.org/uat/2314
+https://openalex.org/C40745267,Hawking radiation (Theory by Stephen Hawking),ok,Hawking radiation (Black hole evaporation),http://astrothesaurus.org/uat/703
+https://openalex.org/C32581055,Heliocentric orbit (orbit around the barycenter of the Sun),ok,Heliocentric orbit (),http://astrothesaurus.org/uat/706
+https://openalex.org/C106048912,Helioseismology (inferring the internal structure of the Sun from the propagation of seismic waves),ok,Helioseismology (),http://astrothesaurus.org/uat/709
+https://openalex.org/C54834619,Heliosphere (region of space dominated by the Sun),ok,Heliosphere (),http://astrothesaurus.org/uat/711
+https://openalex.org/C198704716,Herbig–Haro object (small patches of nebulosity associated with newly born stars),ok,"Herbig-Haro objects (HH objects, HH-object, Herbig Haro objects, Herbig–Haro object)",http://astrothesaurus.org/uat/722
+https://openalex.org/C29975890,Hertzsprung–Russell diagram (scatter plot of stars showing the relationship between the stars' absolute magnitudes (luminosities or brightness) versus their effective temperatures (stellar classifications or colour)),ok,"Hertzsprung Russell diagram (Color-color diagrams of stars, Color-magnitude diagrams of stars, H-R diagrams, HR diagram, HRD, Hertzsprung-Russell diagram, Hertzsprung/Russell diagrams, Hertzsprung–Russell diagram, Hertzsprung Russell diagrams, Hertzsprung-Russell diagrams)",http://astrothesaurus.org/uat/725
+https://openalex.org/C163926583,High-energy astronomy (study of astronomical objects that release electromagnetic radiation of highly energetic wavelengths),ok,"High energy astrophysics (High energy astronomy, High energy process, High-energy astronomy, High-energy astrophysics, High-energy process)",http://astrothesaurus.org/uat/739
+https://openalex.org/C2777777440,History of astronomy (one of the natural sciences),ok,History of astronomy (),http://astrothesaurus.org/uat/1868
+https://openalex.org/C128289946,Holographic interferometry (measuring technique for displacements of objects with optically rough surfaces),ok,Holographic interferometry (),http://astrothesaurus.org/uat/745
+https://openalex.org/C159176650,Horizon (apparent line that separates earth from sky),ok,Horizon (),http://astrothesaurus.org/uat/2339
+https://openalex.org/C67258758,Horizontal branch (stars powered by helium fusion),ok,Horizontal branch (),http://astrothesaurus.org/uat/2048
+https://openalex.org/C57853336,Hot dark matter (dark matter),ok,Hot dark matter (HDM),http://astrothesaurus.org/uat/750
+https://openalex.org/C66362828,Hubble sequence (morphological classification scheme for galaxies invented by Edwin Hubble),ok,"Hubble classification scheme (Hubble classification, Hubble galaxy classification, Hubble sequence, Hubble's classification)",http://astrothesaurus.org/uat/757
+https://openalex.org/C103874350,Hubble's law (observation in physical cosmology),ok,"Hubble-Lemaitre law (Hubble law, Hubble's law)",http://astrothesaurus.org/uat/763
+https://openalex.org/C151420433,Humidity (amount of water vapor in the air),ok,Humidity (),http://astrothesaurus.org/uat/764
+https://openalex.org/C126026641,"Hydrosphere (combined mass of water found on, under, and above the surface of a planet, minor planet or natural satellite)",ok,Hydrosphere (),http://astrothesaurus.org/uat/770
+https://openalex.org/C125873045,Hypernova (type of supernova explosion),ok,Hypernovae (Hypernova),http://astrothesaurus.org/uat/775
+https://openalex.org/C2992878202,Ice formation (water frozen into the solid state),ok,Ice formation (),http://astrothesaurus.org/uat/2092
+https://openalex.org/C52740198,Importance sampling (distribution estimation technique),ok,Importance sampling (),http://astrothesaurus.org/uat/1892
+https://openalex.org/C200941418,Inflation (cosmology) (theory of rapid expansion of the universe),ok,"Cosmic inflation (Cosmological inflation, Inflation (cosmology))",http://astrothesaurus.org/uat/319
+https://openalex.org/C79499522,Infrared astronomy (observational astronomy of emissions over the wavelength band 0.75 to 300 micrometers),ok,Infrared astronomy (),http://astrothesaurus.org/uat/786
+https://openalex.org/C2779760567,Infrared excess (greater measured infrared flux than expected from star temperature),ok,"Infrared excess (IR excess, IR excess stars)",http://astrothesaurus.org/uat/788
+https://openalex.org/C153642686,Infrared spectroscopy (involves the interaction of infrared radiation with matter),ok,Infrared spectroscopy (),http://astrothesaurus.org/uat/2285
+https://openalex.org/C189159749,Initial mass function (empirical function that describes the initial distribution of masses for a population of stars),ok,Initial mass function (),http://astrothesaurus.org/uat/796
+https://openalex.org/C204843146,Instability strip (stellar classification),ok,Instability strip (),http://astrothesaurus.org/uat/798
+https://openalex.org/C166689943,Interferometry (measurement method using interference of waves),ok,Interferometry (),http://astrothesaurus.org/uat/808
+https://openalex.org/C2993745857,Intergalactic medium (void between celestial bodies),ok,"Intergalactic medium (IGM, Intergalactic matter)",http://astrothesaurus.org/uat/813
+https://openalex.org/C520752033,International Space Station (habitable artificial satellite in low Earth orbit),ok,International Space Station (),http://astrothesaurus.org/uat/2349
+https://openalex.org/C96819898,Interplanetary medium (material which fills the Solar System),ok,"Interplanetary medium (Interplanetary material, Interplanetary matter)",http://astrothesaurus.org/uat/825
+https://openalex.org/C10880902,Interplanetary scintillation (random fluctuations in the intensity of radio waves of celestial origin),ok,Interplanetary scintillation (),http://astrothesaurus.org/uat/828
+https://openalex.org/C196939603,Interstellar medium (matter and radiation in the space between the star systems in a galaxy),ok,"Interstellar medium (ISM, Interstellar material, Interstellar matter, Interstellar media)",http://astrothesaurus.org/uat/847
+https://openalex.org/C100893083,Intracluster medium (superheated plasma that permeates a galaxy cluster),ok,"Intracluster medium (ICM, Intracluster matter)",http://astrothesaurus.org/uat/858
+https://openalex.org/C137975842,Ion trapping (None),ok,Ion trapping (),http://astrothesaurus.org/uat/2224
+https://openalex.org/C198291218,Ionization (process by which atoms or molecules acquire charge by gaining or losing electrons),ok,Ionization (),http://astrothesaurus.org/uat/2068
+https://openalex.org/C2778576794,James Webb Space Telescope (space observatory),ok,James Webb Space Telescope (),http://astrothesaurus.org/uat/2291
+https://openalex.org/C95086748,Kerr metric (exact solution for the Einstein field equations),ok,Kerr metric (),http://astrothesaurus.org/uat/887
+https://openalex.org/C2778113609,Lambda (11th letter in the Greek alphabet),ok,Cosmological constant (Lambda),http://astrothesaurus.org/uat/334
+https://openalex.org/C2781010120,"Large Magellanic Cloud (irregular galaxy, satellite of the Milky Way)",ok,"Large Magellanic Cloud (L m c, LMC)",http://astrothesaurus.org/uat/903
+https://openalex.org/C2779188808,Laser ablation (process that removes material from an object by heating it with a laser),ok,Laser ablation (),http://astrothesaurus.org/uat/2245
+https://openalex.org/C2781052526,Leptogenesis (hypothesized processes that could produce the observed asymmetry favoring leptonic matter (leptons) over its antimatter (antileptons)),ok,Leptogenesis (),http://astrothesaurus.org/uat/916
+https://openalex.org/C161421721,"Light pollution (anthropogenic light in the night environment, caused by excess or misdirected lighting)",ok,Light pollution (),http://astrothesaurus.org/uat/2318
+https://openalex.org/C2780688901,LIGO (gravitational wave detector),ok,LIGO (Laser Interferometer Gravitational-Wave Observatory),http://astrothesaurus.org/uat/920
+https://openalex.org/C83621551,Limb darkening (None),ok,Limb darkening (),http://astrothesaurus.org/uat/922
+https://openalex.org/C135448202,Limiting magnitude (faintest apparent magnitude of a celestial body that is detectable or detected by a given instrument),ok,Limiting magnitude (),http://astrothesaurus.org/uat/923
+https://openalex.org/C48921125,Linear regression (statistical approach for modeling the relationship between a scalar dependent variable and one or more explanatory variables),ok,Linear regression (),http://astrothesaurus.org/uat/1945
+https://openalex.org/C16942324,"Lithosphere (rigid, outermost shell of a terrestrial-type planet or natural satellite that is defined by its rigid mechanical properties)",ok,Lithosphere (),http://astrothesaurus.org/uat/928
+https://openalex.org/C2779652233,Local Group (group of galaxies that includes the Milky Way),ok,Local Group (),http://astrothesaurus.org/uat/929
+https://openalex.org/C17959413,Luminosity function (spectral sensitivity of human visual perception of brightness),ok,Luminosity function (),http://astrothesaurus.org/uat/942
+https://openalex.org/C2780472129,Lunar craters (crater on Earth's moon),ok,Lunar craters (Lunar cratering),http://astrothesaurus.org/uat/949
+https://openalex.org/C33110843,"Lunar mare (large, dark, basaltic plains on Earth's Moon)",ok,"Lunar maria (Lunar mare, Lunar seas, Moon mare, Moon maria, Moon seas)",http://astrothesaurus.org/uat/961
+https://openalex.org/C93849054,Lyman-alpha forest (astronomical spectroscopic term),ok,"Lyman alpha forest (Ly-α forest, Lyman forest, Lyman-alpha forest, Lyα forest)",http://astrothesaurus.org/uat/980
+https://openalex.org/C2779471453,Magnetogram (None),ok,Magnetogram (),http://astrothesaurus.org/uat/2359
+https://openalex.org/C31532427,Magnetohydrodynamics (study of the interaction of electrically conducting fluids with magnetic fields),ok,Magnetohydrodynamics (MHD),http://astrothesaurus.org/uat/1964
+https://openalex.org/C56956389,Main sequence (distinctive band of stars on Hertzsprung–Russell diagrams),ok,Main sequence (),http://astrothesaurus.org/uat/2047
+https://openalex.org/C111350023,Markov chain Monte Carlo (class of algorithms),ok,Markov chain Monte Carlo (),http://astrothesaurus.org/uat/1889
+https://openalex.org/C188232333,Mass ratio (measure of the efficiency of a rocket),ok,Mass ratio (Mass-ratio),http://astrothesaurus.org/uat/1012
+https://openalex.org/C162356407,Mass spectrometry (analytical technique based on determining mass to charge ratio of ions),ok,Mass spectrometry (),http://astrothesaurus.org/uat/2094
+https://openalex.org/C136711042,Mass-to-light ratio (ratio of total mass of a galaxy or cluster to its luminosity),ok,Mass-to-light ratio (),http://astrothesaurus.org/uat/1011
+https://openalex.org/C109714416,Mesopause (upper boundary of the mesosphere),ok,Mesopause (),http://astrothesaurus.org/uat/1029
+https://openalex.org/C69976271,Mesosphere (layer of the atmosphere),ok,Mesosphere (),http://astrothesaurus.org/uat/1030
+https://openalex.org/C99465377,Metallicity (fraction of mass of a star or other kind of astronomical object that is not in hydrogen or helium),ok,Metallicity (Metal abundances),http://astrothesaurus.org/uat/1031
+https://openalex.org/C516920438,Methane (simplest organic molecule with one carbon atom and four hydrogen),ok,"Methane (C h4, C h_4)",http://astrothesaurus.org/uat/1042
+https://openalex.org/C555520305,Milky Way (spiral galaxy in the Local Group containing the Solar System),ok,"Milky Way Galaxy (Milky Way, Our galaxy, The Galaxy)",http://astrothesaurus.org/uat/1054
+https://openalex.org/C13743678,"Minimum spanning tree (data structure, subgraph of a weighted graph)",ok,Minimum spanning tree (),http://astrothesaurus.org/uat/1950
+https://openalex.org/C61224824,Mixture model (statistical concept),ok,Mixture model (),http://astrothesaurus.org/uat/1932
+https://openalex.org/C93959086,"Model selection (task of selecting a statistical model from a set of candidate models, given data. In the simplest cases, a pre-existing set of data is considered)",ok,Model selection (),http://astrothesaurus.org/uat/1912
+https://openalex.org/C174832881,Modified Newtonian dynamics (alternative explanation of the non-Newtonian rotation of galaxies),ok,Modified Newtonian dynamics (M o n d),http://astrothesaurus.org/uat/1069
+https://openalex.org/C41999313,Molecular physics (branch of physics),ok,Molecular physics (),http://astrothesaurus.org/uat/2058
+https://openalex.org/C2991720660,Molecular spectroscopy (interaction between matter and electromagnetic radiation broken down into frequencies),ok,Molecular spectroscopy (),http://astrothesaurus.org/uat/2095
+https://openalex.org/C38180746,Multivariate analysis (simultaneous observation and analysis of more than one outcome variable),ok,Multivariate analysis (),http://astrothesaurus.org/uat/1913
+https://openalex.org/C88575799,Nadir (direction pointing directly below a particular location),ok,Nadir (),http://astrothesaurus.org/uat/1086
+https://openalex.org/C2779496878,Nebula (body of interstellar clouds),ok,Nebulae (Nebula),http://astrothesaurus.org/uat/1095
+https://openalex.org/C525488444,Neptune (eighth and farthest planet from the Sun in the Solar System),ok,Neptune (),http://astrothesaurus.org/uat/1096
+https://openalex.org/C56623721,"Neutrino astronomy (observational astronomy that benefits from the direct, or indirect, detection of neutrinos)",ok,Neutrino astronomy (),http://astrothesaurus.org/uat/1100
+https://openalex.org/C2983470273,Night vision (ability to see in low light conditions),ok,Night vision (),http://astrothesaurus.org/uat/1113
+https://openalex.org/C2777573673,Nitrous oxide (chemical compound),ok,"Nitrous oxide (Laughing gas, N2O, Sweet air)",http://astrothesaurus.org/uat/1114
+https://openalex.org/C152321242,"Non-Gaussianity (degree to which a measured statistical distribution deviates from Gaussian form; in astrophysics, fluctuations of the cosmic microwave background)",ok,Non-Gaussianity (),http://astrothesaurus.org/uat/1116
+https://openalex.org/C46889948,Nonlinear regression (None),ok,Nonlinear regression (),http://astrothesaurus.org/uat/1948
+https://openalex.org/C102094743,Normal distribution (probability distribution),ok,Normal distribution (),http://astrothesaurus.org/uat/1896
+https://openalex.org/C54116275,Nuclear astrophysics (interdisciplinary branch of physics),ok,Nuclear astrophysics (),http://astrothesaurus.org/uat/1129
+https://openalex.org/C36091686,Nuclear fission (a nuclear reaction splitting an atom into multiple parts),ok,Nuclear fission (),http://astrothesaurus.org/uat/2323
+https://openalex.org/C69285833,Nuclear fusion (nuclear reaction in which atomic nuclei combine),ok,Nuclear fusion (),http://astrothesaurus.org/uat/2324
+https://openalex.org/C185544564,Nuclear physics (field of physics that deals with the structure and behavior of atomic nuclei),ok,Nuclear physics (),http://astrothesaurus.org/uat/2077
+https://openalex.org/C4397270,"Nucleosynthesis (process that creates new atomic nuclei from pre-existing nucleons, primarily protons and neutrons)",ok,"Nucleosynthesis (Element formation, Formation of elements)",http://astrothesaurus.org/uat/1131
+https://openalex.org/C19500987,Observational astronomy (field of astronomy concerned with recording data about the observable universe),ok,"Observational astronomy (Imaging of stars, Stellar imaging)",http://astrothesaurus.org/uat/1145
+https://openalex.org/C56764,Observational cosmology (cosmology),ok,Observational cosmology (),http://astrothesaurus.org/uat/1146
+https://openalex.org/C131040042,Occultation (event that occurs when one object is hidden by another object that passes between it and the observer),ok,Occultation (),http://astrothesaurus.org/uat/1148
+https://openalex.org/C2988343187,Open source software (software whose source code is available under an open source license),ok,Open source software (),http://astrothesaurus.org/uat/1866
+https://openalex.org/C2779132550,Optical aberration (departure of the performance of an optical system from the predictions of paraxial optics),ok,Optical aberration (),http://astrothesaurus.org/uat/2330
+https://openalex.org/C107768556,Orbit determination (None),ok,Orbit determination (),http://astrothesaurus.org/uat/1175
+https://openalex.org/C97784730,Orbital elements (parameters required to uniquely identify a specific orbit),ok,Orbital elements (Keplerian elements),http://astrothesaurus.org/uat/1177
+https://openalex.org/C6629501,Orbital mechanics (Field of classical mechanics concerned with the motion of spacecraft),ok,Astrodynamics (Orbital mechanics),http://astrothesaurus.org/uat/76
+https://openalex.org/C204610980,"Orbital motion (involves the quantum mechanical motion of rigid particles (such as electrons) about some other mass, or about themselves)",ok,Orbital motion (),http://astrothesaurus.org/uat/1179
+https://openalex.org/C2777377174,Outer planets (planetary system of the Sun),ok,"Solar system gas giant planets (Outer planets, Gas giants, Jovian planets)",http://astrothesaurus.org/uat/1191
+https://openalex.org/C50083752,OVV quasar (type of highly variable quasar or subtype of blazar),ok,"Flat-spectrum radio quasars (FSRQ, OVV quasars, Optically violent variable quasars, Optically violent variable quasar, OVV quasar, HPQ, Highly polarized quasars, Highly polarized quasar, CDQ, Core-dominated quasars, Core-dominated quasar)",http://astrothesaurus.org/uat/2163
+https://openalex.org/C115719804,Ozone layer (region of Earth's stratosphere that absorbs most of the Sun's UV radiation),ok,Ozone layer (),http://astrothesaurus.org/uat/1194
+https://openalex.org/C15759828,Parallax (difference in the apparent position of an object viewed along two different lines of sight),ok,Parallax (),http://astrothesaurus.org/uat/1197
+https://openalex.org/C190373308,Pareto distribution (probability distribution),ok,Pareto distribution (Power law distribution),http://astrothesaurus.org/uat/1897
+https://openalex.org/C44060867,Parsec (unit of length used in astronomy),ok,Parsec (Parallax second),http://astrothesaurus.org/uat/1199
+https://openalex.org/C109214941,Particle physics (branch of physics),ok,Particle physics (),http://astrothesaurus.org/uat/2088
+https://openalex.org/C45634927,Penrose process (theorical process wherein energy can be extracted from a rotating black hole),ok,Penrose process (Penrose mechanism),http://astrothesaurus.org/uat/1204
+https://openalex.org/C2780577055,Penumbra (medical term for the area surrounding an ischemic event such as thrombotic or embolic stroke),ok,Penumbra (Penumbras),http://astrothesaurus.org/uat/1205
+https://openalex.org/C117455697,Photogrammetry (science of making measurements from photographs),ok,Photogrammetry (Stereophotogrammetry),http://astrothesaurus.org/uat/1226
+https://openalex.org/C158749347,Photoionization (ion formation via a photon interacting with a molecule or atom),ok,Photoionization (),http://astrothesaurus.org/uat/2060
+https://openalex.org/C11494860,Photometer (scientific instrument),ok,Photometer (),http://astrothesaurus.org/uat/2030
+https://openalex.org/C175757954,Photon sphere (spherical area or region of space where gravity is strong enough that massless particles are forced to travel in orbits),ok,Photon sphere (),http://astrothesaurus.org/uat/1236
+https://openalex.org/C95200732,Physical cosmology (branch of astronomy),ok,Cosmology (Physical cosmology),http://astrothesaurus.org/uat/343
+https://openalex.org/C66279824,"Planetary migration (astronomical phenomenon when a planet or other stellar satellite interacts with a disk of gas or planetesimals, resulting in the alteration of the satellite's orbital parameters, especially its semi-major axis)",ok,Planetary migration (),http://astrothesaurus.org/uat/2206
+https://openalex.org/C152551177,Planetary science (science of astronomical objects apparently in orbit around one or more stellar objects within a few light years),ok,Planetary science (Planetology),http://astrothesaurus.org/uat/1255
+https://openalex.org/C138774019,Planetary surface (where the solid (or liquid) material of the outer crust on certain types of astronomical objects contacts the atmosphere or outer space),ok,Planetary surfaces (Planetary surface),http://astrothesaurus.org/uat/2113
+https://openalex.org/C119477230,Plate tectonics (scientific theory that describes the large-scale motions of Earth's lithosphere),ok,Plate tectonics (Continental drift),http://astrothesaurus.org/uat/1265
+https://openalex.org/C2780263841,Pluto (dwarf planet in the Solar System),ok,"Pluto ((134340) Pluto, 134340 Pluto)",http://astrothesaurus.org/uat/1267
+https://openalex.org/C100906024,Poisson distribution (discrete probability distribution),ok,Poisson distribution (),http://astrothesaurus.org/uat/1898
+https://openalex.org/C92328372,Polar orbit (satellite orbit with high inclination),ok,Polar orbit (),http://astrothesaurus.org/uat/1275
+https://openalex.org/C28493345,Polarimetry (measurement and interpretation of the polarization of transverse waves),ok,Polarimetry (),http://astrothesaurus.org/uat/1278
+https://openalex.org/C195475122,Position angle (measurement relating to observed visual binary stars),ok,Position angle (),http://astrothesaurus.org/uat/1286
+https://openalex.org/C143588538,Primary mirror (main light-gathering source of reflecting telescope),ok,Primary mirror (),http://astrothesaurus.org/uat/2345
+https://openalex.org/C27438332,Principal component analysis (conversion of a set of observations of possibly correlated variables into a set of values of linearly uncorrelated variables called principal components),ok,Principal component analysis (),http://astrothesaurus.org/uat/1944
+https://openalex.org/C170084019,Protoplanetary nebula (type of astronomical object),ok,"Protoplanetary nebulae (Preplanetary nebulae, Protoplanetary nebula, PPN)",http://astrothesaurus.org/uat/1301
+https://openalex.org/C172092558,Public domain software (software that is in the public domain),ok,Public domain software (),http://astrothesaurus.org/uat/1863
+https://openalex.org/C36759035,Pyrolysis (thermal decomposition of materials at elevated temperatures in an inert atmosphere),ok,Pyrolysis (),http://astrothesaurus.org/uat/2246
+https://openalex.org/C45018233,Quantum cosmology (attempts to develop a quantum mechanical theory of cosmology),ok,Quantum cosmology (),http://astrothesaurus.org/uat/1313
+https://openalex.org/C108568745,Quantum gravity (field of theoretical physics),ok,Quantum gravity (),http://astrothesaurus.org/uat/1314
+https://openalex.org/C36429004,Quintessence (dynamic scalar field hypothesized as a form of dark energy),ok,Quintessence (),http://astrothesaurus.org/uat/1323
+https://openalex.org/C41074950,Radial velocity (subclass of velocity),ok,"Radial velocity (Astrometric radial velocity, Radial-velocity method, Spectroscopic radial velocity, Radial velocity methods)",http://astrothesaurus.org/uat/1332
+https://openalex.org/C74902906,Radiative transfer (energy transfer through a medium through emission and absorption of electromagnetic radiation),ok,Radiative transfer (),http://astrothesaurus.org/uat/1335
+https://openalex.org/C150143219,Radio astronomy (subfield of astronomy that studies celestial objects at radio frequencies),ok,Radio astronomy (),http://astrothesaurus.org/uat/1338
+https://openalex.org/C2777034083,Radio occultation (remote sensing technique),ok,Radio occultation (),http://astrothesaurus.org/uat/1351
+https://openalex.org/C156695909,Recombination (epoch at which charged electrons and protons first became bound to form electrically neutral hydrogen atoms),ok,Recombination (),http://astrothesaurus.org/uat/2072
+https://openalex.org/C134284744,Red clump (Red Clump Star),ok,Red giant clump (Red clump),http://astrothesaurus.org/uat/1370
+https://openalex.org/C2992820272,Red shift (relative increase in wavelength of electromagnetic radiation in the emission spectrum of astronomical objects),ok,"Redshifted (Red shift, Redshift)",http://astrothesaurus.org/uat/1379
+https://openalex.org/C33024259,Redshift (relative increase in wavelength of electromagnetic radiation in the emission spectrum of astronomical objects),ok,"Redshifted (Red shift, Redshift)",http://astrothesaurus.org/uat/1379
+https://openalex.org/C187902132,Reflection nebula (nebulosity in astronomy),ok,Reflection nebulae (Reflection nebula),http://astrothesaurus.org/uat/1381
+https://openalex.org/C41642174,"Regolith (A layer of loose, heterogeneous superficial deposits covering solid rock)",ok,Regolith (),http://astrothesaurus.org/uat/2294
+https://openalex.org/C83546350,Regression (mental defence mechanism),ok,Regression (Fitting),http://astrothesaurus.org/uat/1914
+https://openalex.org/C69672822,Reionization (process that caused the matter in the universe to reionize early in the history of the universe),ok,"Reionization (Re-ionisation, Re-ionization, Reionisation)",http://astrothesaurus.org/uat/1383
+https://openalex.org/C206611041,Relativistic mechanics (theory of motion and forces for objects close to the speed of light),ok,Relativistic mechanics (),http://astrothesaurus.org/uat/1391
+https://openalex.org/C62649853,"Remote sensing (acquisition of information about an object or phenomenon without making physical contact with the object, especially the Earth)",ok,Remote sensing (),http://astrothesaurus.org/uat/2191
+https://openalex.org/C48841040,Reverberation mapping (None),ok,Reverberation mapping (),http://astrothesaurus.org/uat/2019
+https://openalex.org/C85033227,Right ascension (astronomical equivalent of longitude),ok,Right ascension (Celestial longitude),http://astrothesaurus.org/uat/1399
+https://openalex.org/C70259352,"Robust regression (Specialized form of regression analysis, in statistics)",ok,Robust regression (),http://astrothesaurus.org/uat/1949
+https://openalex.org/C37324193,Roche limit (astronomical concept),ok,Roche limit (Roche radius),http://astrothesaurus.org/uat/1404
+https://openalex.org/C131722892,Roche lobe (Teardrop-shaped spacetime distortion near binary stars),ok,Roche lobe (),http://astrothesaurus.org/uat/1405
+https://openalex.org/C31100168,Rotational spectroscopy (spectroscopy of quantized rotational states of gases),ok,Rotational spectroscopy (),http://astrothesaurus.org/uat/2248
+https://openalex.org/C167723999,Sampling distribution (probability distribution of the possible sample outcomes),ok,Sampling distribution (),http://astrothesaurus.org/uat/1899
+https://openalex.org/C511503438,"Saturn (sixth planet from the Sun and the second-largest planet in the Solar System, after Jupiter)",ok,Saturn (),http://astrothesaurus.org/uat/1426
+https://openalex.org/C1489048,"Scale height (distance over which a quantity decreases by a factor of e; for a planetary atmosphere, the distance over which pressure drops by that factor)",ok,Scale height (),http://astrothesaurus.org/uat/1429
+https://openalex.org/C136125196,Schwarzschild metric (General Relativity Theory),ok,"Schwarzschild metric (Schwarzschild solution, Schwarzschild vacuum)",http://astrothesaurus.org/uat/1434
+https://openalex.org/C115304011,Schwarzschild radius (distance from a massive body where the escape velocity equals the speed of light),ok,Schwarzschild radius (Gravitational radius),http://astrothesaurus.org/uat/1435
+https://openalex.org/C183211975,Search for extraterrestrial intelligence (effort to find civilizations not from Earth),ok,Search for extraterrestrial intelligence (SETI),http://astrothesaurus.org/uat/2127
+https://openalex.org/C2780556460,Secondary mirror (secondary deflecting or focusing mirror in a reflecting telescope),ok,Secondary mirror (),http://astrothesaurus.org/uat/2346
+https://openalex.org/C16171025,"Singularity (in general a point at which a given mathematical object is not defined, or a point of an exceptional set where it fails to be well-behaved in some particular way, such as differentiability)",ok,"Gravitational singularities (Cosmic singularities, Singularity, Space-time singularities, Spacetime singularities)",http://astrothesaurus.org/uat/674
+https://openalex.org/C193212914,Sky brightness (visual perception of the sky and how it scatters and diffuses light.),ok,Sky brightness (),http://astrothesaurus.org/uat/1462
+https://openalex.org/C2780574069,Skylight (window in the ceiling-roof),ok,"Diffuse radiation (Diffuse sky radiation, Skylight, Sky radiation, Diffuse skylight)",http://astrothesaurus.org/uat/383
+https://openalex.org/C2780020771,"Small Magellanic Cloud (Irregular galaxy, satellite galaxy of the Milky Way)",ok,"Small Magellanic Cloud (S m c, SMC)",http://astrothesaurus.org/uat/1468
+https://openalex.org/C3770464,Smoothing (dataset modification using an approximating function to capture important patterns in the data while leaving out noise),ok,Smoothing (),http://astrothesaurus.org/uat/1929
+https://openalex.org/C81587897,"Software documentation (help content, typically written text, that accompanies computer software and explains its functionality)",ok,Software documentation (),http://astrothesaurus.org/uat/1869
+https://openalex.org/C2992084963,Solar atmosphere (star at the centre of the Solar System),ok,Solar atmosphere (),http://astrothesaurus.org/uat/1477
+https://openalex.org/C36644815,Solar constant (intensity of sunlight),ok,Solar constant (),http://astrothesaurus.org/uat/1481
+https://openalex.org/C26055595,Solar core (central region of the Sun),ok,Solar core (),http://astrothesaurus.org/uat/1482
+https://openalex.org/C43867161,Solar cycle (periodic change in the Sun's activity),ok,"Solar cycle (Solar activity cycles, Solar cycle variations, Solar magnetic activity cycle, Sun cycle, Sun cycles)",http://astrothesaurus.org/uat/1487
+https://openalex.org/C176879286,Solar dynamo (physical process that generates a star's magnetic field),ok,Solar dynamo (),http://astrothesaurus.org/uat/2001
+https://openalex.org/C13019657,Solar energetic particles (High-energy particles from the Sun),ok,"Solar energetic particles (Energetic solar particles, Suprathermal particles)",http://astrothesaurus.org/uat/1491
+https://openalex.org/C9695528,Solar irradiance (power per unit area received from the Sun in the form of electromagnetic radiation),ok,"Solar spectral irradiance (Solar irradiance, SSI)",http://astrothesaurus.org/uat/1501
+https://openalex.org/C165129702,Solar mass (standard unit of mass in astronomy),ok,Solar mass (),http://astrothesaurus.org/uat/1506
+https://openalex.org/C7644452,Solar neutrino problem (major discrepancy between measurements of the numbers of neutrinos flowing through the Earth and theoretical models of the solar interior),ok,Solar neutrino problem (),http://astrothesaurus.org/uat/1510
+https://openalex.org/C183682340,Solar physics (branch of astrophysics),ok,"Solar physics (Astrophysics of the sun, Solar astronomy, Solar astrophysics)",http://astrothesaurus.org/uat/1476
+https://openalex.org/C193145208,Solar prominence (gaseous outburst from the sun),ok,"Solar prominences (Prominence, Solar eruptions, Solar prominence, Solar prominence eruptions)",http://astrothesaurus.org/uat/1519
+https://openalex.org/C95448815,Solar radius (unit of measurement),ok,Solar radius (),http://astrothesaurus.org/uat/1488
+https://openalex.org/C103962331,Solar rotation (the pattern of rotation of components of the Sun),ok,Solar rotation (),http://astrothesaurus.org/uat/1524
+https://openalex.org/C108411613,Solar wind (stream of charged particles released from the Sun),ok,Solar wind (),http://astrothesaurus.org/uat/1534
+https://openalex.org/C108320909,Solstice (Solar event),ok,Solstice (),http://astrothesaurus.org/uat/1537
+https://openalex.org/C18949120,Space debris (collection of defunct objects in orbit),ok,Space debris (Debris),http://astrothesaurus.org/uat/1542
+https://openalex.org/C92851284,Space research (scientific studies carried out using scientific equipment in outer space),ok,Space research (Space science),http://astrothesaurus.org/uat/1546
+https://openalex.org/C151325931,Space weather (weather in outer space),ok,Space weather (),http://astrothesaurus.org/uat/2037
+https://openalex.org/C23134205,Special relativity (physical theory of measurement in an inertial frame of reference proposed in 1905 by Albert Einstein),ok,Special relativity (Special theory of relativity),http://astrothesaurus.org/uat/1551
+https://openalex.org/C50425793,Spectral energy distribution (topic in astronomy),ok,Spectral energy distribution (SED),http://astrothesaurus.org/uat/2129
+https://openalex.org/C42061751,Spectral index (measure of the dependence of radiative flux density on frequency (astronomical term)),ok,Spectral index (),http://astrothesaurus.org/uat/1553
+https://openalex.org/C2780343419,"Spectrophotometry (deals with visible light, near-ultraviolet, and near-infrared, but does not cover time-resolved spectroscopic techniques)",ok,Spectrophotometry (),http://astrothesaurus.org/uat/1556
+https://openalex.org/C32891209,Spectroscopy (interaction between matter and electromagnetic radiation broken down into frequencies),ok,Spectroscopy (Astronomical spectroscopy),http://astrothesaurus.org/uat/1558
+https://openalex.org/C70638346,Spherical aberration (optical aberration),ok,Spherical aberration (),http://astrothesaurus.org/uat/2343
+https://openalex.org/C193943012,Spin-flip (phenomenon where the spin axis of a rotating black hole suddenly changes from absorption of a second black hole),ok,Black hole spin-flip (Spin-flip),http://astrothesaurus.org/uat/160
+https://openalex.org/C125857072,Star formation (process of forming stars),ok,Star formation (),http://astrothesaurus.org/uat/1569
+https://openalex.org/C150846664,Stars (None),ok,Stellar types (Stars),http://astrothesaurus.org/uat/1634
+https://openalex.org/C180690934,Stellar classification (classification of stars based on their spectral characteristics),ok,"Stellar classification (Spectra classification, Spectral classification, Spectral type, Spectrum classification, Stellar spectral classification, Stellar spectrum classification)",http://astrothesaurus.org/uat/1589
+https://openalex.org/C98176478,Stellar dynamics (branch of astrophysics that statistically models the collective movement of stars),ok,Stellar dynamics (),http://astrothesaurus.org/uat/1596
+https://openalex.org/C110472602,Stellar evolution (changes to a star over its lifespan),ok,"Stellar evolution (Evolution of stars, Star cycle, Stellar cycle)",http://astrothesaurus.org/uat/1599
+https://openalex.org/C167739726,Stellar kinematics (study of the movement of stars),ok,Stellar kinematics (),http://astrothesaurus.org/uat/1608
+https://openalex.org/C5788528,Stellar mass loss (Physical phenomenon),ok,Stellar mass loss (),http://astrothesaurus.org/uat/1613
+https://openalex.org/C112473583,Stellar nucleosynthesis (process by which the natural abundances of the chemical elements within stars change due to nuclear fusion reactions in the cores and their overlying mantles),ok,Stellar nucleosynthesis (),http://astrothesaurus.org/uat/1616
+https://openalex.org/C180537121,Stellar physics (branch of astronomy),ok,Stellar physics (Physics of stars),http://astrothesaurus.org/uat/1621
+https://openalex.org/C88991977,Stellar rotation (angular motion of a star about its axis),ok,Stellar rotation (),http://astrothesaurus.org/uat/1629
+https://openalex.org/C138082160,Stratopause (upper boundary of the stratosphere),ok,Stratopause (Mesopeak),http://astrothesaurus.org/uat/1639
+https://openalex.org/C163861444,Stratosphere (layer of the atmosphere),ok,Stratosphere (),http://astrothesaurus.org/uat/1640
+https://openalex.org/C38437897,"Strong gravitational lensing (effect strong enough to produce multiple images, arcs, or even Einstein rings)",ok,Strong gravitational lensing (),http://astrothesaurus.org/uat/1643
+https://openalex.org/C2991813041,Sunspot number (measure of sunspots),ok,"Sunspot number (Relative sunspot number, SSN, Wolf number)",http://astrothesaurus.org/uat/1652
+https://openalex.org/C51493423,Superluminal motion (apparent faster-than-light motion of distant astronomical objects),ok,"Apparent superluminal motion (Apparent FTL, Effective FTL, Fast-than-light, Faster than light, Superluminal motion)",http://astrothesaurus.org/uat/61
+https://openalex.org/C12267149,Support vector machine (set of methods for supervised statistical learning),ok,Support vector machine (),http://astrothesaurus.org/uat/1936
+https://openalex.org/C151130387,Surface gravity (gravitational acceleration experienced at the surface of an astronomical or other object),ok,Surface gravity (Acceleration of gravity),http://astrothesaurus.org/uat/1669
+https://openalex.org/C10515644,"Survival analysis (branch of statistics for analyzing the expected duration of time until one or more significant events happen, such as death in biological organisms and failure in mechanical systems)",ok,Survival analysis (),http://astrothesaurus.org/uat/1905
+https://openalex.org/C77928131,Tectonics (processes that control the structure and properties of the Earth's crust and its evolution through time),ok,Tectonics (),http://astrothesaurus.org/uat/2175
+https://openalex.org/C154010619,"Terrestrial planet (planet that is composed primarily of silicate rocks or metals. Within the Solar System, the terrestrial planets are the inner planets closest to the Sun, i.e. Mercury, Venus, Earth, and Mars)",ok,"Solar system terrestrial planets (Terrestrial planet, Terrestrial planets, Inner planets)",http://astrothesaurus.org/uat/797
+https://openalex.org/C131980223,Thermosphere (layer of the Earth's atmosphere above the mesosphere and below the exosphere),ok,Thermosphere (),http://astrothesaurus.org/uat/1694
+https://openalex.org/C34725247,Three-body problem (problem in physics; special case of the n-body problem),ok,Three-body problem (Three body problem),http://astrothesaurus.org/uat/1695
+https://openalex.org/C16291436,Time-of-flight mass spectrometry (method of mass spectrometry),ok,Time-of-flight mass spectrometry (TOFMS),http://astrothesaurus.org/uat/2222
+https://openalex.org/C171420983,Tropopause (upper boundary of troposphere),ok,Tropopause (),http://astrothesaurus.org/uat/1717
+https://openalex.org/C9075549,Troposphere (lowest layer of the atmosphere),ok,Troposphere (),http://astrothesaurus.org/uat/1718
+https://openalex.org/C2777298776,Twilight (illumination of the Earth's lower atmosphere when the Sun itself is not directly visible because it is below the horizon),ok,Twilight (),http://astrothesaurus.org/uat/1722
+https://openalex.org/C28215138,Two-body problem (to determine the motion of two point particles that interact only with each other),ok,Two-body problem (Two body problem),http://astrothesaurus.org/uat/1723
+https://openalex.org/C559924203,Ultraviolet astronomy (observational astronomy performed over the ultraviolet range from 10 nm to 400 nm),ok,Ultraviolet astronomy (UV astronomy),http://astrothesaurus.org/uat/1736
+https://openalex.org/C2780114079,Uranus (seventh planet from the Sun),ok,Uranus (),http://astrothesaurus.org/uat/1751
+https://openalex.org/C27574286,"Variables (concept in mathematical modeling, statistical modeling and experimental sciences)",ok,Variable stars (Variables),http://astrothesaurus.org/uat/1761
+https://openalex.org/C2779900269,Venus (genus of molluscs),ok,Venus (),http://astrothesaurus.org/uat/1763
+https://openalex.org/C2780174078,"Very Large Telescope (telescope facility in the Atacama Desert, Chile)",ok,Very Large Telescope (VLT),http://astrothesaurus.org/uat/1767
+https://openalex.org/C2778042045,Virgo Cluster (galaxy cluster),ok,Virgo Cluster (),http://astrothesaurus.org/uat/1772
+https://openalex.org/C6363049,"Volcanism (phenomena and processes associated with the action of volcanos, geysers and fumaroles)",ok,Volcanism (),http://astrothesaurus.org/uat/2174
+https://openalex.org/C120806208,"Volcano (natural, surface vent or fissure usually in a mountainous form)",ok,Volcanoes (Volcano),http://astrothesaurus.org/uat/1780
+https://openalex.org/C113840448,Warm dark matter (hypothesized form of dark matter that has properties intermediate between those of hot dark matter and cold dark matter),ok,Warm dark matter (WDM),http://astrothesaurus.org/uat/1787
+https://openalex.org/C147534773,"Water vapor (gaseous phase of water; unlike other forms of water, water vapor is invisible)",ok,"Water vapor (Aqueous vapor, Aqueous vapour, Water vapour)",http://astrothesaurus.org/uat/1791
+https://openalex.org/C190670322,Weak gravitational lensing (gravitational deflection of light without creating noticeable extra images),ok,Weak gravitational lensing (),http://astrothesaurus.org/uat/1797
+https://openalex.org/C55504214,X-ray astronomy (branch of astronomy that uses X-ray observation),ok,X-ray astronomy (X-ray galaxies),http://astrothesaurus.org/uat/1810
+https://openalex.org/C4659333,X-ray transient (None),ok,X-ray transient sources (X-ray transient),http://astrothesaurus.org/uat/1852
+https://openalex.org/C53970728,"Zenith (imaginary point directly above a particular location, on the imaginary celestial sphere)",ok,Zenith (),http://astrothesaurus.org/uat/1838
+https://openalex.org/C155832589,Zodiacal light (glow in the night sky appearing to extend from the Sun's direction and along the zodiac),ok,"Zodiacal cloud (Zodiacal dust, Zodiacal dust cloud, Zodiacal light)",http://astrothesaurus.org/uat/1845

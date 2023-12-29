@@ -36,11 +36,8 @@ def test_harmonizing_two_concept_schemes():
 
     assert cs2.relations == [[c3.uri, SKOS.narrower, c4.uri]]
 
-    h = (
-        Harmonization()
-        .set_tagging_scheme(cs1)
-        .set_retrieval_scheme(cs2)
-        .add_mapping(c2.uri, SKOS.narrowMatch, c3.uri)
+    h = Harmonization(tagging_scheme=cs1, retrieval_scheme=cs2).add_mapping(
+        c2.uri, SKOS.narrowMatch, c3.uri
     )
 
     assert h.narrowmatch_bridge(c1.uri, c4.uri)
@@ -61,15 +58,12 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
     cs_openalex = ConceptScheme.from_file(
         Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl")
     )
-    h = (
-        Harmonization()
-        .set_retrieval_scheme(cs_helioregion)
-        .set_tagging_scheme(cs_openalex)
-        .add_mapping(
-            cs_openalex.find_concept_by_pref_label("Atmospheric physics"),
-            SKOS.exactMatch,
-            cs_helioregion.find_concept_by_pref_label("Atmospheric Physics"),
-        )
+    h = Harmonization(
+        tagging_scheme=cs_openalex, retrieval_scheme=cs_helioregion
+    ).add_mapping(
+        cs_openalex.find_concept_by_pref_label("Atmospheric physics"),
+        SKOS.exactMatch,
+        cs_helioregion.find_concept_by_pref_label("Atmospheric Physics"),
     )
     assert h.narrowmatch_bridge(
         cs_openalex.find_concept_by_pref_label("Physics"),
@@ -88,7 +82,8 @@ def test_usability_of_harmonization_workflow():
         1. Create a simple concept scheme, with one top concept and two additional concepts, both of which
             are directly narrower than the top concept. Export this concept scheme to a Turtle file.
 
-        2. Load the helioregion concept scheme, and create a harmonization between it and your simple concept scheme.
+        2. Load the helioregion concept scheme, and create a harmonization between it (as tagging scheme)
+            and your simple concept scheme (as retrieval scheme).
             You may add a new top concept to your simple scheme, remove any existing concepts, etc.
 
         3. Export your harmonization both with and without entailments, as two separate Turtle files.

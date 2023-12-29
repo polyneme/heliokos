@@ -263,6 +263,7 @@ class ConceptScheme:
 
     def set_as_top_concept(self, concept: Concept):
         self.g.add((self.uri, SKOS.hasTopConcept, concept.uri))
+        return self
 
     def connect(
         self, concept_1: Concept, concept_2: Concept, property_: URIRef = SKOS.related
@@ -275,11 +276,10 @@ class ConceptScheme:
     def find_concept_by_pref_label(self, pref_label):
         return self.g.value(predicate=SKOS.prefLabel, object=Literal(pref_label))
 
-    #
-    # def to_file(self):
-    #     me_id = self.g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
-    #     Path(".scheme").mkdir(exist_ok=True)
-    #     self.g.serialize(f".scheme/{me_id.split('/')[-1]}.ttl")
+    def to_file(self, filepath):
+        if not str(filepath).endswith(".ttl"):
+            raise ValueError(f"`filepath` {filepath} must end in '.ttl'.")
+        self.g.serialize(destination=filepath)
 
     @property
     def concept_uris(self):
@@ -388,33 +388,32 @@ def new_uri():
 class Harmonization:
     """A sssom:MappingSet from subjects in a tagging scheme to objects in a retrieval scheme."""
 
-    def __init__(self, label=None, uri=None):
+    def __init__(
+        self,
+        tagging_scheme: ConceptScheme,
+        retrieval_scheme: ConceptScheme,
+        label=None,
+        uri=None,
+    ):
         self.g = HKGraph()
 
         if uri is None:
             uri = new_uri()
         self.uri = URIRef(uri)
-        self.uri_mappings = new_uri()
-        self.retrieval_scheme, self.tagging_scheme = None, None
+        if label is not None:
+            self.g.add((self.uri, SKOS.prefLabel, Literal(label)))
 
+        self.uri_mappings = new_uri()
         self.g.add((self.uri, RDF.type, SSSOM.MappingSet))
         self.g.add((self.uri, SSSOM.mappings, self.uri_mappings))
         self.g.add((self.uri_mappings, RDF.type, RDF.Bag))
 
-        if label is not None:
-            self.g.add((self.uri, SKOS.prefLabel, Literal(label)))
-
-    def set_retrieval_scheme(self, concept_scheme: ConceptScheme):
-        self.retrieval_scheme = concept_scheme
-        for triple in self.retrieval_scheme.g:
-            self.g.add(triple)
-        return self
-
-    def set_tagging_scheme(self, concept_scheme: ConceptScheme):
-        self.tagging_scheme = concept_scheme
+        self.tagging_scheme = tagging_scheme
         for triple in self.tagging_scheme.g:
             self.g.add(triple)
-        return self
+        self.retrieval_scheme = retrieval_scheme
+        for triple in self.retrieval_scheme.g:
+            self.g.add(triple)
 
     def add_mapping(
         self, subject_id=None, predicate_id=SKOS.relatedMatch, object_id=None
@@ -448,8 +447,8 @@ class Harmonization:
             self.g.add(triple)
         return self
 
-    def narrowmatch_bridge(self, concept_1_uri, concept_2_uri):
-        c1, c2 = concept_1_uri.n3(), concept_2_uri.n3()
+    def narrowmatch_bridge(self, tagging_concept_uri, retrieval_concept_uri):
+        c_tag, c_ret = tagging_concept_uri.n3(), retrieval_concept_uri.n3()
         qres = self.g.query(
             f"""
         SELECT *
@@ -458,18 +457,33 @@ class Harmonization:
          ?mapping a sssom:Mapping .
          ?mapping owl:annotatedProperty ?property .
          ?mapping owl:annotatedSource ?mapping_subject .
-         {c1} skos:narrower* ?mapping_subject .
+         {c_tag} skos:narrower* ?mapping_subject .
          ?mapping owl:annotatedTarget ?mapping_object .
-         ?mapping_object skos:narrower* {c2} .
+         ?mapping_object skos:narrower* {c_ret} .
         }}
         """,
             initNs={"skos": SKOS, "owl": OWL, "sssom": SSSOM},
         )
+
         return len(qres) != 0
 
 
 class GraphRepo:
-    """An interface to a persisted set of named graphs."""
+    """An interface to a persisted set of named graphs.
+
+    Schema for GraphRepo.coll MongoDB collection:
+    ```json
+    {
+        "env": { # envelope
+            "acl": <access_control_list>, # TODO # metadata should be in its own named graph
+            "lu": <last_updated_datetime>,
+        },
+        "g": <named_graph_curie>
+        "s": <subject_curie> # TODO can be "@context", which can have single edge with p == "@id".
+        "edge": [{"p": <predicate_curie>, "o": <object_curie> | str}],
+    }
+    ```
+    """
 
     def __init__(self, name=None, graph_uris: list[URIRef] | None = None):
         self.ds = Dataset()  # In-memory representation
@@ -677,3 +691,40 @@ def concept_scheme_label(doc):
         elif edge["p"] == "rdfs:label":
             return edge["o"]
     return None
+
+
+def concept_annotations_in_scheme(g: Graph):
+    """
+    Returns a nested dictionary of relevant annotation-property values for each concept.
+
+    Example:
+    {'<concept_uri>': {'skos:prefLabel': {'<value>'},
+                       'skos:altLabel': {'<value1>', '<value2>'},
+                       'skos:scopeNote': {'<value>'},}
+     ...,
+    }
+    """
+    concept_info = defaultdict(lambda: defaultdict(set))
+
+    for row in g.query(
+        """
+    SELECT ?s ?pl ?al ?def ?sn WHERE {
+    ?s a skos:Concept .
+    ?s skos:prefLabel ?pl .
+    ?s skos:definition ?dfn .
+    ?s skos:scopeNote ?sn .
+    ?s skos:altLabel ?al .
+    }""",
+        initNs={"skos": SKOS},
+    ):
+        s, pl, al, dfn, sn = [str(e) for e in row]
+        concept_info[s]["skos:prefLabel"].add(pl)
+        if dfn != "None":
+            concept_info[s]["skos:definition"].add(dfn)
+        concept_info[s]["skos:scopeNote"].add(sn)
+        concept_info[s]["skos:altLabel"].add(al)
+
+    concept_info = {
+        s: {p: set(o) for p, o in data.items()} for s, data in concept_info.items()
+    }
+    return concept_info
