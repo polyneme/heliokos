@@ -9,27 +9,33 @@ backend:
 - File-backed RDFLib graphs (for now)
 """
 from datetime import date
+from functools import lru_cache
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import FastAPI, Form, Header
+from fastapi import FastAPI, Form, Header, Depends, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from rdflib import SKOS
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 
-from heliokos.domain.core import (
+from heliokos.domain.core import get_full_repo, get_concept_repo
+from heliokos.infra.core import (
     Concept,
-    cs_helioregion,
-    expand_prefix,
+    GraphRepo,
     ConceptScheme,
-    RELATIONS_ALLOWED,
-    cs_openalex,
+    concept_scheme_label,
+    concept_pref_label,
+    doc2concept,
+    doc2scheme,
+    expand_curie,
+    curiefy,
+    CONCEPT_RELATIONS_ALLOWED,
+    CONTEXT_BASE,
 )
-from heliokos.infra.core import CONTEXT_BASE
-from heliokos.ui.html import page_for
+from heliokos.ui.core import raise404_if_none
 
 app = FastAPI()
 app.mount(
@@ -42,60 +48,54 @@ templates.env.globals.update({"GLOBALS_today_year": str(date.today().year)})
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_home(request: Request):
-    schemes = []
-    for filepath in Path(".scheme/").glob("*.ttl"):
-        schemes.append(ConceptScheme.from_file(str(filepath)))
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
+async def read_home(request: Request, full_repo: GraphRepo = Depends(get_full_repo)):
+    schemes = [
+        {"id": d["s"], "label": concept_scheme_label(d)}
+        for d in full_repo.find_concept_schemes()
+    ]
+    concepts = [
+        {"id": d["s"], "label": concept_pref_label(d)}
+        for d in full_repo.find_concepts(sort=[("env.lu", -1)], limit=25)
+    ]
     return templates.TemplateResponse(
         "home.html", {"request": request, "schemes": schemes, "concepts": concepts}
     )
 
 
 @app.get("/concept", response_class=HTMLResponse)
-async def read_concepts(request: Request):
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
+async def read_concepts(
+    request: Request, concept_repo: GraphRepo = Depends(get_concept_repo)
+):
+    concepts = [
+        {"id": d["s"], "label": concept_pref_label(d)}
+        for d in concept_repo.find_concepts(sort=[("env.lu", -1)], limit=25)
+    ]
     return templates.TemplateResponse(
         "concepts.html", {"request": request, "concepts": concepts}
     )
 
 
-@app.get("/concepts-search", response_class=HTMLResponse)
-async def search_concepts(request: Request):
-    return templates.TemplateResponse(
-        "concepts-search.html", {"request": request, "results": []}
-    )
-
-
-concept_pref_labels = {
-    str(pref_label): str(id_)
-    for id_, pref_label in cs_openalex.g.query(
-        "SELECT ?c ?clabel WHERE { ?c a skos:Concept . ?c skos:prefLabel ?clabel }",
-        initNs={"skos": SKOS},
-    )
-}
+@lru_cache
+def concept_pref_labels():
+    """Call concept_pref_labels.cache_clear() when concepts are added/modified/removed."""
+    # TODO restrict to dedicated "global" concepts graph (or "user" concepts graph plus "global" concepts graph)
+    repo = get_concept_repo()
+    return {doc["s"]: concept_pref_label(doc) for doc in repo.find_concepts()}
 
 
 @app.post("/concepts-search")
+@app.get("/concepts-search")
 async def search_concepts(
     request: Request,
-    search: Annotated[str | None, Form()] = None,
+    searched_concept: Annotated[str | None, Form()] = None,
     hk_combo_box: Annotated[str | None, Header()] = None,
 ):
-    if search:
-        results = (
-            [
-                {"pl": pl, "id_": id_}
-                for pl, id_ in concept_pref_labels.items()
-                if search in pl
-            ]
-            if search
-            else []
-        )
+    if searched_concept:
+        results = [
+            {"pl": pl, "id_": curie}
+            for curie, pl in concept_pref_labels().items()
+            if searched_concept in pl
+        ]
     else:
         results = []
     if hk_combo_box:
@@ -110,9 +110,19 @@ async def search_concepts(
 
 
 @app.post("/concept", response_class=HTMLResponse)
-async def create_concept(pref_label: Annotated[str, Form()], request: Request):
-    concept = Concept(pref_label)
-    concept.to_file()
+async def create_concept(
+    pref_label: Annotated[str, Form()],
+    request: Request,
+    concept_repo: GraphRepo = Depends(get_concept_repo),
+):
+    doc = concept_repo.find_one_concept([("skos:prefLabel", pref_label)])
+    if doc is not None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f'concept with preferred label "{pref_label}" <a href="/concept/{doc["s"]}">already exists</a>.',
+        )
+    concept_repo.upsert_one_concept([("skos:prefLabel", pref_label)])
+    concept_pref_labels.cache_clear()
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
         url=request.url_for("read_concepts"),
@@ -120,40 +130,51 @@ async def create_concept(pref_label: Annotated[str, Form()], request: Request):
 
 
 @app.get("/concept/{id_}", response_class=HTMLResponse)
-async def read_concept(id_: str, request: Request):
-    concept = Concept.from_file(f".concept/{id_}.ttl")
+async def read_concept(
+    request: Request, id_: str, repo: GraphRepo = Depends(get_full_repo)
+):
+    doc = raise404_if_none(
+        repo.find_one_concept_by_id(id_), detail=f"concept {id_} not found"
+    )
+    concept = doc2concept(doc)
     return templates.TemplateResponse(
         "concept.html", {"request": request, "concept": concept}
     )
 
 
 @app.get("/conceptscheme", response_class=HTMLResponse)
-async def read_concept_schemes(request: Request):
-    schemes = []
-    for filepath in Path(".scheme/").glob("*.ttl"):
-        schemes.append(ConceptScheme.from_file(str(filepath)))
+async def read_concept_schemes(
+    request: Request, repo: GraphRepo = Depends(get_full_repo)
+):
+    schemes = [doc2scheme(d) for d in repo.find_concept_schemes()]
     return templates.TemplateResponse(
         "schemes.html", {"request": request, "schemes": schemes}
     )
 
 
 @app.post("/conceptscheme", response_class=HTMLResponse)
-async def create_concept_scheme(request: Request):
+async def create_concept_scheme(
+    request: Request, repo: GraphRepo = Depends(get_full_repo)
+):
     scheme = ConceptScheme()
-    scheme.to_file()
+    repo.upsert_graph(scheme.g, scheme.uri)
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
-        url=request.url_for("read_concept_scheme", id_=scheme.id_suffix),
+        url=request.url_for("read_concept_scheme", id_=curiefy(scheme.uri)),
     )
 
 
 @app.get("/conceptscheme/{id_}", response_class=HTMLResponse)
-async def read_concept_scheme(id_: str, request: Request):
-    scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
-    scheme_concepts_by_id = {c.id: c for c in scheme.concepts}
+async def read_concept_scheme(
+    id_: str,
+    request: Request,
+    repo: GraphRepo = Depends(get_full_repo),
+    concept_repo: GraphRepo = Depends(get_concept_repo),
+):
+    raise404_if_none(repo.find_one_concept_scheme_by_id(id_))
+    scheme = ConceptScheme.from_repo(repo, expand_curie(id_))
+    concepts_exist = len(list(concept_repo.find_concepts(limit=2))) == 2
+    scheme_concepts_by_id = {c.uri: c for c in scheme.concepts}
     relations = [
         [
             scheme_concepts_by_id[s],
@@ -164,9 +185,9 @@ async def read_concept_scheme(id_: str, request: Request):
     ]
     deny_relations = [
         [
-            scheme_concepts_by_id[s].id_suffix,
+            scheme_concepts_by_id[s].uri,
             p.fragment,
-            scheme_concepts_by_id[o].id_suffix,
+            scheme_concepts_by_id[o].uri,
         ]
         for s, p, o in scheme.deny_relations
     ]
@@ -177,21 +198,25 @@ async def read_concept_scheme(id_: str, request: Request):
             "scheme": scheme,
             "relations": relations,
             "deny_relations": deny_relations,
-            "concepts": concepts,
+            "concepts_exist": concepts_exist,
         },
     )
 
 
 @app.post("/conceptscheme/{id_}/concept", response_class=HTMLResponse)
 async def add_concept_to_concept_scheme(
-    id_: str, selected_concept: Annotated[str, Form()], request: Request
+    id_: str,
+    searched_concept_id: Annotated[str, Form()],
+    request: Request,
+    repo: GraphRepo = Depends(get_full_repo),
+    concept_repo: GraphRepo = Depends(get_concept_repo),
 ):
-    scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
-    concept = Concept.from_file(f".concept/{selected_concept}.ttl")
-    scheme.add(concept).to_file()
+    raise404_if_none(repo.find_one_concept_scheme_by_id(id_))
+    concept = concept_repo.load_concept(expand_curie(searched_concept_id))
+    repo.upsert_graph(concept.g, expand_curie(id_))
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
-        url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
+        url=request.url_for("read_concept_scheme", id_=id_),
     )
 
 
@@ -202,8 +227,9 @@ async def add_relation_to_concept_scheme(
     object_concept_id: Annotated[str, Form()],
     relation: Annotated[str, Form()],
     request: Request,
+    repo: GraphRepo = Depends(get_full_repo),
 ):
-    allowed_relations = {r.fragment for r in RELATIONS_ALLOWED}
+    allowed_relations = {r.fragment for r in CONCEPT_RELATIONS_ALLOWED}
     try:
         getattr(SKOS, relation)
     except AttributeError:
@@ -216,57 +242,33 @@ async def add_relation_to_concept_scheme(
             f"relation must be one of {allowed_relations}",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
-    scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
+    raise404_if_none(repo.find_one_concept_scheme_by_id(id_))
+    scheme = ConceptScheme.from_repo(repo, expand_curie(id_))
+    concepts = scheme.concepts
     try_concept_id = subject_concept_id
     try:
-        subject_concept = next(
-            c
-            for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
-        )
+        subject_concept = next(c for c in concepts if c.curie == try_concept_id)
         try_concept_id = object_concept_id
-        object_concept = next(
-            c
-            for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
-        )
+        object_concept = next(c for c in concepts if c.curie == try_concept_id)
     except StopIteration:
         return Response(
-            f"concept {try_concept_id} not found",
+            f"concept {try_concept_id} not found in scheme {id_}",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
     t_relation = getattr(SKOS, relation)
-    if [subject_concept.id, t_relation, object_concept.id] in scheme.relations:
+    if [subject_concept.uri, t_relation, object_concept.uri] in scheme.relations:
         return Response(
             f"relation already in scheme",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    if [subject_concept.id, t_relation, object_concept.id] in scheme.deny_relations:
+    if [subject_concept.uri, t_relation, object_concept.uri] in scheme.deny_relations:
         return Response(
             f"relation disallowed due to current relations in scheme",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    scheme.connect(subject_concept, object_concept, getattr(SKOS, relation)).to_file()
+    scheme.connect(subject_concept, object_concept, getattr(SKOS, relation))
+    repo.upsert_graph(scheme.g, scheme.uri)
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
-        url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
-    )
-
-
-@app.get("/resources/{id_}")
-async def read_resource(id_: str, req: Request):
-    print(id_)
-    if ":" in id_:
-        prefix, id_ = id_.split(":", maxsplit=1)
-        id_ = expand_prefix(prefix) + id_
-
-    concept = Concept(cs_helioregion.graph_document_by_id(id_))
-    inbound, outbound = cs_helioregion.graph_neighborhood_for_concept(concept)
-    if len(outbound) == 0:
-        return HTMLResponse(f"{id_} not found", status_code=status.HTTP_404_NOT_FOUND)
-    return HTMLResponse(
-        content=page_for(concept=concept, inbound=inbound, outbound=outbound),
+        url=request.url_for("read_concept_scheme", id_=id_),
     )

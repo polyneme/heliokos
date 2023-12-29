@@ -24,7 +24,7 @@
 		{% if schemes | length > 0 %}
 			<ul>
 			{% for scheme in schemes %}
-				<li><a href="/conceptscheme/{{scheme.id_suffix}}">{{scheme.id}}</a></li>
+				<li><a href="/conceptscheme/{{scheme.uri}}">{{scheme.label}}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}

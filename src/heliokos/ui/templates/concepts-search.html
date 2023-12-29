@@ -7,6 +7,13 @@
 <hk-combo-box endpoint="/concepts-search" delay="500">
   <label class="usa-label" for="search">Text input label</label>
   <input class="usa-input" id="search" name="search" required>
+  {% if results | length > 0 %}
+  <datalist id="search-list">
+    {% for r in results %}
+    <option>{{r.pl}}</option>
+    {% endfor %}
+  </datalist>
+  {% endif %}
 </hk-combo-box>
 </form>
 

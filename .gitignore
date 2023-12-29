@@ -162,6 +162,8 @@ cython_debug/
 repl.ipynb
 .scheme/
 .concept/
+.document/
+mapping_table.csv
 
 # OS files
 .DS_Store

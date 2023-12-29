@@ -1,8 +1,10 @@
 """
 Unit tests.
 """
+from rdflib import SKOS, Literal
 
-from heliokos.domain.core import Concept, ConceptScheme, SKOS, Literal
+from heliokos.domain.core import ConceptScheme
+from heliokos.infra.core import Concept
 
 
 def test_concept_scheme():
@@ -16,6 +18,4 @@ def test_narrower():
     cs = (
         ConceptScheme().add(physics).add(plasma).connect(physics, plasma, SKOS.narrower)
     )
-    assert cs.g.value(cs.local_id_for(physics.id), SKOS.narrower) == cs.local_id_for(
-        plasma.id
-    )
+    assert cs.g.value(physics.uri, SKOS.narrower) == plasma.uri

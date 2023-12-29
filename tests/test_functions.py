@@ -3,15 +3,14 @@ Functional tests.
 """
 from pathlib import Path
 
+from rdflib import SKOS
+
 from heliokos.domain.core import (
-    Concept,
-    ConceptScheme,
-    Harmonization,
-    SKOS,
     Corpus,
     GroundTruth,
     SearchIndex,
 )
+from heliokos.infra.core import Concept, ConceptScheme, Harmonization
 
 
 def test_harmonizing_two_concept_schemes():
@@ -29,17 +28,22 @@ def test_harmonizing_two_concept_schemes():
     c2 = Concept("Magnetic field")
     cs1 = ConceptScheme().add(c1).add(c2).connect(c1, c2, SKOS.narrower)
 
-    assert cs1.relations == [[c1.id, SKOS.narrower, c2.id]]
+    assert cs1.relations == [[c1.uri, SKOS.narrower, c2.uri]]
 
     c3 = Concept("Solar wind")
     c4 = Concept("Heliosphere")
     cs2 = ConceptScheme().add(c3).add(c4).connect(c3, c4, SKOS.narrower)
 
-    assert cs2.relations == [[c3.id, SKOS.narrower, c4.id]]
+    assert cs2.relations == [[c3.uri, SKOS.narrower, c4.uri]]
 
-    h = Harmonization().add(cs1).add(cs2).connect(c2, c3, SKOS.narrowMatch)
+    h = (
+        Harmonization()
+        .set_tagging_scheme(cs1)
+        .set_retrieval_scheme(cs2)
+        .add_mapping(c2.uri, SKOS.narrowMatch, c3.uri)
+    )
 
-    assert h.narrowmatch_bridge(c1, c4)
+    assert h.narrowmatch_bridge(c1.uri, c4.uri)
 
 
 def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
@@ -52,29 +56,24 @@ def test_harmonize_helioregion_concept_scheme_with_openalex_concept_scheme():
     """
     # TODO also consider SPASE schema for harmonization workflow
     cs_helioregion = ConceptScheme.from_file(
-        str(
-            Path(__file__).parent.parent.joinpath("src/heliokos/domain/helioregion.ttl")
-        )
+        Path(__file__).parent.parent.joinpath("src/heliokos/domain/helioregion.ttl")
     )
     cs_openalex = ConceptScheme.from_file(
-        str(
-            Path(__file__).parent.parent.joinpath(
-                "src/heliokos/infra/static/openalex.ttl"
-            )
-        )
+        Path(__file__).parent.parent.joinpath("src/heliokos/infra/static/openalex.ttl")
     )
     h = (
         Harmonization()
-        .add(cs_helioregion)
-        .add(cs_openalex)
-        .connect(
-            cs_openalex.find_one("Atmospheric physics"),
-            cs_helioregion.find_one("Atmospheric Physics"),
+        .set_retrieval_scheme(cs_helioregion)
+        .set_tagging_scheme(cs_openalex)
+        .add_mapping(
+            cs_openalex.find_concept_by_pref_label("Atmospheric physics"),
             SKOS.exactMatch,
+            cs_helioregion.find_concept_by_pref_label("Atmospheric Physics"),
         )
     )
     assert h.narrowmatch_bridge(
-        cs_openalex.find_one("Physics"), cs_helioregion.find_one("Polar Vortex")
+        cs_openalex.find_concept_by_pref_label("Physics"),
+        cs_helioregion.find_concept_by_pref_label("Polar Vortex"),
     )
 
 

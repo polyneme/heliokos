@@ -33,7 +33,7 @@ customElements.define('hk-combo-box', class extends HTMLElement {
 		// Create hidden field with ID
 		this.field = document.createElement('input');
 		this.field.type = 'hidden';
-		this.field.name = `${this.input.name}-id`;
+		this.field.name = `${this.input.name}_id`;
 
 		// Create hidden note
 		let note = document.createElement('div');
