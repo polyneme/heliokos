@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Scheme {{scheme.id}} | {% endblock %}
+{% block title %}Scheme {{scheme.uri}} | {% endblock %}
 {% block content %}
 <h1 class="margin-bottom-0">Scheme</h1>
-<p class="font-sans-lg margin-top-0">{{scheme.id}}</p>
+<p class="font-sans-lg margin-top-0">{{scheme.uri}}</p>
 
 <div class="grid-row grid-row-reverse grid-gap">
     <div class="tablet:grid-col-6 margin-bottom-3">
@@ -11,11 +11,11 @@
 
         <dl data-hk-list="scheme-concepts">
             <dt>id</dt>
-            <dd>{{scheme.id}}</dd>
+            <dd>{{scheme.uri}}</dd>
 
             {% for concept in scheme.concepts %}
             <dt>concept</dt>
-            <dd><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></dd>
+            <dd><a href="/concept/{{concept.curie}}">{{concept.pref_label}}</a></dd>
             {% endfor %}
 
         </dl>
@@ -38,24 +38,23 @@
     </div>
     <div class="tablet:grid-col-6 margin-bottom-3">
 
-    {% if concepts | length > 0 %}
+    {% if concepts_exist %}
 
         <h2>Add a concept to this scheme</h2>
 
-        <hk-form prevent-default msg-submitting='Adding the "${selected_concept}" concept...' msg-success='The "${selected_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"], [data-hk-section="define-relationship"]'>
-            <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/concept">
-                <hk-update-select key="add-concept">
-                    <label class="usa-label" for="selected_concept">Pick a Concept</label>
-                    <select class="usa-select" id="selected_concept" name="selected_concept" required>
-                        <option value>- Select -</option>
-                        {% for concept in concepts %}
-                        {% if concept not in scheme.concepts %}
-                        <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </hk-update-select>
-
+        <hk-form prevent-default msg-submitting='Adding the "${searched_concept}" concept...' msg-success='The "${searched_concept}" concept was added to the scheme.' target='[data-hk-list="scheme-concepts"], [data-hk-section="define-relationship"]'>
+            <form class="usa-form" method="post" action="/conceptscheme/{{scheme.curie}}/concept">
+                <hk-combo-box endpoint="/concepts-search" delay="500">
+                  <label class="usa-label" for="searched_concept">Pick a Concept</label>
+                  <input class="usa-input" id="searched_concept" name="searched_concept" required placeholder="start typing...">
+                  {% if results | length > 0 %}
+                  <datalist id="search-list">
+                    {% for r in results %}
+                    <option>{{r.pl}}</option>
+                    {% endfor %}
+                  </datalist>
+                  {% endif %}
+                </hk-combo-box>
                 <button class="usa-button">Add Concept</button>
             </form>
         </hk-form>

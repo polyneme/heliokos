@@ -98,7 +98,7 @@ customElements.define('hk-form', class extends HTMLElement {
 
 		} catch (error) {
 			console.warn(error);
-			this.showStatus(this.msgError);
+			this.showStatus((await error.json()).detail || this.msgError);
 			this.emit('error', error);
 		} finally {
 			this.enable();

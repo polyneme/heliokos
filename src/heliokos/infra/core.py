@@ -177,164 +177,6 @@ _collection.create_index({"g": 1, "edge.p": 1, "edge.o": 1, "s": 1})
 _collection.create_index({"g": 1, "edge.o": 1, "edge.p": 1, "s": 1})
 
 
-def label_from_repo_doc(doc):
-    for edge in doc["edge"]:
-        if edge["p"] == "dcterms:title":
-            return edge["o"]
-        elif edge["p"] == "skos:prefLabel":
-            return edge["o"]
-        elif edge["p"] == "rdfs:label":
-            return edge["o"]
-    return None
-
-
-class GraphRepo:
-    """An interface to a persisted set of named graphs."""
-
-    def __init__(self, name=None):
-        self.ds = Dataset()  # In-memory representation
-        self.coll = get_mongodb()[
-            "nodes" if name is None else name
-        ]  # Persisted information
-
-    _filter_concept_schemes = {
-        "edge": {"$elemMatch": {"p": "rdf:type", "o": "skos:ConceptScheme"}}
-    }
-    _filter_concepts = {"edge": {"$elemMatch": {"p": "rdf:type", "o": "skos:Concept"}}}
-
-    def concept_schemes(self):
-        return [
-            {"id": doc["s"], "label": label_from_repo_doc(doc)}
-            for doc in self.coll.find(
-                filter=self._filter_concept_schemes,
-            )
-        ]
-
-    def concepts(self, sort=None, limit=0):
-        return [
-            {"id": doc["s"], "label": label_from_repo_doc(doc)}
-            for doc in self.coll.find(
-                filter=self._filter_concepts, sort=sort, limit=limit
-            )
-        ]
-
-    def load_graph(self, graph_id):
-        if not isinstance(graph_id, URIRef):
-            raise ValueError("`graph_id` must be a uri (`URIRef`)")
-        g = HKGraph()
-        for s_doc in self.coll.find({"g": curiefy(graph_id)}, ["s", "edge"]):
-            s_id = expand_curie(s_doc["s"])
-            for s_edge in s_doc["edge"]:
-                s_edge_p = expand_curie(s_edge["p"])
-                s_edge_o = (
-                    Literal(s_edge["o"])
-                    if s_edge_p in has_literal_range
-                    else expand_curie(s_edge["o"])
-                )
-                g.add(
-                    (
-                        s_id,
-                        s_edge_p,
-                        s_edge_o,
-                    )
-                )
-        dsg = self.ds.graph(graph_id)
-        dsg += g
-        return dsg
-
-    def upsert_graph(self, g: Graph, graph_id):
-        if not isinstance(graph_id, URIRef):
-            raise ValueError("`graph_id` must be a uri (`URIRef`)")
-        s_edge = defaultdict(list)
-        for triple in g:
-            s, p, o = [curiefy(term) for term in triple]
-            if isinstance(o, Literal):
-                match o.datatype:
-                    case dt if dt == XSD.integer:
-                        o = int(o.value)
-                    case dt if dt == XSD.double:
-                        o = float(o.value)
-                    case _:
-                        o = str(o)
-            else:
-                o = str(o)
-
-            s_edge[s].append({"p": p, "o": o})
-        now = datetime_now()
-        g_id = curiefy(graph_id)
-        updates = [
-            {
-                "filter": {"g": g_id, "s": s},
-                "update": {"$set": {"g": g_id, "s": s, "edge": edge, "env.lu": now}},
-                "upsert": True,
-            }
-            for s, edge in s_edge.items()
-        ]
-        bulk_write_result = self.coll.bulk_write([UpdateOne(**u) for u in updates])
-        return {
-            f"subjects_{k}": getattr(bulk_write_result, k)
-            for k in (
-                "modified_count",
-                "upserted_count",
-            )
-        }
-
-    def merge_graph_document(self, gdoc: GraphDocument):
-        doc = gdoc.to_dict()
-        now = datetime_now()
-        update = {
-            "$set": {
-                "g": self.uri,
-                "s": doc["@id"],
-                "edge": [
-                    {"p": "a" if p == "@type" else p, "o": o}
-                    for p, o in doc.items()
-                    if p != "@id"
-                ],
-                "env.lu": now,
-            }
-        }
-        self.coll.update_one(
-            merge(self.filter, {"s": update["$set"]["s"]}), update, upsert=True
-        )
-
-    def merge_graph_from_file(self, filepath: Path):
-        if not str(filepath).startswith("/"):
-            # relative to `helioweb` project root dir
-            filepath = Path(__file__).parent.parent.parent.parent.joinpath(filepath)
-        g = Graph()
-        g.parse(filepath)
-        self.merge_rdflib_graph(g)
-
-    def to_file(self):
-        Path(".graph").mkdir(exist_ok=True)
-        self.to_rdflib_graph().serialize(f".graph/{quote_plus(self.uri)}.ttl")
-
-    def set_edge(self, s, p, o):
-        s, p = str(s), str(p)
-        o = str(o) if isinstance(o, (str, URIRef)) else o.value
-        self.coll.update_one(
-            merge(self.filter, {"s": s}),
-            {"$addToSet": {"edge": {"p": p, "o": o}}},
-        )
-
-    def graph_document_for(self, subject):
-        rdoc = self.coll.find_one(merge(self.filter, {"s": URIRef(subject)}))
-        if rdoc is None:
-            raise ValueError(f"no subject {subject}")
-        types = []
-        other_edges = []
-        for e in rdoc["edge"]:
-            if e["p"] == "rdf:type":
-                types.append(e["o"])
-            else:
-                other_edges.append({e["p"]: e["o"]})
-
-        gbase = {"@id": rdoc["s"], "@type": types}
-        gdoc = merge_with(list, *([gbase] + other_edges))
-        return GraphDocument(data=gdoc)
-
-
 CONCEPT_RELATIONS_ALLOWED = {SKOS.narrower, SKOS.related}
 
 
@@ -361,6 +203,15 @@ class Concept:
     def pref_label(self):
         return self.g.value(self.uri, SKOS.prefLabel)
 
+    @property
+    def curie(self):
+        return curiefy(self.uri)
+
+    def __repr__(self):
+        return json.dumps(
+            {"uri": self.uri, "curie": self.curie, "pref_label": self.pref_label}
+        )
+
 
 class ConceptScheme:
     def __init__(self, label=None, uri=None):
@@ -377,31 +228,32 @@ class ConceptScheme:
             self.label = Literal(label)
 
     @classmethod
-    def from_file(cls, filepath: Path):
-        file_graph = Graph()
-        file_graph.parse(filepath)
-        uri = file_graph.value(predicate=RDF.type, object=SKOS.ConceptScheme)
-        if uri is None:
-            raise ValueError(f"no ConceptScheme found in {filepath}")
-        label = file_graph.value(subject=uri, predicate=SKOS.prefLabel)
-        cs = cls(label=label, uri=uri)
-        cs.g = file_graph
-        return cs
-
-    @classmethod
-    def from_repo(cls, repo, uri):
-        g = repo.load_graph(uri)
+    def from_graph(cls, g: Graph, error_msg_extra=""):
         uri = g.value(predicate=RDF.type, object=SKOS.ConceptScheme)
         if uri is None:
-            raise ValueError(f"no ConceptScheme {uri} found in `repo`.")
+            error_msg_extra = f" {error_msg_extra}" if error_msg_extra else ""
+            raise ValueError(
+                "no ConceptScheme found in supplied graph" + error_msg_extra
+            )
         label = g.value(subject=uri, predicate=SKOS.prefLabel)
         cs = cls(label=label, uri=uri)
         cs.g = g
         return cs
 
+    @classmethod
+    def from_file(cls, filepath: Path):
+        file_graph = Graph()
+        file_graph.parse(filepath)
+        return cls.from_graph(file_graph, error_msg_extra=f"from filepath {filepath}")
+
+    @classmethod
+    def from_repo(cls, repo, uri: URIRef):
+        g = repo.load_graph(uri)
+        return cls.from_graph(g, error_msg_extra=f"{uri} from repo")
+
     @property
-    def uri_suffix(self):
-        return self.uri.split("/")[-1]
+    def curie(self):
+        return curiefy(self.uri)
 
     def add(self, concept: Concept):
         for triple in concept.g:
@@ -517,7 +369,7 @@ class ConceptScheme:
                 ?b a skos:Concept; owl:sameAs ?ogb; skos:inScheme <{self.uri}> .
                 ?c a skos:Concept; owl:sameAs ?ogc; skos:inScheme <{self.uri}> .
             }}"""
-        for oga, ogb, ogc in self.repo.to_rdflib_graph().query(
+        for oga, ogb, ogc in self.g.query(
             query_narrow_transitive_with_related, initNs={"skos": SKOS}
         ):
             rv.append([ogb, SKOS.narrower, ogc])
@@ -613,3 +465,214 @@ class Harmonization:
             initNs={"skos": SKOS, "owl": OWL, "sssom": SSSOM},
         )
         return len(qres) != 0
+
+
+class GraphRepo:
+    """An interface to a persisted set of named graphs."""
+
+    def __init__(self, name=None, graph_uris: list[URIRef] | None = None):
+        self.ds = Dataset()  # In-memory representation
+        self.coll = get_mongodb()[
+            "nodes" if name is None else name
+        ]  # Persisted information
+        self.graph_uris = [curiefy(uri) for uri in graph_uris] if graph_uris else []
+        self.filter = {"g": {"$in": self.graph_uris}} if self.graph_uris else {}
+
+    def find(self, pre_filter, predicate_objects=None, sort=None, limit=0):
+        filter_ = pre_filter
+        predicate_objects = predicate_objects or []
+        for p, o in predicate_objects:
+            if p is not None and o is not None:
+                filter_["edge"]["$all"].append({"$elemMatch": {"p": p, "o": o}})
+            elif p is not None:
+                filter_["edge"]["$all"].append({"$elemMatch": {"p": p}})
+            elif o is not None:
+                filter_["edge"]["$all"].append({"$elemMatch": {"o": o}})
+        return self.coll.find(filter_, sort=sort, limit=limit)
+
+    @property
+    def filter_concepts(self):
+        return merge(
+            self.filter,
+            {
+                "edge": {
+                    "$all": [{"$elemMatch": {"p": "rdf:type", "o": "skos:Concept"}}]
+                }
+            },
+        )
+
+    def find_concepts(self, predicate_objects=None, sort=None, limit=0):
+        return self.find(self.filter_concepts, predicate_objects, sort, limit)
+
+    def find_one_concept(self, predicate_objects=None):
+        rv = list(self.find_concepts(predicate_objects, limit=1))
+        return rv[0] if rv else None
+
+    def find_one_concept_by_id(self, subject_id=None):
+        return self.coll.find_one(merge(self.filter_concepts, {"s": subject_id}))
+
+    @property
+    def filter_concept_schemes(self):
+        return merge(
+            self.filter,
+            {
+                "edge": {
+                    "$all": [
+                        {"$elemMatch": {"p": "rdf:type", "o": "skos:ConceptScheme"}}
+                    ]
+                }
+            },
+        )
+
+    def find_concept_schemes(self, predicate_objects=None, sort=None, limit=0):
+        return self.find(self.filter_concept_schemes, predicate_objects, sort, limit)
+
+    def find_one_concept_scheme(self, predicate_objects=None):
+        rv = list(self.find_concept_schemes(predicate_objects, limit=1))
+        return rv[0] if rv else None
+
+    def find_one_concept_scheme_by_id(self, subject_id=None):
+        return self.coll.find_one(merge(self.filter_concept_schemes, {"s": subject_id}))
+
+    def upsert_one(self, graph_id, subject_id, predicate_objects):
+        filter_ = {"g": graph_id, "s": subject_id}
+        now = datetime_now()
+        update = {
+            "$set": {"g": graph_id, "s": subject_id, "env.lu": now},
+            "$addToSet": {
+                "edge": {"$each": [{"p": p, "o": o} for p, o in predicate_objects]}
+            },
+        }
+        return self.coll.update_one(filter_, update, upsert=True)
+
+    def set_edge(self, g, s, p, o):
+        return self.upsert_one(g, s, [(p, o)])
+
+    def upsert_one_concept(
+        self, predicate_objects=None, subject_id=None, graph_id=None
+    ):
+        graph_id = graph_id or "_:public"
+        subject_id = subject_id or curiefy(new_uri())
+        predicate_objects = predicate_objects or []
+        return self.upsert_one(
+            graph_id, subject_id, predicate_objects + [("rdf:type", "skos:Concept")]
+        )
+
+    def upsert_one_concept_scheme(
+        self, predicate_objects=None, subject_id=None, graph_id=None
+    ):
+        graph_id = graph_id or curiefy(new_uri())
+        subject_id = subject_id or curiefy(new_uri())
+        predicate_objects = predicate_objects or []
+        return self.upsert_one(
+            graph_id,
+            subject_id,
+            predicate_objects + [("rdf:type", "skos:ConceptScheme")],
+        )
+
+    @staticmethod
+    def add_docs_to_graph(docs, g: Graph = None):
+        if g is None:
+            g = HKGraph()
+        for doc in docs:
+            s_id = expand_curie(doc["s"])
+            for s_edge in doc["edge"]:
+                s_edge_p = expand_curie(s_edge["p"])
+                s_edge_o = (
+                    Literal(s_edge["o"])
+                    if s_edge_p in has_literal_range
+                    else expand_curie(s_edge["o"])
+                )
+                g.add(
+                    (
+                        s_id,
+                        s_edge_p,
+                        s_edge_o,
+                    )
+                )
+        return g
+
+    def load_graph(self, graph_id):
+        if not isinstance(graph_id, URIRef):
+            raise TypeError("`graph_id` must be a uri (`URIRef`)")
+        g = self.add_docs_to_graph(
+            self.coll.find({"g": curiefy(graph_id)}, ["s", "edge"])
+        )
+        return self.ds.graph(graph_id) + g
+
+    def load_concept(self, uri):
+        if not isinstance(uri, URIRef):
+            raise TypeError("`uri` must be a `URIRef`")
+        doc = self.find_one_concept_by_id(curiefy(uri))
+        if doc is None:
+            raise ValueError(f"concept {uri} not found in repo")
+        concept = Concept(label=concept_pref_label(doc), uri=expand_curie(doc["s"]))
+        concept.g = self.add_docs_to_graph([doc], concept.g)
+        return concept
+
+    def load_concept_scheme(self, uri) -> ConceptScheme:
+        g = self.load_graph(uri)
+        return ConceptScheme()
+
+    def upsert_graph(self, g: Graph, graph_id):
+        if not isinstance(graph_id, URIRef):
+            raise ValueError("`graph_id` must be a uri (`URIRef`)")
+        s_edge = defaultdict(list)
+        for triple in g:
+            s, p, o = [curiefy(term) for term in triple]
+            if isinstance(o, Literal):
+                match o.datatype:
+                    case dt if dt == XSD.integer:
+                        o = int(o.value)
+                    case dt if dt == XSD.double:
+                        o = float(o.value)
+                    case _:
+                        o = str(o)
+            else:
+                o = str(o)
+
+            s_edge[s].append({"p": p, "o": o})
+        now = datetime_now()
+        g_id = curiefy(graph_id)
+        updates = [
+            {
+                "filter": {"g": g_id, "s": s},
+                "update": {"$set": {"g": g_id, "s": s, "edge": edge, "env.lu": now}},
+                "upsert": True,
+            }
+            for s, edge in s_edge.items()
+        ]
+        bulk_write_result = self.coll.bulk_write([UpdateOne(**u) for u in updates])
+        return {
+            f"subjects_{k}": getattr(bulk_write_result, k)
+            for k in (
+                "modified_count",
+                "upserted_count",
+            )
+        }
+
+
+def doc2concept(doc):
+    return Concept(label=concept_pref_label(doc), uri=doc["s"])
+
+
+def concept_pref_label(doc):
+    for edge in doc["edge"]:
+        if edge["p"] == "skos:prefLabel":
+            return edge["o"]
+    return None
+
+
+def doc2scheme(doc):
+    return ConceptScheme(label=concept_scheme_label(doc), uri=doc["s"])
+
+
+def concept_scheme_label(doc):
+    for edge in doc["edge"]:
+        if edge["p"] == "dcterms:title":
+            return edge["o"]
+        elif edge["p"] == "skos:prefLabel":
+            return edge["o"]
+        elif edge["p"] == "rdfs:label":
+            return edge["o"]
+    return None

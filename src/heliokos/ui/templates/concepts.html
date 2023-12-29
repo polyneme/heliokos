@@ -26,9 +26,10 @@
 		<h2 class="padding-top-3 tablet:padding-top-0">Your Concepts</h2>
 
 		{% if concepts | length > 0 %}
+			<p>Most recently updated (up to 25):</p>
 			<ul>
 			{% for concept in concepts %}
-				<li><a href="/concept/{{concept.id_suffix}}">{{concept.pref_label}}</a></li>
+				<li><a href="/concept/{{concept.id}}">{{concept.label}}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}
