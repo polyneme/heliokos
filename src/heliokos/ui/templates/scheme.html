@@ -26,9 +26,9 @@
             <ul class="usa-list">
                 {% for s, p, o in relations %}
                 <li>
-                    <strong><a href="/concept/{{s.id_suffix}}">{{ s.pref_label }}</a></strong>&#32;&rarr;&#32;
+                    <strong><a href="/concept/{{s.curie}}">{{ s.pref_label }}</a></strong>&#32;&rarr;&#32;
                     <a href="{{p}}">{{ p.fragment }}</a>&#32;&rarr;&#32;
-                    <strong><a href="/concept/{{o.id_suffix}}">{{o.pref_label }}</a></strong>
+                    <strong><a href="/concept/{{o.curie}}">{{o.pref_label }}</a></strong>
                 </li>
                 {% endfor %}
             </ul>
@@ -66,14 +66,14 @@
 
             {% if scheme.concepts | length > 1 %}
             <hk-form prevent-default msg-submitting='Defining a new scheme concept relationship...' msg-success='The concept relationship was added to the scheme.' target='[data-hk-section="scheme-relationships"]'>
-                <form class="usa-form" method="post" action="/conceptscheme/{{scheme.id_suffix}}/relation">
+                <form class="usa-form" method="post" action="/conceptscheme/{{scheme.curie}}/relation">
 
                     <hk-relationships key="scheme-relationships" deny='{{ deny_relations | tojson }}'>
                             <label class="usa-label" for="subject_concept_id">Pick a Concept</label>
                             <select class="usa-select" id="subject_concept_id" name="subject_concept_id" required>
                                 <option value>- Select -</option>
                                 {% for concept in scheme.concepts %}
-                                <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                                <option value="{{concept.curie}}">{{concept.pref_label}}</option>
                                 {% endfor %}
                             </select>
 
@@ -93,7 +93,7 @@
                             <select class="usa-select" id="object_concept_id" name="object_concept_id" required>
                                 <option value>- Select -</option>
                                 {% for concept in scheme.concepts %}
-                                <option value="{{concept.id_suffix}}">{{concept.pref_label}}</option>
+                                <option value="{{concept.curie}}">{{concept.pref_label}}</option>
                                 {% endfor %}
                             </select>
                         </hk-relationships>

@@ -2,6 +2,7 @@
 Testing of HTTP requests + responses.
 e2e -> "end-to-end".
 """
+import secrets
 from functools import cache
 
 from bs4 import BeautifulSoup
@@ -9,11 +10,14 @@ from fastapi.testclient import TestClient
 from rdflib import URIRef
 
 from heliokos.domain.core import get_concept_repo
-from heliokos.infra.core import curiefy
-from heliokos.ui.main import app
+from heliokos.infra.core import curiefy, GraphRepo, expand_curie
+from heliokos.ui.main import app, get_full_repo
 
 
 client = TestClient(app)
+
+repo = get_full_repo()
+concept_repo = get_concept_repo()
 
 
 @cache
@@ -47,12 +51,10 @@ def test_search_concepts():
 
 
 def test_create_concept():
-    concept_repo = get_concept_repo()
-    label = "Freedom of Screech"
-    concept_repo.coll.delete_many(
-        {"edge": {"$elemMatch": {"p": "skos:prefLabel", "o": label}}}
-    )
+    label = secrets.token_urlsafe()
+    repo.coll.delete_many({"edge.o": label})
     soup = make_soup(client.post("/concept", data={"pref_label": label}).text)
+    repo.coll.delete_many({"edge.o": label})
     assert soup.select("[data-hk-list='concepts'] li")[0].text == label
 
 
@@ -69,6 +71,9 @@ def test_read_concept_schemes():
 
 def test_create_concept_scheme():
     soup = make_soup(client.post(f"/conceptscheme").text)
+    repo.coll.find_one_and_delete(
+        {"edge.p": "rdf:type", "edge.o": "skos:ConceptScheme"}, sort=[("_id", -1)]
+    )
     assert soup.select("h1")[0].text == "Scheme"
 
 
@@ -80,17 +85,19 @@ def test_read_concept_scheme():
 
 
 def test_add_concept_to_concept_scheme():
-    scheme_curie = curiefy(
-        URIRef(
-            make_soup(client.post(f"/conceptscheme").text).select("main dl dd")[0].text
-        )
-    )
-    concept_curie = get_concept_repo().find_one_concept()["s"]
+    client.post(f"/conceptscheme")
+    scheme_curie = repo.coll.find_one(
+        {"edge.p": "rdf:type", "edge.o": "skos:ConceptScheme"}, sort=[("_id", -1)]
+    )["s"]
+    concept_curie = concept_repo.find_one_concept()["s"]
     soup = make_soup(
         client.post(
             f"/conceptscheme/{scheme_curie}/concept",
             data={"searched_concept_id": concept_curie},
         ).text
+    )
+    repo.coll.find_one_and_delete(
+        {"edge.p": "rdf:type", "edge.o": "skos:ConceptScheme"}, sort=[("_id", -1)]
     )
     assert any(
         concept_curie in str(dd)
@@ -99,4 +106,32 @@ def test_add_concept_to_concept_scheme():
 
 
 def test_add_relation_to_concept_scheme():
-    raise NotImplementedError
+    client.post(f"/conceptscheme")
+    scheme_curie = repo.coll.find_one(
+        {"edge.p": "rdf:type", "edge.o": "skos:ConceptScheme"}, sort=[("_id", -1)]
+    )["s"]
+    concept_curies = [d["s"] for d in concept_repo.find_concepts(limit=2)]
+    for cc in concept_curies:
+        client.post(
+            f"/conceptscheme/{scheme_curie}/concept",
+            data={"searched_concept_id": cc},
+        )
+    soup = make_soup(
+        client.post(
+            f"/conceptscheme/{scheme_curie}/relation",
+            data={
+                "subject_concept_id": concept_curies[0],
+                "object_concept_id": concept_curies[1],
+                "relation": "narrower",
+            },
+        ).text
+    )
+    repo.coll.delete_many({"g": scheme_curie})
+    assert any(
+        (
+            (concept_curies[0] in str(li))
+            and (concept_curies[1] in str(li))
+            and ("narrower" in str(li))
+        )
+        for li in soup.select('[data-hk-section="scheme-relationships"] li')
+    )

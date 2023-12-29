@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 
 from bson import ObjectId
 from pymongo import MongoClient, UpdateOne
+from pymongo.database import Collection as MongoCollection
 from rdflib import Graph, URIRef, XSD, Literal, Dataset, OWL
 from rdflib.namespace import SKOS, RDFS, RDF, Namespace
 from toolz import merge, merge_with, dissoc
@@ -472,7 +473,7 @@ class GraphRepo:
 
     def __init__(self, name=None, graph_uris: list[URIRef] | None = None):
         self.ds = Dataset()  # In-memory representation
-        self.coll = get_mongodb()[
+        self.coll: MongoCollection = get_mongodb()[
             "nodes" if name is None else name
         ]  # Persisted information
         self.graph_uris = [curiefy(uri) for uri in graph_uris] if graph_uris else []

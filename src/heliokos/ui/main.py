@@ -16,9 +16,10 @@ from typing import Annotated
 from fastapi import FastAPI, Form, Header, Depends, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from rdflib import SKOS
 from starlette import status
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 
 from heliokos.domain.core import get_full_repo, get_concept_repo
 from heliokos.infra.core import (
@@ -31,6 +32,8 @@ from heliokos.infra.core import (
     doc2scheme,
     expand_curie,
     curiefy,
+    CONCEPT_RELATIONS_ALLOWED,
+    CONTEXT_BASE,
 )
 from heliokos.ui.core import raise404_if_none
 
@@ -224,8 +227,9 @@ async def add_relation_to_concept_scheme(
     object_concept_id: Annotated[str, Form()],
     relation: Annotated[str, Form()],
     request: Request,
+    repo: GraphRepo = Depends(get_full_repo),
 ):
-    allowed_relations = {r.fragment for r in RELATIONS_ALLOWED}
+    allowed_relations = {r.fragment for r in CONCEPT_RELATIONS_ALLOWED}
     try:
         getattr(SKOS, relation)
     except AttributeError:
@@ -238,41 +242,33 @@ async def add_relation_to_concept_scheme(
             f"relation must be one of {allowed_relations}",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    concepts = []
-    for filepath in Path(".concept/").glob("*.ttl"):
-        concepts.append(Concept.from_file(str(filepath)))
-    scheme = ConceptScheme.from_file(f".scheme/{id_}.ttl")
+    raise404_if_none(repo.find_one_concept_scheme_by_id(id_))
+    scheme = ConceptScheme.from_repo(repo, expand_curie(id_))
+    concepts = scheme.concepts
     try_concept_id = subject_concept_id
     try:
-        subject_concept = next(
-            c
-            for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
-        )
+        subject_concept = next(c for c in concepts if c.curie == try_concept_id)
         try_concept_id = object_concept_id
-        object_concept = next(
-            c
-            for c in concepts
-            if str(getattr(c, "id")) == CONTEXT_BASE + try_concept_id
-        )
+        object_concept = next(c for c in concepts if c.curie == try_concept_id)
     except StopIteration:
         return Response(
-            f"concept {try_concept_id} not found",
+            f"concept {try_concept_id} not found in scheme {id_}",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
     t_relation = getattr(SKOS, relation)
-    if [subject_concept.id, t_relation, object_concept.id] in scheme.relations:
+    if [subject_concept.uri, t_relation, object_concept.uri] in scheme.relations:
         return Response(
             f"relation already in scheme",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    if [subject_concept.id, t_relation, object_concept.id] in scheme.deny_relations:
+    if [subject_concept.uri, t_relation, object_concept.uri] in scheme.deny_relations:
         return Response(
             f"relation disallowed due to current relations in scheme",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
-    scheme.connect(subject_concept, object_concept, getattr(SKOS, relation)).to_file()
+    scheme.connect(subject_concept, object_concept, getattr(SKOS, relation))
+    repo.upsert_graph(scheme.g, scheme.uri)
     return RedirectResponse(
         status_code=status.HTTP_303_SEE_OTHER,
-        url=request.url_for("read_concept_scheme", id_=scheme.id.split("/")[-1]),
+        url=request.url_for("read_concept_scheme", id_=id_),
     )
