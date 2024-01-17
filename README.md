@@ -51,6 +51,13 @@ To start the Web server for development:
 uvicorn heliokos.ui.main:app --reload
 ```
 
+To load and step through the `heliokos_repl.ipynb` Jupyter notebook:
+```bash
+python -m ipykernel install --user --name heliokos
+jupyter lab
+# open `heliokos_repl.ipynb`, and ensure the kernel "Kernel > Change Kernel" is set to `heliokos`.
+```
+
 ### Bill of Materials (BOM)
 
 |name|description|website|origin|
