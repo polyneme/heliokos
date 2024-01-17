@@ -14,7 +14,41 @@ or you can `git clone` this repository and `pip install .` to build the tool usi
 
 `git clone` this repository, and in the root directory,
 ```bash
-pip install -e .
+# in a python 3.11 env
+pip install -e '.[dev,tests,linting]'
+```
+
+Ensure you configure access to an accessible MongoDB instance.
+To quickly achieve this with Docker ([link to install](https://docs.docker.com/engine/install/)),
+```bash
+docker run --name heliokos-mongo -d -v $(pwd)/heliokos-mongo-data:/data/db -p 23456:27017 mongo:6
+```
+The above will initialize and run a container based on DockerHub's `mongo:6` docker image, that is,
+the latest `mongo` image with major version `6`. It maps your local port `23456` to the container's
+port `27017` (what mongo exposes), and maps a local folder `heliokos-mongo-data` in your
+current directory to the container's `/data/db` folder (where mongo stores its data). The folder
+("volume") map is so that your mongo data can persist when stopping the docker container. The
+container is called `heliokos-mongo`, and this process will detach (via `-d`) so that you don't need
+to keep the terminal window open. You can check the status of the container with
+```bash
+docker ps -f name=heliokos-mongo
+```
+and stop and remove the container with
+```bash
+docker stop heliokos-mongo && docker remove heliokos-mongo
+```
+To re-initialize and run the container, recovering the last database state, re-run the `docker run` command above.
+
+Before starting the Web server, ensure relevant environment variables (e.g. `MONGO_HOST`) are set in your shell session:
+```bash
+cp .env.example .env
+# verify e.g. that a line `MONGO_HOST=localhost:23456` is present
+export $(grep -v '^#' .env | xargs)
+```
+
+To start the Web server for development:
+```bash
+uvicorn heliokos.ui.main:app --reload
 ```
 
 ### Bill of Materials (BOM)
@@ -24,12 +58,6 @@ pip install -e .
 |fastapi|API framework|https://github.com/tiangolo/fastapi | https://pypi.org/project/fastapi |
 |rdflib|RDF graph library|https://github.com/RDFLib/rdflib | https://pypi.org/project/rdflib |
 |toolz|utility functions library|https://github.com/pytoolz/toolz | https://pypi.org/project/toolz |
-
-
-To start the Web server for development:
-```bash
-uvicorn heliokos.ui.main:app --reload
-```
 
 ## Testing
 
