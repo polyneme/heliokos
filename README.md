@@ -1,4 +1,4 @@
-# heliokos
+# HelioKOS
 A knowledge organization system (KOS) service for Heliophysics.
 
 ## Use
@@ -21,7 +21,7 @@ pip install -e '.[dev,tests,linting]'
 Ensure you configure access to an accessible MongoDB instance.
 To quickly achieve this with Docker ([link to install](https://docs.docker.com/engine/install/)),
 ```bash
-docker run --name heliokos-mongo -d -v $(pwd)/heliokos-mongo-data:/data/db -p 23456:27017 mongo:6
+docker run --name heliokos-mongo -d -v "$(pwd)/heliokos-mongo-data:/data/db" -p 23456:27017 mongo:6
 ```
 The above will initialize and run a container based on DockerHub's `mongo:6` docker image, that is,
 the latest `mongo` image with major version `6`. It maps your local port `23456` to the container's
@@ -60,11 +60,9 @@ jupyter lab
 
 ### Bill of Materials (BOM)
 
-|name|description|website|origin|
-|----|-----------|-------|------|
-|fastapi|API framework|https://github.com/tiangolo/fastapi | https://pypi.org/project/fastapi |
-|rdflib|RDF graph library|https://github.com/RDFLib/rdflib | https://pypi.org/project/rdflib |
-|toolz|utility functions library|https://github.com/pytoolz/toolz | https://pypi.org/project/toolz |
+All software dependencies are open-source and free.
+Because no funds are required to acquire these,
+this package is not subject to Supply Chain Risk Management.
 
 ## Testing
 
@@ -75,6 +73,129 @@ tox run -e lint,py311 -- tests/test_units.py
 tox run -e py311 -- -k test_harmonizing_two_concept_schemes
 # Example: run all tests
 tox
+```
+
+## Data Model
+
+HelioKOS data is modeled as RDF quads,
+persisted and queried using MongoDB via this schema:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://heliokos.example/node.schema.json",
+  "title": "Node",
+  "description": "A set of RDF quads sharing the same named graph (g) and subject (s).",
+  "type": "object",
+  "properties": {
+    "g": {
+      "description": "this node's named graph",
+      "type": "string",
+      "format": "iri"
+    },
+    "s": {
+      "description": "this node's subject",
+      "type": "string",
+      "format": "iri"
+    },
+    "edge": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "description": "this quad's predicate",
+            "type": "string",
+            "format": "iri"
+          },
+          "o": {
+            "description": "this quad's object"
+          }
+        },
+        "required": ["p", "o"],
+        "minItems": 1
+      }
+    },
+    "env": {
+      "description": "system-internal envelope metadata",
+      "type": "object",
+      "properties": {
+        "lu": {
+          "description": "last-updated datetime (stored as bson `ISODate` type)",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
+```
+
+and ensuring these MongoDB indexes:
+
+```json
+[
+    {
+        "v" : 2.0,
+        "key" : {
+            "s" : 1.0,
+            "edge.p" : 1.0,
+            "edge.o" : 1.0,
+            "g" : 1.0
+        },
+        "name" : "s_1_edge.p_1_edge.o_1_g_1"
+    },
+    {
+        "v" : 2.0,
+        "key" : {
+            "edge.p" : 1.0,
+            "edge.o" : 1.0,
+            "s" : 1.0,
+            "g" : 1.0
+        },
+        "name" : "edge.p_1_edge.o_1_s_1_g_1"
+    },
+    {
+        "v" : 2.0,
+        "key" : {
+            "edge.o" : 1.0,
+            "edge.p" : 1.0,
+            "s" : 1.0,
+            "g" : 1.0
+        },
+        "name" : "edge.o_1_edge.p_1_s_1_g_1"
+    },
+    {
+        "v" : 2.0,
+        "key" : {
+            "g" : 1.0,
+            "s" : 1.0,
+            "edge.p" : 1.0,
+            "edge.o" : 1.0
+        },
+        "name" : "g_1_s_1_edge.p_1_edge.o_1"
+    },
+    {
+        "v" : 2.0,
+        "key" : {
+            "g" : 1.0,
+            "edge.p" : 1.0,
+            "edge.o" : 1.0,
+            "s" : 1.0
+        },
+        "name" : "g_1_edge.p_1_edge.o_1_s_1"
+    },
+    {
+        "v" : 2.0,
+        "key" : {
+            "g" : 1.0,
+            "edge.o" : 1.0,
+            "edge.p" : 1.0,
+            "s" : 1.0
+        },
+        "name" : "g_1_edge.o_1_edge.p_1_s_1"
+    }
+]
 ```
 
 ## Front End Development
